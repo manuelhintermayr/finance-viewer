@@ -6,11 +6,19 @@
     </head>
     <body>
        <?php
-           include("config/checkUsername.php");
+           include("config/login.php");
            if ( !empty( $_POST ) ) {
                if(checkCorrectUser($_POST[ 'username' ], $_POST[ 'password' ]))
                {
-                   echo "Login successfull.<hr />";
+                   echo "Login successfull.";
+                   if(userIsAdmin($_POST[ 'username' ]))
+                   {
+                       echo "<a href='admin.php'>Admin</a>";
+                   }
+                   else{
+                       echo "<a href='normalUser.php'>NormalUser</a>";
+                   }
+                   echo "<hr />";
                }
                else
                {
