@@ -3,6 +3,8 @@
     include("configuration.php");
     include("config/generator.php");
 
+
+
     /* Checks if user is currently logged in
     ---------------------------------------- */
     function userLoggedIn()
@@ -45,12 +47,13 @@
     {
         global $adminName;
         global $adminPw;
-        if($username==$adminName&&$password==$adminPw)
+        if($username==$adminName&&$password==encrypt($adminPw))
         {
             return TRUE;
         }
-        elseif($username=="root"&&$password=="admin")
+        elseif($username=="root"&&$password==encrypt("admin"))
         {
+
             return TRUE;
         }
         else{
