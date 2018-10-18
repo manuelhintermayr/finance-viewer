@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^config/(.*)$ /$1 [R=301,L]
