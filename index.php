@@ -5,8 +5,7 @@
                        
     if(userLoggedIn())
     {
-        echo "<script>window.location='dashboard.php';</script>";
-        //currently both going to normal user page
+        redirectToCorrectDashboard();
     }
     else{
               
