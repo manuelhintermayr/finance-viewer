@@ -1,5 +1,4 @@
 <?php 
-    include("config/generator.php");
     include("config/login.php");
     do_html_header("Dashboard");
 

@@ -1,6 +1,7 @@
 <?php
     session_start(); 
     include("configuration.php");
+    include("config/generator.php");
 
     /* Checks if user is currently logged in
     ---------------------------------------- */
@@ -19,9 +20,7 @@
     function redirectToCorrectDashboard()
     {
        $url = loggedInUserIsAdmin() ? "admin_dashboard.php" : "dashboard.php";
-       echo "<script>window.location='$url';</script>";
-       echo"<h2>Error occured:</h2> Please click <a href='$url'>here</a>."; 
-       exit();
+       redirect($url);
     }
     
     /* Checks if current logged in user is admin
