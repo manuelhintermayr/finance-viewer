@@ -1,8 +1,7 @@
 <?php
     include("config/login.php");
 
-    $_SESSION['m_user']="";
-    $_SESSION['m_password']="";
+    clearCredentials();
     
     header("Location: index.php");
     die();

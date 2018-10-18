@@ -1,13 +1,20 @@
 <?php 
     include("config/login.php");
     do_html_header("Admin Dashboard");
-
-    if(!loggedInUserIsAdmin())
+    
+    if(!userLoggedIn())
     {
-        redirectToCorrectDashboard();
+        redirect("logout.php");
     }
     else
     {
-       echo "<p>Dashboard for admin user. <a href='logout.php'>Logout</a>"; 
+        if(!loggedInUserIsAdmin())
+        {
+            redirectToCorrectDashboard();
+        }
+        else
+        {
+           echo "<p>Dashboard for admin user. <a href='logout.php'>Logout</a>"; 
+        }       
     }
 ?>

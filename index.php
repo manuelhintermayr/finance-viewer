@@ -1,7 +1,7 @@
 <?php
     include("config/login.php");
     do_html_header("Login");
-                       
+                             
     if(userLoggedIn())
     {
         redirectToCorrectDashboard();
@@ -15,7 +15,7 @@
 
             if(checkCorrectUser($username, $password))
             {
-                setUserCredentials();
+                setUserCredentials($username, $password);
                 redirectToCorrectDashboard();
             }
             else

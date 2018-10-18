@@ -43,7 +43,9 @@
     ----------------------------------------------- */
     function checkCorrectUser($username, $password)
     {
-        if($username=="admin"&&$password=="admin")
+        global $adminName;
+        global $adminPw;
+        if($username==$adminName&&$password==$adminPw)
         {
             return TRUE;
         }
@@ -62,5 +64,13 @@
     {
         $_SESSION['m_user']=$username;
         $_SESSION['m_password']=$password;
+    }
+
+    /* clears credentials
+    -------------------- */
+    function clearCredentials()
+    {
+        $_SESSION['m_user']="";
+        $_SESSION['m_password']="";
     }
 ?>
