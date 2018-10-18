@@ -31,13 +31,16 @@
         return userIsAdmin($username);
     }
 
+    /* Checks if user is admin
+    -------------------------- */
     function userIsAdmin($username)
     {
         global $adminName;
         return $username == $adminName;    
     }  
       
-
+    /* Checks if given user credentials are correct
+    ----------------------------------------------- */
     function checkCorrectUser($username, $password)
     {
         if($username=="admin"&&$password=="admin")
@@ -51,5 +54,13 @@
         else{
             return FALSE;
         }
+    }
+
+    /* Sets user credentials 
+    ------------------------ */
+    function setUserCredentials($username, $password)
+    {
+        $_SESSION['m_user']=$username;
+        $_SESSION['m_password']=$password;
     }
 ?>

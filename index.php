@@ -6,33 +6,24 @@
     {
         redirectToCorrectDashboard();
     }
-    else{
-              
-           if ( !empty( $_POST ) ) {
-               if(checkCorrectUser($_POST[ 'username' ], $_POST[ 'password' ]))
-               {
-                   $_SESSION['m_user']=$_POST['username'];
-                   $_SESSION['m_password']=$_POST['password'];
-                   echo "Login successfull.";
+    else
+    {
+        if ( !empty( $_POST ) && !empty($_POST['username']) && !empty($_POST['password']) ) 
+        {
+            $username = $_POST[ 'username' ];
+            $password = $_POST[ 'password' ];
 
-                   if(userIsAdmin($_POST[ 'username' ]))
-                   {
-                       echo "<a href='admin.php'>Admin</a>";
-                   }
-                   else{
-                       echo "<a href='normalUser.php'>NormalUser</a>";
-                   }
-                   echo "<hr />";
-               }
-               else
-               {
-                   echo "Login unsuccessfull.<hr />";
-               }
-           }
-        
-    }
-           
-     
+            if(checkCorrectUser($username, $password))
+            {
+                setUserCredentials();
+                redirectToCorrectDashboard();
+            }
+            else
+            {
+                echo "Login unsuccessfull.<hr />";
+            }
+        }      
+    }     
 ?> 
         <form action="index.php" method="post">
             <label for='username'>Username: </label><br />
