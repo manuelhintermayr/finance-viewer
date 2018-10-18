@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Finance Viewer - Login</title>
-    </head>
-    <body>
-       <?php
-           include("config/login.php");
+<?php
+    include("config/generator.php");
+    include("config/login.php");
+    do_html_header("Login");
+                       
+
+           
+           
            if ( !empty( $_POST ) ) {
                if(checkCorrectUser($_POST[ 'username' ], $_POST[ 'password' ]))
                {
@@ -34,5 +33,4 @@
             <br/>
             <button type="submit">Submit</button>
         </form>
-    </body>
-</html>
+<?php do_html_footer(); ?>
