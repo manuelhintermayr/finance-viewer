@@ -1,6 +1,6 @@
 <?php
     include("configuration.php");
-    $mysqli = new mysqli($servername, $username, $password, $dbasename);
+    $mysqli = getDbConnection();
 
     function getDbConnection()
     {

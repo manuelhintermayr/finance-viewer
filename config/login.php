@@ -2,8 +2,7 @@
     session_start(); 
     include("configuration.php");
     include("config/generator.php");
-
-
+    include("config/connect.php");
 
     /* Checks if user is currently logged in
     ---------------------------------------- */
@@ -51,14 +50,32 @@
         {
             return TRUE;
         }
-        elseif($username=="root"&&$password==encrypt("admin"))
-        {
 
-            return TRUE;
+        return checkUserCredentialsInDb($username, $password);
+    }
+
+    /* Check for correct user credentials in database
+    ------------------------------------------------- */
+    function checkUserCredentialsInDb($username, $password)
+    {
+        global $mysqli;
+        $sql = "SELECT * FROM fv_users;";
+        $result = $mysqli->query($sql);
+        
+        if ($result){
+            while($row = $result->fetch_assoc()) 
+            {
+                if($username==$row['u_name']&&$password==$row['u_password'])
+                {
+                    if($row['u_isLocked']=="0")
+                    {
+                        return TRUE;    
+                    }
+                }
+            }
         }
-        else{
-            return FALSE;
-        }
+
+        return FALSE;
     }
 
     /* Sets user credentials 
