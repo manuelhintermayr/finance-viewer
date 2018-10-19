@@ -25,12 +25,29 @@
         }      
     }     
 ?> 
-        <form action="index.php" method="post">
-            <label for='username'>Username: </label><br />
-            <input type="text" name="username"/><br /><br />
-            <label for='password'>Password: </label><br />
-            <input type="password" name="password"/><br /><br />
-            <br/>
-            <button type="submit">Submit</button>
-        </form>
+<link href="css/style_login.css" rel="stylesheet" type="text/css" />
+<!-- Background -->
+<ul class="bg-bubbles">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+<!-- End Background -->
+
+
+	<div id="login-container" class="container">
+			<h1 class="welcome-message">Welcome <span id="messageForTheUser"></span></h1>
+			<form class="form" action="index.php" method="post">
+				<input type="text" name="username" id="user" placeholder="Username">
+				<input type="password" name="password" id="pass" placeholder="Password">
+				<button type="submit" id="login-button">Login</button>
+			</form>
+		</div>
 <?php do_html_footer(); ?>
