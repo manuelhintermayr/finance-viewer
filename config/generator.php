@@ -28,4 +28,12 @@ function redirect($url) {
     exit();
 }
 
+/* Hashes a text
+---------------- */
+function encrypt($pwd)
+{
+    $password_hash = hash('sha512', $pwd);
+	return $password_hash;
+}
+
 ?>

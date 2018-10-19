@@ -11,7 +11,7 @@
         if ( !empty( $_POST ) && !empty($_POST['username']) && !empty($_POST['password']) ) 
         {
             $username = $_POST[ 'username' ];
-            $password = $_POST[ 'password' ];
+            $password = encrypt($_POST['password']);
 
             if(checkCorrectUser($username, $password))
             {
