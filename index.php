@@ -24,6 +24,9 @@
             }
         }      
     }     
+
+
+    //START INSERT GENERATED CODE HERE
 ?> 
 <link href="css/style_login.css" rel="stylesheet" type="text/css" />
 <!-- Background -->
@@ -50,4 +53,7 @@
 				<button type="submit" id="login-button">Login</button>
 			</form>
 		</div>
-<?php do_html_footer(); ?>
+<?php 
+ //END INSERT GENERATED CODE HERE
+ do_html_footer(); 
+ ?>
