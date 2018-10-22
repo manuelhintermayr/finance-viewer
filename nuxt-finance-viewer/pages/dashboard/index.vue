@@ -1,7 +1,7 @@
 <template>
   <div>
-    <bobbles/>
     <p>Dashboard for normal user. <a href="..\logout.php">Logout</a> </p>
+    <!-- <bobbles/> -->
   </div>
 </template>
 
