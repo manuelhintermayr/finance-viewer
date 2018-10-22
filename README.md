@@ -6,11 +6,13 @@
 - Remove web.config OR .htaccess file
 - Install vue 'npm i -g vue'
 - Install vue-cli 'npm install -g @vue/cli'
+- Install nuxt 'npm i -g nuxt'
 
 ## Update
 
 - If you want to make some changes with the nuxt frontEnd, please build the project in the 'nuxt-finance-viewer'-folder and insert the build project into the php files.
 - Make changes to the front end in the 'nuxt-finance-viewer'-folder (you need NodeJS for this)
+- Run for the first time 'npm install' inside the 'nuxt-finance-viewer'-folder
 - Start the frontEnd with 'npm run dev' inside the 'nuxt-finance-viewer'-folder
 - Build the frontEnd with 'npm run build' inside the 'nuxt-finance-viewer'-folder:
   - The build content will appear in the 'nuxt-finance-viewer\dist'-folder. Copy the content of the index.html-files in the correct php files:
