@@ -1,32 +1,21 @@
-<?php
-    include("config/login.php");
-                             
-    if(userLoggedIn())
+<?php 
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    include($path."/config/login.php");
+    
+    if(!userLoggedIn())
     {
-        redirectToCorrectDashboard();
+        redirect("../logout.php");
     }
     else
     {
-        if ( !empty( $_POST ) && !empty($_POST['username']) && !empty($_POST['password']) ) 
+        if(!loggedInUserIsAdmin())
         {
-            $username = $_POST[ 'username' ];
-            $password = encrypt($_POST['password']);
-
-            if(checkCorrectUser($username, $password))
-            {
-                setUserCredentials($username, $password);
-                redirectToCorrectDashboard();
-            }
-            else
-            {
-                echo "Login unsuccessfull.<hr />";
-            }
-        }      
-    }     
-
-
-    //START INSERT GENERATED CODE HERE
-?> 
+            redirectToCorrectDashboard();
+        }
+        else
+        {
+//START INSERT GENERATED CODE HERE            
+            ?>
 
 <!doctype html>
 <html data-n-head="">
@@ -38,6 +27,8 @@
   <script type="text/javascript" src="/_nuxt/5f9522049fd7e0f6b5ee.js"></script><script type="text/javascript" src="/_nuxt/02f0c16035ca7f96aa0a.js"></script><script type="text/javascript" src="/_nuxt/65fc998b9c7fb8b90231.js"></script></body>
 </html>
 
-<?php 
- //END INSERT GENERATED CODE HERE
- ?>
+    <?php
+//END INSERT GENERATED CODE HERE
+        }       
+    }
+?>

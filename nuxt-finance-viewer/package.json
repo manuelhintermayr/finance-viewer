@@ -1,0 +1,31 @@
+{
+  "name": "nuxt-finance-viewer",
+  "version": "1.0.0",
+  "description": "My badass Nuxt.js project",
+  "author": "Manuel Hintermayr",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.3",
+    "bootstrap": "^4.1.3",
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.7.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^4.7.1",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "3.0.0",
+    "prettier": "1.14.3"
+  }
+}

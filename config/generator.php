@@ -1,28 +1,11 @@
 <?php
-/* Generates HTML Header
------------------------- */
-function do_html_header($title) {
-	echo "<!DOCTYPE html>";
-	echo "<html>";
-	echo "<head>";
-	echo "<meta charset=\"utf-8\" />";
-	echo "<title>Finance Viewer - $title</title>";
-	echo "</head>";
-	echo "<body>";
-}
 
-/* Generates HTML Footer
-------------------------- */
-function do_html_footer() {
-	echo "</body>";
-	echo "</html>";
-}
-
-/* Redirects to url 
-------------------- */
+/* Redirects to url from root
+----------------------------- */
 function redirect($url) {
-    echo "<script>window.location='$url';</script>";
-    echo"<h2>Error occured:</h2> Please click <a href='$url'>here</a>."; 
+    $path = $_SERVER['HTTP_HOST'];
+    echo "<script>window.location=window.location.protocol + '//' + '".$path."/".$url."';</script>";
+    echo"<h2>Error occured:</h2> Please click <a href='".$path."/".$url."'>here</a>."; 
     exit();
 }
 
