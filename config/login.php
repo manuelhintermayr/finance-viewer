@@ -24,6 +24,13 @@
         $url = loggedInUserIsAdmin() ? "admin" : "dashboard";
         redirect($url);
     }
+
+    /* Gets Url for the username
+    ---------------------------- */
+    function getUrlForUser($username)
+    {
+        return userIsAdmin($username) ? "admin" : "dashboard";
+    }
     
     /* Checks if current logged in user is admin
     -------------------------------------------- */
@@ -47,12 +54,20 @@
     {
         global $adminName;
         global $adminPw;
+
         if($username==$adminName&&$password==encrypt($adminPw))
         {
             return TRUE;
         }
 
         return checkUserCredentialsInDb($username, $password);
+    }
+
+    /* Get FirstName for username 
+    ----------------------------- */
+    function getFirstNameForUsername($username)  
+    {    
+        return "Administrator";   
     }
 
     /* Check for correct user credentials in database
