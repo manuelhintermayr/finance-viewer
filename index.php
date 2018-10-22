@@ -46,7 +46,7 @@
 
 	<div id="login-container" class="container">
 			<h1 class="welcome-message">Welcome <span id="messageForTheUser"></span></h1>
-			<form class="form" action="index.php" method="post">
+			<form class="form" action="" method="post">
 				<input type="text" name="username" id="user" placeholder="Username">
 				<input type="password" name="password" id="pass" placeholder="Password">
 				<button type="submit" id="login-button">Login</button>

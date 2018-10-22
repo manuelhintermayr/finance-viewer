@@ -5,7 +5,7 @@
     <h1 class="welcome-message">Welcome <span id="messageForTheUser"/></h1>
     <form 
       class="form" 
-      action="index.php" 
+      action="" 
       method="post">
       <input 
         id="user" 

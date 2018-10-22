@@ -31,13 +31,6 @@ module.exports = {
   */
   plugins: [],
 
-  /**
-   * Router Configuration
-   */
-  router: {
-    base: '/FinanceViewer/'
-  },
-
   /*
   ** Nuxt.js modules
   */
