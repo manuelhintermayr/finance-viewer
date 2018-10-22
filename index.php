@@ -1,6 +1,5 @@
 <?php
     include("config/login.php");
-    do_html_header("Login");
                              
     if(userLoggedIn())
     {
@@ -55,5 +54,4 @@
 		</div>
 <?php 
  //END INSERT GENERATED CODE HERE
- do_html_footer(); 
  ?>

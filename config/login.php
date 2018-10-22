@@ -1,8 +1,9 @@
 <?php
     session_start(); 
-    include("configuration.php");
-    include("config/generator.php");
-    include("config/connect.php");
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    include($path."/config/configuration.php");
+    include($path."/config/generator.php");
+    include($path."/config/connect.php");
 
     /* Checks if user is currently logged in
     ---------------------------------------- */
@@ -20,8 +21,8 @@
     -------------------------------------------------------- */
     function redirectToCorrectDashboard()
     {
-       $url = loggedInUserIsAdmin() ? "admin_dashboard.php" : "dashboard.php";
-       redirect($url);
+        $url = loggedInUserIsAdmin() ? "admin" : "dashboard";
+        redirect($url);
     }
     
     /* Checks if current logged in user is admin

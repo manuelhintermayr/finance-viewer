@@ -1,5 +1,7 @@
 <?php
-    include("configuration.php");
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    include($path."/config/configuration.php");
+
     $mysqli = getDbConnection();
 
     function getDbConnection()
