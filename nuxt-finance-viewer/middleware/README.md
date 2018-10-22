@@ -6,5 +6,4 @@ The middleware lets you define custom function to be ran before rendering a page
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/routing#middleware).
 
 # TODO
-
 Implement Mock Server
