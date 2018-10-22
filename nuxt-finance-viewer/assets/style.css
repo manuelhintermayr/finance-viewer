@@ -1,16 +1,18 @@
 @charset "UTF-8";
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200, 300);
 
-body {    
-    /* Start shared code from: http://codepen.io/vubon/pen/bdmvbY */
-    background: #50a3a2;
-    font-family: 'Source Sans Pro', sans-serif;
-    color: white;
-    background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
-    background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
-    background-attachment:fixed;
-    overflow: hidden;
-    /* End shared code*/
+@import '../node_modules/bootstrap/dist/css/bootstrap.css';
+
+body {
+  /* Start shared code from: http://codepen.io/vubon/pen/bdmvbY */
+  background: #50a3a2;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+  background-attachment: fixed;
+  overflow: hidden;
+  /* End shared code*/
 }
 
 /* Start shared code from http://codepen.io/vubon/pen/bdmvbY
@@ -43,21 +45,21 @@ body {
   width: 80px;
   height: 80px;
   -webkit-animation-delay: 2s;
-          animation-delay: 2s;
+  animation-delay: 2s;
   -webkit-animation-duration: 17s;
-          animation-duration: 17s;
+  animation-duration: 17s;
 }
 .bg-bubbles li:nth-child(3) {
   left: 25%;
   -webkit-animation-delay: 4s;
-          animation-delay: 4s;
+  animation-delay: 4s;
 }
 .bg-bubbles li:nth-child(4) {
   left: 40%;
   width: 60px;
   height: 60px;
   -webkit-animation-duration: 22s;
-          animation-duration: 22s;
+  animation-duration: 22s;
   background-color: rgba(255, 255, 255, 0.25);
 }
 .bg-bubbles li:nth-child(5) {
@@ -68,7 +70,7 @@ body {
   width: 120px;
   height: 120px;
   -webkit-animation-delay: 3s;
-          animation-delay: 3s;
+  animation-delay: 3s;
   background-color: rgba(255, 255, 255, 0.2);
 }
 .bg-bubbles li:nth-child(7) {
@@ -76,25 +78,25 @@ body {
   width: 160px;
   height: 160px;
   -webkit-animation-delay: 7s;
-          animation-delay: 7s;
+  animation-delay: 7s;
 }
 .bg-bubbles li:nth-child(8) {
   left: 55%;
   width: 20px;
   height: 20px;
   -webkit-animation-delay: 15s;
-          animation-delay: 15s;
+  animation-delay: 15s;
   -webkit-animation-duration: 40s;
-          animation-duration: 40s;
+  animation-duration: 40s;
 }
 .bg-bubbles li:nth-child(9) {
   left: 25%;
   width: 10px;
   height: 10px;
   -webkit-animation-delay: 2s;
-          animation-delay: 2s;
+  animation-delay: 2s;
   -webkit-animation-duration: 40s;
-          animation-duration: 40s;
+  animation-duration: 40s;
   background-color: rgba(255, 255, 255, 0.3);
 }
 .bg-bubbles li:nth-child(10) {
@@ -102,26 +104,26 @@ body {
   width: 160px;
   height: 160px;
   -webkit-animation-delay: 11s;
-          animation-delay: 11s;
+  animation-delay: 11s;
 }
 @-webkit-keyframes square {
   0% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   100% {
     -webkit-transform: translateY(-700px) rotate(600deg);
-            transform: translateY(-700px) rotate(600deg);
+    transform: translateY(-700px) rotate(600deg);
   }
 }
 @keyframes square {
   0% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   100% {
     -webkit-transform: translateY(-700px) rotate(600deg);
-            transform: translateY(-700px) rotate(600deg);
+    transform: translateY(-700px) rotate(600deg);
   }
 }
 /* End shared code*/
