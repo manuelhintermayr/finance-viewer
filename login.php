@@ -1,9 +1,10 @@
 <?php
     include("config/login.php");
+    $_POST = json_decode(file_get_contents("php://input"),true);
 
-    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-        $username = $_POST['user'];
-        $password = encrypt($_POST['pass']);
+    if(isset($_POST) && isset($_POST['username'])) {
+        $username = $_POST['username'];
+        $password = encrypt($_POST['password']);
 
         $works = checkCorrectUser($username, $password);
         setUserCredentials($username, $password);
