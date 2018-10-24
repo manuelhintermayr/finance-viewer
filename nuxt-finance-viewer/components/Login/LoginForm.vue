@@ -3,7 +3,7 @@
     <div 
       id="login-container" 
       class="container">
-      <h1 class="welcome-message">Welcome <span id="messageForTheUser"/></h1>
+      <h1 class="welcome-message">Welcome <span id="messageForTheUser"/>{{ fullName }}</h1>
       <form 
         class="form" >
         <input 
@@ -35,8 +35,9 @@
         class="glyphicon glyphicon-exclamation-sign" 
         aria-hidden="true"/>
       <span class="sr-only">Error:</span>
-      <span id="error_message">{{ errorMessage }}</span>
-
+      <span 
+        id="error_message" 
+        v-html="errorMessage"/>
       <span 
         id="error-close" 
         class="close"
@@ -53,7 +54,8 @@ export default {
       password: '',
       fullName: '',
       errorMessage: '',
-      errorAnimationActivated: false
+      errorAnimationActivated: false,
+      loginSucceeded: false
     }
   },
   methods: {
@@ -69,13 +71,12 @@ export default {
         this.$axios
           .post('http://localhost:64674/login.php', loginData)
           .then(response => {
-            console.log(response.data)
-            // this.jokes = response.data.value
-            console.log('first funzt')
-            //this.$router.replace('/admin')
+            this.loginSuccessfull(response.data.name, response.data.url)
           })
           .catch(error => {
-            console.log('funzt net')
+            this.loginError(
+              'The following error occured: <b>' + error.response.data + '</b>'
+            )
           })
       }
     },
@@ -87,6 +88,41 @@ export default {
       setTimeout(function() {
         self.errorAnimationActivated = false
       }, 1000)
+    },
+    loginSuccessfull(username, url) {
+      var self = this
+      setTimeout(function() {
+        self.animateUsername(username + '!', 0)
+      }, 1000)
+      this.errorMessage = ''
+      this.loginSucceeded = true
+
+      // console.log(response.data)
+      //this.$router.replace('/admin')
+      // window.setTimeout(
+      //   'type("#messageForTheUser"," Administrator!",0);',
+      //   1000
+      // )
+      // $('form').fadeOut(500)
+      // $('#login_error').fadeOut(500)
+      // $('body').addClass('form-success')
+
+      // window.setTimeout('$("body").addClass("loggingEnd");', 3000)
+      // window.setTimeout('$("#login-container").fadeOut(500);', 3200)
+
+      // window.setTimeout('removeClass("body","form-success");', 4000)
+    },
+    animateUsername(newUsername, pos) {
+      var cUsername = newUsername.substring(0, pos)
+      this.fullName = cUsername
+      if (pos == newUsername.length) {
+        this.fullName = newUsername
+      } else {
+        var self = this
+        setTimeout(function() {
+          self.animateUsername(newUsername, pos + 1)
+        }, 70)
+      }
     }
   }
 }
