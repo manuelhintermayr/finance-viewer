@@ -4,8 +4,21 @@
       id="login-container" 
       class="container">
       <h1 class="welcome-message">Welcome <span id="messageForTheUser"/>{{ fullName }}</h1>
+
+
+      <button @click="fadeMe">
+        Toggle
+      </button>
+      <transition 
+        name="fade" 
+        @enter="enter">
+        <p v-if="show">hello</p>
+      </transition>
+
+
       <form 
-        class="form" >
+        :class="{ closed: loginSucceeded}" 
+        class="form">
         <input 
           id="user" 
           v-model="username" 
@@ -55,7 +68,8 @@ export default {
       fullName: '',
       errorMessage: '',
       errorAnimationActivated: false,
-      loginSucceeded: false
+      loginSucceeded: false,
+      show: false
     }
   },
   methods: {
@@ -92,7 +106,7 @@ export default {
     loginSuccessfull(username, url) {
       var self = this
       setTimeout(function() {
-        self.animateUsername(username + '!', 0)
+        self.animateUsername(username, 0)
       }, 1000)
       this.errorMessage = ''
       this.loginSucceeded = true
@@ -116,19 +130,40 @@ export default {
       var cUsername = newUsername.substring(0, pos)
       this.fullName = cUsername
       if (pos == newUsername.length) {
-        this.fullName = newUsername
+        this.fullName = newUsername + '!'
       } else {
         var self = this
         setTimeout(function() {
           self.animateUsername(newUsername, pos + 1)
         }, 70)
       }
+    },
+    fadeMe: function() {
+      this.show = !this.show
+    },
+
+    enter: function(el, done) {
+      var that = this
+
+      setTimeout(function() {
+        that.show = false
+      }, 3000) // hide the message after 3 seconds
     }
   }
 }
 </script>
 
 <style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .close:hover {
   cursor: pointer;
 }
