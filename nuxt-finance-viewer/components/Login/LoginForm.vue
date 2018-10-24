@@ -26,9 +26,11 @@
       </form>
     </div>
     <div 
-      id="login_error" 
-      class="alert alert-danger closed" 
-      role="alert">
+      id="login_error"
+      ref="loginError"
+      :class="{ closed: errorMessage == '', error: errorAnimationActivated }"
+      class="alert alert-danger"
+      role="alert" >
       <span 
         class="glyphicon glyphicon-exclamation-sign" 
         aria-hidden="true"/>
@@ -37,7 +39,8 @@
 
       <span 
         id="error-close" 
-        class="close">X</span>
+        class="close"
+        @click="errorMessage = ''">X</span>
     </div>
   </div>
 </template>
@@ -48,8 +51,9 @@ export default {
     return {
       username: '',
       password: '',
-      errorMessage: 'noError',
-      fullName: ''
+      fullName: '',
+      errorMessage: '',
+      errorAnimationActivated: false
     }
   },
   methods: {
@@ -60,7 +64,7 @@ export default {
       }
 
       if (loginData.username == '' || loginData.password == '') {
-        this.errorMessage = 'Please fill out all fields.'
+        this.loginError('Please fill out all fields.')
       } else {
         this.$axios
           .post('http://localhost:64674/login.php', loginData)
@@ -74,10 +78,103 @@ export default {
             console.log('funzt net')
           })
       }
+    },
+    loginError(contentForErrorMessage) {
+      this.errorMessage = contentForErrorMessage
+      this.errorAnimationActivated = true
+
+      var self = this
+      setTimeout(function() {
+        self.errorAnimationActivated = false
+      }, 1000)
     }
   }
 }
 </script>
 
 <style>
+.close:hover {
+  cursor: pointer;
+}
+
+.closed {
+  transform: translate(0px, -60px);
+  transition: 0.7s;
+}
+
+#error-close {
+  background: #e74c3c;
+  padding: 5px;
+  top: -6px;
+  position: relative;
+  border: 1px #371e1e solid;
+}
+
+.error {
+  -moz-animation: error 0.35s linear;
+  -webkit-animation: error 0.35s linear;
+}
+
+@-webkit-keyframes error {
+  0% {
+    -webkit-transform: translateX(0px);
+  }
+  25% {
+    -webkit-transform: translateX(30px);
+  }
+  45% {
+    -webkit-transform: translateX(-30px);
+  }
+  65% {
+    -webkit-transform: translateX(30px);
+  }
+  82% {
+    -webkit-transform: translateX(-30px);
+  }
+  94% {
+    -webkit-transform: translateX(30px);
+  }
+  35%,
+  55%,
+  75%,
+  87%,
+  97%,
+  100% {
+    -webkit-transform: translateX(0px);
+  }
+}
+
+@-moz-keyframes error {
+  0% {
+    -moz-transform: translateX(0px);
+  }
+  25% {
+    -moz-transform: translateX(30px);
+  }
+  45% {
+    -moz-transform: translateX(-30px);
+  }
+  65% {
+    -moz-transform: translateX(30px);
+  }
+  82% {
+    -moz-transform: translateX(-30px);
+  }
+  94% {
+    -moz-transform: translateX(30px);
+  }
+  35%,
+  55%,
+  75%,
+  87%,
+  97%,
+  100% {
+    -moz-transform: translateX(0px);
+  }
+}
+
+.alert {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* better font for error messages*/
+}
 </style>
