@@ -1,21 +1,22 @@
 <template>
   <div>
     <p>Dashboard for admin user. <a href="..\logout.php">Logout</a></p>
-    <form @submit="addItem">
+    <form>
       <input 
-        v-model="itemTitle" 
+        v-model="itemUsername" 
         type="text">
       <input 
-        v-model="itemUrl" 
+        v-model="itemPassword" 
         type="text">
-      <button type="submit">Add</button>
+      <button @click.prevent="addItem">Add</button>
     </form>
 
     <ul>
       <li 
-        v-for="n in news" 
-        :key="n.title">
-        {{ n.title }} - {{ n.url }}
+        v-for="u in users" 
+        :key="u.username">
+        [{{ u.id }}]: {{ u.username }} - {{ u.password }}  
+        <button @click="removeItem(u)">remove</button>
       </li>
     </ul>
     <!-- <bobbles/> -->
@@ -31,19 +32,29 @@ export default {
   },
   data() {
     return {
-      news: [
-        {
-          title: 'Test Title',
-          url: '/test-title'
-        }
-      ]
+      users: [],
+      itemUsername: '',
+      itemPassword: '',
+      currentId: 0
     }
   },
   methods: {
-    addItem: function(e) {
-      e.preventDefault()
-      this.news.push({ title: this.itemTitle, url: this.itemUrl })
-      this.itemTitle = this.itemUrl = ''
+    addItem() {
+      this.users.push({
+        id: this.currentId++,
+        username: this.itemUsername,
+        password: this.itemPassword
+      })
+      this.itemUsername = this.itemPassword = ''
+    },
+    removeItem(user) {
+      this.users.splice(this.users.indexOf(user), 1)
+
+      // this.users.filter(e => {
+      //   if (e.username === username) {
+      //     alert(e.username)
+      //   }
+      // })
     }
   }
 }
