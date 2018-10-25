@@ -1,9 +1,10 @@
 <?php
     include("config/login.php");
+    $_POST = json_decode(file_get_contents("php://input"),true);
 
-    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-        $username = $_POST['user'];
-        $password = encrypt($_POST['pass']);
+    if(isset($_POST) && isset($_POST['username'])) {
+        $username = $_POST['username'];
+        $password = encrypt($_POST['password']);
 
         $works = checkCorrectUser($username, $password);
         setUserCredentials($username, $password);
@@ -16,11 +17,11 @@
         }
         else {
             header('HTTP/1.1 403 Forbidden');
-            echo "Login invalid for user: ".$username;
+            echo "Login invalid {user: ".$username."}";
         }
     }
     else {
-        header('HTTP/1.1 404 Not Found');
-        echo 'Please go to <a href="index.php">this</a> page.'; 
+        header('HTTP/1.1 400 Bad request');
+        echo 'Bad request. Please go to <a href="index.php">this</a> page and try again.'; 
     }
 ?>
