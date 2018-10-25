@@ -1,25 +1,29 @@
 <template>
   <div>
-    <p>Dashboard for admin user. <a href="..\logout.php">Logout</a></p>
-    <form>
-      <input 
-        v-model="itemUsername" 
-        type="text">
-      <input 
-        v-model="itemPassword" 
-        type="text">
-      <button @click.prevent="addItem">Add</button>
-    </form>
+    <bobbles />
+    <div id="content">
 
-    <ul>
-      <li 
-        v-for="u in users" 
-        :key="u.username">
-        [{{ u.id }}]: {{ u.username }} - {{ u.password }}  
-        <button @click="removeItem(u)">remove</button>
-      </li>
-    </ul>
-    <!-- <bobbles/> -->
+      <p>Dashboard for admin user. <a href="..\logout.php">Logout</a></p>
+      <form>
+        <input 
+          v-model="itemUsername" 
+          type="text">
+        <input 
+          v-model="itemPassword" 
+          type="text">
+        <button @click.prevent="addItem">Add</button>
+      </form>
+
+      <ul>
+        <li 
+          v-for="u in users" 
+          :key="u.username">
+          [{{ u.id }}]: {{ u.username }} - {{ u.password }}  
+          <button @click="removeItem(u)">remove</button>
+        </li>
+      </ul>
+    
+    </div>
   </div>
 </template>
 
@@ -49,16 +53,15 @@ export default {
     },
     removeItem(user) {
       this.users.splice(this.users.indexOf(user), 1)
-
-      // this.users.filter(e => {
-      //   if (e.username === username) {
-      //     alert(e.username)
-      //   }
-      // })
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+#content {
+  position: absolute;
+  width: 100%;
+  left: 0;
+}
 </style>
