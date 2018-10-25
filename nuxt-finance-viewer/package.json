@@ -1,7 +1,7 @@
 {
   "name": "nuxt-finance-viewer",
   "version": "1.0.0",
-  "description": "My badass Nuxt.js project",
+  "description": "Finance Viewer for everyone",
   "author": "Manuel Hintermayr",
   "private": true,
   "scripts": {
