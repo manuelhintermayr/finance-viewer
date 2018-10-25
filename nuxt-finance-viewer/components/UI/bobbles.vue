@@ -17,7 +17,7 @@
 export default {}
 </script>
 
-<style>
+<style scoped>
 /* Start shared code from http://codepen.io/vubon/pen/bdmvbY
   ------------------------------------------------------------ */
 .bg-bubbles {

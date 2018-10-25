@@ -78,7 +78,7 @@ export default {
         this.loginError('Please fill out all fields.')
       } else {
         this.$axios
-          .post('http://localhost:64674/login.php', loginData)
+          .post('/login.php', loginData)
           .then(response => {
             this.loginSuccessfull(response.data.name, response.data.url)
           })
@@ -116,10 +116,13 @@ export default {
         self.loginIsFinished = true
       }, 3200) //Disable whole login form
 
-      setTimeout(function() {
-        window.location = '/' + url
-        // self.$router.replace('/' + url)
-      }, 3300) //Redirect
+      setTimeout(() => {
+        this.$router.replace('/' + url)
+      }, 3300)
+      // setTimeout(function() {
+      //   // window.location = '/' + url
+      //   self.$router.replace('/' + url)
+      // }, 3300) //Redirect
     },
     animateUsername(newUsername, pos) {
       var cUsername = newUsername.substring(0, pos)
@@ -137,7 +140,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @charset "UTF-8";
 
 /* Code party shared from:
