@@ -3,6 +3,9 @@
     <bobbles />
     <div id="content">
 
+
+
+      
       <p>Dashboard for admin user. <a href="..\logout.php">Logout</a></p>
       <form>
         <input 
@@ -13,16 +16,34 @@
           type="text">
         <button @click.prevent="addItem">Add</button>
       </form>
-
-      <ul>
-        <li 
-          v-for="u in users" 
-          :key="u.username">
-          [{{ u.id }}]: {{ u.username }} - "{{ u.firstname }} {{ u.lastname }}". isLocked: {{ u.isLocked }}  
-          <button @click="removeItem(u)">remove</button>
-        </li>
-      </ul>
-    
+      <table class="table table-striped table-hover">
+        <thead class="">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">Update</th>
+            <th scope="col">Remove</th>
+            <th scope="col">Password</th>
+            <th scope="col">View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr 
+            v-for="u in users" 
+            :key="u.username">
+            <th scope="row">{{ u.id }}</th>
+            <td>{{ u.username }}</td>
+            <td>{{ u.firstname }}</td>
+            <td>{{ u.lastname }}</td>
+            <td><button>Update</button></td>
+            <td><button @click="removeItem(u)">Remove</button></td>
+            <td><button>Set Password</button></td>
+            <td><button>View FinanceView</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
