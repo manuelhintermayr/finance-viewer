@@ -101,28 +101,23 @@ export default {
     },
 
     loginSuccessfull(username, url) {
-      var self = this
-      setTimeout(function() {
-        self.animateUsername(username, 0)
+      setTimeout(() => {
+        this.animateUsername(username, 0)
       }, 1000) //Wait 1 second for transition
       this.errorMessage = ''
       this.loginSucceeded = true
       this.loginAnimationGetTextDown = true
 
-      setTimeout(function() {
-        self.loginAnimationGetTextUp = true
+      setTimeout(() => {
+        this.loginAnimationGetTextUp = true
       }, 3000) //Wait 3 Seconds to go up again
-      setTimeout(function() {
-        self.loginIsFinished = true
+      setTimeout(() => {
+        this.loginIsFinished = true
       }, 3200) //Disable whole login form
 
       setTimeout(() => {
         this.$router.replace('/' + url)
-      }, 3300)
-      // setTimeout(function() {
-      //   // window.location = '/' + url
-      //   self.$router.replace('/' + url)
-      // }, 3300) //Redirect
+      }, 3500)
     },
     animateUsername(newUsername, pos) {
       var cUsername = newUsername.substring(0, pos)
