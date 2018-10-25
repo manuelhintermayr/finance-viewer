@@ -78,7 +78,7 @@ export default {
         this.loginError('Please fill out all fields.')
       } else {
         this.$axios
-          .post('login.php', loginData)
+          .post('http://localhost:64674/login.php', loginData)
           .then(response => {
             this.loginSuccessfull(response.data.name, response.data.url)
           })
