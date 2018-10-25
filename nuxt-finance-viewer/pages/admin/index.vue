@@ -18,7 +18,7 @@
         <li 
           v-for="u in users" 
           :key="u.username">
-          [{{ u.id }}]: {{ u.username }} - {{ u.password }}  
+          [{{ u.id }}]: {{ u.username }} - "{{ u.firstname }} {{ u.lastname }}". isLocked: {{ u.isLocked }}  
           <button @click="removeItem(u)">remove</button>
         </li>
       </ul>
@@ -42,17 +42,39 @@ export default {
       currentId: 0
     }
   },
+  mounted() {
+    this.loadAll()
+  },
   methods: {
     addItem() {
       this.users.push({
         id: this.currentId++,
-        username: this.itemUsername,
-        password: this.itemPassword
+        username: this.itemUsername
       })
       this.itemUsername = this.itemPassword = ''
     },
     removeItem(user) {
       this.users.splice(this.users.indexOf(user), 1)
+    },
+    loadAll() {
+      this.$axios
+        .get('admin/options.php?action=getUsers')
+        .then(response => {
+          let api = response.data
+          api.forEach(element => {
+            this.users.push({
+              id: this.currentId++,
+              username: element.username,
+              firstname: element.firstname,
+              lastname: element.lastname,
+              isLocked: element.isLocked
+            })
+          })
+          console.log(api)
+        })
+        .catch(error => {
+          console.log('funzt net')
+        })
     }
   }
 }

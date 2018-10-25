@@ -36,8 +36,15 @@
     -------------------------------------------- */
     function loggedInUserIsAdmin()
     {
-        $username = $_SESSION['m_user'];
-        return userIsAdmin($username);
+        if(isset($_SESSION['m_user']))
+        {
+            $username = $_SESSION['m_user'];
+            return userIsAdmin($username);            
+        }
+        else{
+            return FALSE;
+        }
+
     }
 
     /* Checks if user is admin
