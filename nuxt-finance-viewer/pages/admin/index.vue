@@ -2,8 +2,7 @@
   <div>
     <bobbles />
     <div id="content">
-
-
+      <navbar />
 
       
       <p>Dashboard for admin user. <a href="..\logout.php">Logout</a></p>
@@ -50,10 +49,12 @@
 
 <script>
 import Bobbles from '~/components/UI/bobbles'
+import Navbar from '~/components/UI/navbar'
 
 export default {
   components: {
-    Bobbles
+    Bobbles,
+    Navbar
   },
   data() {
     return {
