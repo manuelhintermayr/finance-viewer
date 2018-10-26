@@ -26,6 +26,7 @@
                   class="form-control" 
                   placeholder="" 
                   value="" 
+                  maxlength="45"
                   required="">
                 <div class="invalid-feedback">
                   Valid first name is required.
@@ -40,6 +41,7 @@
                   class="form-control" 
                   placeholder="" 
                   value="" 
+                  maxlength="45"
                   required="" >
                 <div class="invalid-feedback">
                   Valid last name is required.
@@ -59,7 +61,8 @@
                   type="text" 
                   class="form-control" 
                   placeholder="Username" 
-                  required="">
+                  required=""
+                  maxlength="45">
                 <div 
                   class="invalid-feedback" 
                   style="width: 100%;">
@@ -71,8 +74,9 @@
             <div class="mb-3">
               <label for="address">Password</label>
               <input 
-                id="password" 
+                id="password"
                 v-model="itemPassword" 
+                maxlength="45" 
                 type="text" 
                 class="form-control" 
                 placeholder="Password"
@@ -95,12 +99,14 @@
             <hr class="mb-4">
             <button 
               class="btn btn-secondary btn-lg btn-block" 
-              @click.prevent="addItem">Add User</button>
+              @click.prevent="addUser">Add User</button>
           </form>
         </div>
         <br>
 
-        <div class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
+        <div 
+          id="existingUsers" 
+          class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal"> 
           <h3 class="border-bottom border-gray pb-2 mb-0">Change user</h3>
           <br>
           <p class="lead">Change a current user:</p>
@@ -127,35 +133,86 @@
                     v-model="u.username" 
                     type="text" 
                     class="form-control" 
-                    required="" >
+                    required="" 
+                    maxlength="45">
                 </td>
                 <td>
                   <input  
                     v-model="u.firstname" 
                     type="text" 
                     class="form-control" 
-                    required="" >
+                    required="" 
+                    maxlength="45">
                 </td>
                 <td>
                   <input  
                     v-model="u.lastname" 
                     type="text" 
                     class="form-control" 
-                    required="" >
+                    required="" 
+                    maxlength="45">
                 </td>
                 <td><button class="btn btn-secondary">Update</button></td>
-                <td><button 
-                  class="btn btn-secondary" 
-                  @click="removeItem(u)">Remove</button></td>
-                <td><button class="btn btn-secondary">Set Password</button></td>
+                <td>
+                  <button 
+                    class="btn btn-secondary" 
+                    @click="removeUser(u)">Remove</button>
+                </td>
+                <td>
+                  <button 
+                    class="btn btn-secondary" 
+                    @click="setPassword(u)">Set Password</button>
+                </td>
                 <td><button class="btn btn-secondary">View FinanceView</button></td>
               </tr>
             </tbody>
           </table>
           <hr class="mb-4">
           <button 
-            class="btn btn-secondary btn-lg btn-block">Go to top</button>
+            class="btn btn-secondary btn-lg btn-block" 
+            @click="goToTop()">Go to top</button>
         </div>
+
+        <transition 
+          name="fade">
+          <div 
+            v-if="passwordChangeIsActivated" 
+            class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
+            <h3 class="border-bottom border-gray pb-2 mb-0">Set password of user</h3>
+            <br>
+            <p class="lead">Set the password of a current user:</p>
+            <table class="table table-striped table-hover">
+              <thead class="">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">New Password</th>
+                  <th scope="col">Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">{{ currentUserToChangePassword.id }}</th>
+                  <td>{{ currentUserToChangePassword.username }}</td>
+                  <td>
+                    <input   
+                      v-model="currentUserToChangePassword.password" 
+                      type="text" 
+                      class="form-control"
+                      required=""
+                      maxlength="45">
+                  </td>
+                  <td><button class="btn btn-secondary">Update</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <hr class="mb-4">
+            <button 
+              class="btn btn-secondary btn-lg btn-block" 
+              @click="goToTop()">Hide &amp; go to top</button>
+          </div>
+        </transition>
+
       </main>
       
       
@@ -180,27 +237,23 @@ export default {
       itemFirstname: '',
       itemLastname: '',
       itemIsLocked: false,
-      currentId: 0
+      currentId: 1,
+      passwordChangeIsActivated: false,
+      currentUserToChangePassword: {
+        id: 0,
+        username: '',
+        origianlUsername: '',
+        firstname: '',
+        lastname: '',
+        isLocked: false,
+        password: ''
+      }
     }
   },
   mounted() {
     this.loadAll()
   },
   methods: {
-    addItem() {
-      this.users.push({
-        id: this.currentId++,
-        username: this.itemUsername,
-        origianlUsername: this.itemUsername,
-        firstname: this.itemFirstname,
-        lastname: this.itemLastname
-      })
-      this.itemUsername = this.itemPassword = this.itemFirstname = this.itemLastname = this.itemIsLocked =
-        ''
-    },
-    removeItem(user) {
-      this.users.splice(this.users.indexOf(user), 1)
-    },
     loadAll() {
       this.$axios
         .get('admin/options.php?action=getUsers')
@@ -213,7 +266,8 @@ export default {
               origianlUsername: element.username,
               firstname: element.firstname,
               lastname: element.lastname,
-              isLocked: element.isLocked
+              isLocked: element.isLocked,
+              password: ''
             })
           })
           console.log(api)
@@ -224,7 +278,33 @@ export default {
               error.response.data
           )
         })
-    }
+    },
+    addUser() {
+      this.users.push({
+        id: this.currentId++,
+        username: this.itemUsername,
+        origianlUsername: this.itemUsername,
+        firstname: this.itemFirstname,
+        lastname: this.itemLastname,
+        password: ''
+      })
+      this.itemUsername = this.itemPassword = this.itemFirstname = this.itemLastname = this.itemIsLocked =
+        ''
+      this.scrollToEnd()
+    },
+    scrollToEnd() {
+      var container = this.$el.querySelector('#existingUsers')
+      container.scrollTop = container.scrollHeight
+    },
+    removeUser(user) {
+      this.users.splice(this.users.indexOf(user), 1)
+    },
+    updateUser(user) {},
+    setPassword(user) {
+      this.currentUserToChangePassword = user
+      this.passwordChangeIsActivated = true
+    },
+    goToTop() {}
   }
 }
 </script>
@@ -244,7 +324,12 @@ export default {
   background-color: #6c757d8c;
 }
 
-table input {
+input,
+.custom-checkbox .custom-control-label::before {
   background-color: #ffffff73;
+}
+
+.table thead th {
+  border-top: none;
 }
 </style>
