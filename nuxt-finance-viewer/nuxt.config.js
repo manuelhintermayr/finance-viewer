@@ -29,7 +29,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/icons', '~/plugins/bootstrap', '~/plugins/dropdown'],
+  plugins: ['~/plugins/icons', '~/plugins/bootstrap'],
 
   /*
   ** Nuxt.js modules
@@ -45,7 +45,6 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: 'http://localhost:64674/',
-    credentials: false,
     debug: true
   },
 

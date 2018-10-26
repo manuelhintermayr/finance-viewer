@@ -6,7 +6,7 @@
     <!-- https://stackoverflow.com/questions/46041825/pass-object-as-prop-on-vue -->
     <a 
       class="navbar-brand" 
-      href="#"><font-awesome-icon icon="globe-americas" /> Finance Viewer</a>
+      href="#">Finance Viewer</a>
     <button 
       class="navbar-toggler" 
       type="button" 

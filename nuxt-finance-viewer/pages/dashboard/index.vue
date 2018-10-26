@@ -2,83 +2,13 @@
   <div>
     <bobbles/>
     <!-- Based on http://www.manuelweb.at/old/login1/home.html -->
-    <link 
-      rel="stylesheet" 
-      href="http://www.manuelweb.at/old/login1/css/bootstrap.css">
-    <link 
-      rel="stylesheet" 
-      href="http://www.manuelweb.at/old/login1/css/bootstrap-theme.css">
+    
     <div 
-      id="homeContent" 
+      id="content" 
       class="fill-height">
     
 
-      <nav 
-        id="main_nav" 
-        class="navbar-inverse">
-        <div>
-          <div class="navbar-header">
-            <!-- wird fuer mobile Anzeigen benutzt-->
-            <button 
-              type="button" 
-              class="navbar-toggle collapsed" 
-              data-toggle="collapse" 
-              data-target="#navbar" 
-              aria-expanded="false" 
-              aria-controls="navbar">
-              <span class="icon-bar"/>
-              <span class="icon-bar"/>
-              <span class="icon-bar"/>
-            </button>
-            <a 
-              class="navbar-brand" 
-              href="#">Somap</a>
-          </div>
-          <div 
-            id="navbar" 
-            class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-              <li class="active">
-                <a href="#">
-                  <span 
-                    class="glyphicon glyphicon-globe" 
-                    aria-hidden="true"/>
-                  Friend List
-                </a>
-              </li>
-              <li class="disabled">
-                <a href="#">
-                  <span 
-                    class="glyphicon glyphicon-user" 
-                    aria-hidden="true"/>
-                  My Account
-                </a>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li class="disabled">
-                <a href="#">
-                  <span 
-                    class="glyphicon glyphicon-cog" 
-                    aria-hidden="true"/>
-                  Settings
-                </a>
-              </li>
-              <li>
-                <a 
-                  id="logout_button" 
-                  href ="#logout">
-                  <span 
-                    class="glyphicon glyphicon-log-out" 
-                    aria-hidden="true"/>
-                  Logout
-                </a>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-      </nav>
+      <navbar />
 
 
       <div 
@@ -322,10 +252,12 @@
 
 <script>
 import Bobbles from '~/components/UI/bobbles'
+import Navbar from '~/components/UI/navbar'
 
 export default {
   components: {
-    Bobbles
+    Bobbles,
+    Navbar
   }
 }
 </script>
@@ -337,12 +269,6 @@ export default {
  * style.css for Somap
  * (c) 2016 Manuel
  */
-
-body {
-  margin: 0;
-  color: white;
-  font-family: Oxygen;
-}
 
 #homeContent {
   position: absolute;
