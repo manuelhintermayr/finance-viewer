@@ -24,44 +24,23 @@
         <li class="nav-item">
           <a 
             class="nav-link disabled" 
-            href="/admin">Admin</a>
+            href="#">Admin</a>
         </li>
-        <!-- <dropdown>
-          <template slot="btn">Custom btn</template>
-          <template slot="icon">Custom icon</template>
-          <template slot="body">Custom body</template>
-        </dropdown> -->
-        <li class="nav-item dropdown">
-          <a 
-            id="navbarDropdown" 
-            class="nav-link dropdown-toggle" 
-            href="#" 
-            role="button" 
-            data-toggle="dropdown" 
-            aria-haspopup="true" 
-            aria-expanded="false">
-            Years
-          </a>
-          <div 
-            class="dropdown-menu" 
-            aria-labelledby="navbarDropdown">
-            <a 
-              class="dropdown-item" 
-              href="#">2017</a>
-            <a 
-              class="dropdown-item" 
-              href="#">2018</a>
-            <div class="dropdown-divider"/>
-            <a 
-              class="dropdown-item" 
-              href="#">2019</a>
-          </div>
+        <li class="nav-item">
+          <select 
+            id="years" 
+            class="custom-select dropdown dropdownNavbar" 
+            required="">
+            <option value="">Years</option>
+            <option>2017</option>
+            <option>2018</option>
+          </select>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <button 
           class="btn btn-outline-info my-2 my-sm-0" 
-          type="submit"><font-awesome-icon icon="coffee" /><i class="fas fa-sign-out"/> Logout</button>
+          type="submit"><font-awesome-icon icon="AddressBook" /><font-awesome-icon :icon="['fas', 'Ad']" /><i class="fas fa-sign-out"/>Logout</button>
       </form>
     </div>
   </nav>
@@ -69,16 +48,28 @@
 </template>
 
 <script>
-export default {
-  //   components: { Dropdown }
-}
+export default {}
 </script>
 
 <style scoped>
 #main_nav {
   border-radius: 0;
-  background: rgba(34, 34, 34, 0.86);
+  background: rgba(34, 34, 34, 0.86) !important;
   border-color: #080808;
   border-bottom: 2px #080808 solid;
+}
+.navbar-brand {
+  color: #9d9d9d;
+}
+.navbar-brand:hover,
+.navbar-brand:focus {
+  color: #fff;
+  background-color: transparent;
+}
+.dropdownNavbar {
+  color: rgb(128, 128, 128);
+  background: transparent;
+  border: none;
+  padding-bottom: 3px;
 }
 </style>
