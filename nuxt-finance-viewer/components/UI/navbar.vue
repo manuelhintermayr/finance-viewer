@@ -3,6 +3,7 @@
   <nav 
     id="main_nav" 
     class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- https://stackoverflow.com/questions/46041825/pass-object-as-prop-on-vue -->
     <a 
       class="navbar-brand" 
       href="#"><font-awesome-icon icon="globe-americas" /> Finance Viewer</a>
