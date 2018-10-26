@@ -62,7 +62,8 @@
     </transition>
     <div 
       id="byeMessage" 
-      class="container dynamischeAenderungen">Bye Administrator!
+      :class="{ logoutEnd: !startLogoutAnimations}"
+      class="container dynamicChanges">Bye Administrator!
     </div>
   </div>
 </template>
@@ -72,12 +73,22 @@ export default {
   components: {},
   data() {
     return {
-      loggedOut: false
+      loggedOut: false,
+      startLogoutAnimations: false
     }
   },
   methods: {
     logout() {
       this.loggedOut = true
+      this.startLogoutAnimations = true
+
+      setTimeout(() => {
+        this.startLogoutAnimations = false
+      }, 1500)
+
+      setTimeout(() => {
+        this.$router.replace('/logout.php')
+      }, 2000)
     }
   }
 }
@@ -90,18 +101,24 @@ export default {
   left: 0;
 }
 #byeMessage {
-  text-align: -webkit-center;
   font: normal normal 200 normal 40px / 44px 'Source Sans Pro', sans-serif;
-  margin-top: 13%;
-  display: none;
+  position: absolute;
+  top: 25%;
+  left: 35%;
+  left: calc(40% - 44px);
 }
 
-.dynamischeAenderungen {
+.dynamicChanges {
   -webkit-transition-duration: 1s;
   transition-duration: 1s;
   -webkit-transition-timing-function: ease-in-put;
   transition-timing-function: ease-in-put;
+  /* display: none; */
   /* Damit CSS Aenderungen Smooth ineinander uebergehen. */
+}
+
+.show {
+  display: grid;
 }
 
 /* Animationen */

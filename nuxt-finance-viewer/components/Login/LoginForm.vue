@@ -138,12 +138,13 @@ export default {
 <style scoped>
 @charset "UTF-8";
 
-/* Code party shared from:
+/* Code partly shared from:
  * http://codepen.io/vubon/pen/bdmvbY
  */
 
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200);
-
+#login-container {
+  font-family: 'Source Sans Pro', sans-serif;
+}
 .container {
   max-width: 600px;
   text-align: center;
