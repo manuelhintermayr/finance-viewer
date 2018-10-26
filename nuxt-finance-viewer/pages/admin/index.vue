@@ -3,18 +3,103 @@
     <bobbles />
     <div id="content">
       <navbar />
+      <main 
+        role="main" 
+        class="container">
+        <h1 class="mt-5">Admin Dashboard</h1>
+        <p class="lead">Update, edit, delete, create users and set a new password for them. <a href="..\logout.php">Logout</a></p>
+        <div class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
+          <h3 class="border-bottom border-gray pb-2 mb-0">Create new user</h3>
+          <br >
+          <form 
+            class="needs-validation" 
+            novalidate="">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName">First name</label>
+                <input 
+                  id="firstName" 
+                  v-model="itemFirstname" 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="" 
+                  value="" 
+                  required="">
+                <div class="invalid-feedback">
+                  Valid first name is required.
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName">Last name</label>
+                <input 
+                  id="lastName" 
+                  v-model="itemLastname" 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="" 
+                  value="" 
+                  required="" >
+                <div class="invalid-feedback">
+                  Valid last name is required.
+                </div>
+              </div>
+            </div>
 
+            <div class="mb-3">
+              <label for="username">Username</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input 
+                  id="username" 
+                  v-model="itemUsername" 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="Username" 
+                  required="">
+                <div 
+                  class="invalid-feedback" 
+                  style="width: 100%;">
+                  Your username is required.
+                </div>
+              </div>
+            </div>
+             
+            <div class="mb-3">
+              <label for="address">Password</label>
+              <input 
+                id="password" 
+                v-model="itemPassword" 
+                type="text" 
+                class="form-control" 
+                placeholder="Password"
+                required="" >
+              <div class="invalid-feedback">
+                Please enter your password.
+              </div>
+            </div>
+            <hr class="mb-4">
+            <div class="custom-control custom-checkbox">
+              <input 
+                id="is-Locked" 
+                v-model="itemIsLocked" 
+                type="checkbox" 
+                class="custom-control-input">
+              <label 
+                class="custom-control-label" 
+                for="is-Locked">Lock this user</label>
+            </div>
+            <hr class="mb-4">
+            <button 
+              class="btn btn-primary btn-lg btn-block" 
+              @click.prevent="addItem">Add User</button>
+          </form>
+        </div>
+        
+
+      </main>
       
-      <p>Dashboard for admin user. <a href="..\logout.php">Logout</a></p>
-      <form>
-        <input 
-          v-model="itemUsername" 
-          type="text">
-        <input 
-          v-model="itemPassword" 
-          type="text">
-        <button @click.prevent="addItem">Add</button>
-      </form>
       <table class="table table-striped table-hover">
         <thead class="">
           <tr>
@@ -61,6 +146,9 @@ export default {
       users: [],
       itemUsername: '',
       itemPassword: '',
+      itemFirstname: '',
+      itemLastname: '',
+      itemIsLocked: false,
       currentId: 0
     }
   },
@@ -71,9 +159,12 @@ export default {
     addItem() {
       this.users.push({
         id: this.currentId++,
-        username: this.itemUsername
+        username: this.itemUsername,
+        firstname: this.itemFirstname,
+        lastname: this.itemLastname
       })
-      this.itemUsername = this.itemPassword = ''
+      this.itemUsername = this.itemPassword = this.itemFirstname = this.itemLastname = this.itemIsLocked =
+        ''
     },
     removeItem(user) {
       this.users.splice(this.users.indexOf(user), 1)
@@ -95,7 +186,10 @@ export default {
           console.log(api)
         })
         .catch(error => {
-          console.log('funzt net')
+          alert(
+            'Could not load users. The following error occured: ' +
+              error.response.data
+          )
         })
     }
   }
@@ -107,5 +201,10 @@ export default {
   position: absolute;
   width: 100%;
   left: 0;
+  height: 100%;
+  overflow-y: scroll;
+}
+.transparentModal {
+  background-color: #ffffff45 !important;
 }
 </style>
