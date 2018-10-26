@@ -122,9 +122,27 @@
                 v-for="u in users" 
                 :key="u.username">
                 <th scope="row">{{ u.id }}</th>
-                <td>{{ u.username }}</td>
-                <td>{{ u.firstname }}</td>
-                <td>{{ u.lastname }}</td>
+                <td>
+                  <input  
+                    v-model="u.username" 
+                    type="text" 
+                    class="form-control" 
+                    required="" >
+                </td>
+                <td>
+                  <input  
+                    v-model="u.firstname" 
+                    type="text" 
+                    class="form-control" 
+                    required="" >
+                </td>
+                <td>
+                  <input  
+                    v-model="u.lastname" 
+                    type="text" 
+                    class="form-control" 
+                    required="" >
+                </td>
                 <td><button class="btn btn-secondary">Update</button></td>
                 <td><button 
                   class="btn btn-secondary" 
@@ -173,6 +191,7 @@ export default {
       this.users.push({
         id: this.currentId++,
         username: this.itemUsername,
+        origianlUsername: this.itemUsername,
         firstname: this.itemFirstname,
         lastname: this.itemLastname
       })
@@ -191,6 +210,7 @@ export default {
             this.users.push({
               id: this.currentId++,
               username: element.username,
+              origianlUsername: element.username,
               firstname: element.firstname,
               lastname: element.lastname,
               isLocked: element.isLocked
@@ -222,5 +242,9 @@ export default {
 }
 .btn-secondary {
   background-color: #6c757d8c;
+}
+
+table input {
+  background-color: #ffffff73;
 }
 </style>
