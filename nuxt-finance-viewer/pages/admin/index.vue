@@ -11,6 +11,8 @@
         <div class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
           <h3 class="border-bottom border-gray pb-2 mb-0">Create new user</h3>
           <br >
+          <p class="lead">Add a new user:</p>
+          <hr>
           <form 
             class="needs-validation" 
             novalidate="">
@@ -92,42 +94,53 @@
             </div>
             <hr class="mb-4">
             <button 
-              class="btn btn-primary btn-lg btn-block" 
+              class="btn btn-secondary btn-lg btn-block" 
               @click.prevent="addItem">Add User</button>
           </form>
         </div>
-        
+        <br>
 
+        <div class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
+          <h3 class="border-bottom border-gray pb-2 mb-0">Change user</h3>
+          <br>
+          <p class="lead">Change a current user:</p>
+          <table class="table table-striped table-hover">
+            <thead class="">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">Firstname</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Update</th>
+                <th scope="col">Remove</th>
+                <th scope="col">Password</th>
+                <th scope="col">View</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr 
+                v-for="u in users" 
+                :key="u.username">
+                <th scope="row">{{ u.id }}</th>
+                <td>{{ u.username }}</td>
+                <td>{{ u.firstname }}</td>
+                <td>{{ u.lastname }}</td>
+                <td><button class="btn btn-secondary">Update</button></td>
+                <td><button 
+                  class="btn btn-secondary" 
+                  @click="removeItem(u)">Remove</button></td>
+                <td><button class="btn btn-secondary">Set Password</button></td>
+                <td><button class="btn btn-secondary">View FinanceView</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <hr class="mb-4">
+          <button 
+            class="btn btn-secondary btn-lg btn-block">Go to top</button>
+        </div>
       </main>
       
-      <table class="table table-striped table-hover">
-        <thead class="">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Firstname</th>
-            <th scope="col">Lastname</th>
-            <th scope="col">Update</th>
-            <th scope="col">Remove</th>
-            <th scope="col">Password</th>
-            <th scope="col">View</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr 
-            v-for="u in users" 
-            :key="u.username">
-            <th scope="row">{{ u.id }}</th>
-            <td>{{ u.username }}</td>
-            <td>{{ u.firstname }}</td>
-            <td>{{ u.lastname }}</td>
-            <td><button>Update</button></td>
-            <td><button @click="removeItem(u)">Remove</button></td>
-            <td><button>Set Password</button></td>
-            <td><button>View FinanceView</button></td>
-          </tr>
-        </tbody>
-      </table>
+      
     </div>
   </div>
 </template>
@@ -206,5 +219,8 @@ export default {
 }
 .transparentModal {
   background-color: #ffffff45 !important;
+}
+.btn-secondary {
+  background-color: #6c757d8c;
 }
 </style>
