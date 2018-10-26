@@ -1,10 +1,6 @@
 <template>
-  <div 
-    id="homeContent" 
-    class="fill-height">
-    <bobbles/>
-
-    <navbar />
+  <div>
+    <bobbles />
     <div 
       id="content">
       <div 
@@ -60,12 +56,10 @@
 
 <script>
 import Bobbles from '~/components/UI/bobbles'
-import Navbar from '~/components/UI/navbar'
 
 export default {
   components: {
-    Bobbles,
-    Navbar
+    Bobbles
   },
   layout: 'loggedIn',
   data() {
@@ -162,16 +156,6 @@ export default {
 #content {
   height: 93.5%;
   height: calc(100% - 59px);
-}
-
-#homeContent {
-  position: absolute;
-  width: 100%;
-  left: 0;
-}
-
-.fill-height {
-  height: 100%;
 }
 
 #main_nav {
@@ -385,9 +369,5 @@ input:checked + .item > .details {
 }
 .scrollbar::-webkit-scrollbar-thumb:window-inactive {
   background: #3fb68d;
-}
-
-.fill-height {
-  height: 100%;
 }
 </style>
