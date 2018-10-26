@@ -3,250 +3,61 @@
     <bobbles/>
     <!-- Based on http://www.manuelweb.at/old/login1/home.html -->
     
-    <div 
-      id="content" 
-      class="fill-height">
-    
-
+    <div id="content">
       <navbar />
-
 
       <div 
         id="menu" 
         class="row">
-        <div 
+
+        <div  
           id="menu_left" 
           class="col-md-3 scrollbar fill-height">
-			
-          <!-- Backstage Controlls -->
-          <input 
-            id="contact-1" 
-            type="radio" 
-            name="contatcs">
-          <div class="item">
-            <div 
-              id="chris-lacy" 
-              class="portrait"/>
-            <div class="details">
-              <p class="name">Chris Lacy</p>
-              <p class="description">Developer</p>
-              <div class="actions">
-                <div class="mail">&#9993;</div>
-                <div class="text">&#59168;</div>
-                <div class="call">&#128222;</div>
-                <div class="info"/>
+          <span 
+            v-for="u in tableViews" 
+            :key="u.id">
+            <input 
+              :id="'contact-'+u.count" 
+              type="radio" 
+              name="contatcs">
+            <div class="item">
+              <div 
+                :id="u.id" 
+                class="portrait"/>
+              <div class="details">
+                <p class="name">{{ u.name }}</p>
+                <p class="description">{{ u.description }}</p>
+                <div class="actions">
+                  <div class="mail">&#9993;</div>
+                  <div class="text">&#59168;</div>
+                  <div class="call">&#128222;</div>
+                  <div class="info"/>
+                </div>
               </div>
+              <label :for="'contact-'+u.count"/>
             </div>
-            <label for="contact-1"/>
-          </div>
-
-          <input 
-            id="contact-10" 
-            type="radio" 
-            name="contatcs">
-          <div class="item">
-            <div 
-              id="Mara" 
-              class="portrait"/>
-            <div class="details">
-              <p class="name">Mara Mascaro</p>
-              <p class="description">Video Editor</p>
-              <div class="actions">
-                <div class="mail">&#9993;</div>
-                <div class="text">&#59168;</div>
-                <div class="call">&#128222;</div>
-                <div class="info"/>
-              </div>
-            </div>
-            <label for="contact-10"/>
-          </div>
-
-          <input 
-            id="contact-2" 
-            type="radio" 
-            name="contatcs">
-          <div class="item">
-            <div 
-              id="marq" 
-              class="portrait"/>
-            <div class="details">
-              <p class="name">Marques Brownlee</p>
-              <p class="description">Producer</p>
-              <div class="actions">
-                <div class="mail">&#9993;</div>
-                <div class="text">&#59168;</div>
-                <div class="call">&#128222;</div>
-                <div class="info"/>
-              </div>
-            </div>
-            <label for="contact-2"/>
-          </div>
-
-          <input 
-            id="contact-3" 
-            type="radio" 
-            name="contatcs">
-          <div class="item">
-            <div 
-              id="Neila" 
-              class="portrait"/>
-            <div class="details">
-              <p class="name">Neila Rey</p>
-              <p class="description">Fitness Community</p>
-              <div class="actions">
-                <div class="mail">&#9993;</div>
-                <div class="text">&#59168;</div>
-                <div class="call">&#128222;</div>
-                <div class="info"/>
-              </div>
-            </div>
-            <label for="contact-3"/>
-          </div>
-
-          <input 
-            id="contact-4" 
-            type="radio" 
-            name="contatcs">
-          <div class="item">
-            <div 
-              id="Tim" 
-              class="portrait"/>
-            <div class="details">
-              <p class="name">Tim O'Reilly</p>
-              <p class="description">CEO, O'Reilly Media</p>
-              <div class="actions">
-                <div class="mail">&#9993;</div>
-                <div class="text">&#59168;</div>
-                <div class="call">&#128222;</div>
-                <div class="info"/>
-              </div>
-            </div>
-            <label for="contact-4"/>
-          </div>
-
-          <input 
-            id="contact-9" 
-            type="radio" 
-            name="contatcs">
-          <div class="item">
-            <div 
-              id="Ana" 
-              class="portrait"/>
-            <div class="details">
-              <p class="name">Ana Svanadze</p>
-              <p class="description">Patriot</p>
-              <div class="actions">
-                <div class="mail">&#9993;</div>
-                <div class="text">&#59168;</div>
-                <div class="call">&#128222;</div>
-                <div class="info"/>
-              </div>
-            </div>
-            <label for="contact-9"/>
-          </div>
-
-          <input 
-            id="contact-5" 
-            type="radio" 
-            name="contatcs">
-          <div class="item">
-            <div 
-              id="Ross" 
-              class="portrait"/>
-            <div class="details">
-              <p class="name">Derek Ross</p>
-              <p class="description">Systems Administrator</p>
-              <div class="actions">
-                <div class="mail">&#9993;</div>
-                <div class="text">&#59168;</div>
-                <div class="call">&#128222;</div>
-                <div class="info"/>
-              </div>
-            </div>
-            <label for="contact-5"/>
-          </div>
-
-          <input 
-            id="contact-6" 
-            type="radio" 
-            name="contatcs">
-          <div class="item">
-            <div 
-              id="Richard" 
-              class="portrait"/>
-            <div class="details">
-              <p class="name">Richard Branson</p>
-              <p class="description">Founder of Virgin Group</p>
-              <div class="actions">
-                <div class="mail">&#9993;</div>
-                <div class="text">&#59168;</div>
-                <div class="call">&#128222;</div>
-                <div class="info"/>
-              </div>
-            </div>
-            <label for="contact-6"/>
-          </div>
-
-          <input 
-            id="contact-7" 
-            type="radio" 
-            name="contatcs">
-          <div class="item">
-            <div 
-              id="George" 
-              class="portrait"/>
-            <div class="details">
-              <p class="name">George Takei</p>
-              <p class="description">Come on</p>
-              <div class="actions">
-                <div class="mail">&#9993;</div>
-                <div class="text">&#59168;</div>
-                <div class="call">&#128222;</div>
-                <div class="info"/>
-              </div>
-            </div>
-            <label for="contact-7"/>
-          </div>
-
-          <input 
-            id="contact-8" 
-            type="radio" 
-            name="contatcs">
-          <div class="item">
-            <div 
-              id="Beaufort" 
-              class="portrait"/>
-            <div class="details">
-              <p class="name">François Beaufort</p>
-              <p class="description">Happiness Evangelist</p>
-              <div class="actions">
-                <div class="mail">&#9993;</div>
-                <div class="text">&#59168;</div>
-                <div class="call">&#128222;</div>
-                <div class="info"/>
-              </div>
-            </div>
-            <label for="contact-8"/>
-          </div>
-
-
-		
-			
+            <style>
+              #contact-{{ u.count }}:checked ~ #menu_right {
+              background-image: url('{{ u.profile_url }}');
+              }
+              #{{ u.id }} {
+              background-image: url('{{ u.profile_url }}');
+              }
+            </style>
+          </span>
         </div>
+
         <div 
           id="menu_right" 
           class="col-md-8 center-block">
           <p class="lead center-block"> Dashboard for normal user. <a href="..\logout.php">Logout</a> </p>
         </div>
-      </div>
 
+      </div>
     </div>
     <div 
       id="byeMessage" 
       class="container dynamischeAenderungen">Bye Administrator!</div>
-
-
-
   </div>
 </template>
 
@@ -258,17 +69,98 @@ export default {
   components: {
     Bobbles,
     Navbar
+  },
+  data() {
+    return {
+      tableViews: [
+        {
+          name: 'Chris Lacy',
+          description: 'Developer',
+          id: 'chris-lacy',
+          count: 1,
+          profile_url:
+            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+        },
+        {
+          name: 'Mara Mascaro',
+          description: 'Video Editor',
+          id: 'Mara',
+          count: 2,
+          profile_url:
+            'https://lh6.googleusercontent.com/-iJYfqnaDuxg/Uc-C9u0u70I/AAAAAAAB4wI/TTxYpcfPTW8/s747-no/DSC_5282.JPG'
+        },
+        {
+          name: 'Chris Lacy',
+          description: 'Developer',
+          id: 'chris-lacy3',
+          count: 3,
+          profile_url:
+            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+        },
+        {
+          name: 'Chris Lacy',
+          description: 'Developer',
+          id: 'chris-lacy4',
+          count: 4,
+          profile_url:
+            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+        },
+        {
+          name: 'Chris Lacy',
+          description: 'Developer',
+          id: 'chris-lacy5',
+          count: 5,
+          profile_url:
+            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+        },
+        {
+          name: 'Chris Lacy',
+          description: 'Developer',
+          id: 'chris-lacy6',
+          count: 6,
+          profile_url:
+            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+        },
+        {
+          name: 'Chris Lacy',
+          description: 'Developer',
+          id: 'chris-lacy7',
+          count: 7,
+          profile_url:
+            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+        },
+        {
+          name: 'Chris Lacy',
+          description: 'Developer',
+          id: 'chris-lacy8',
+          count: 8,
+          profile_url:
+            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+        },
+        {
+          name: 'Chris Lacy',
+          description: 'Developer',
+          id: 'chris-lacy9',
+          count: 9,
+          profile_url:
+            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+        },
+        {
+          name: 'Chris Lacy',
+          description: 'Developer',
+          id: 'chris-lacy10',
+          count: 10,
+          profile_url:
+            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+        }
+      ]
+    }
   }
 }
 </script>
 
 <style>
 @charset "UTF-8";
-
-/*!
- * style.css for Somap
- * (c) 2016 Manuel
- */
 
 #homeContent {
   position: absolute;
@@ -294,7 +186,7 @@ export default {
 
 input {
   position: absolute;
-  visibility: hidden; /**/
+  visibility: hidden;
 }
 
 #background {
@@ -453,71 +345,6 @@ input:checked + .item {
 input:checked + .item > .details {
   top: -6em;
   z-index: 2;
-}
-
-/* Local Details */
-
-#chris-lacy {
-  background-image: url(https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png);
-}
-#marq {
-  background-image: url(https://lh6.googleusercontent.com/-HM-tr3UEejY/UTkJfpIKB0I/AAAAAAAB4Qw/Auc20I2DW50/s207-p-no/PO8A0788.jpg);
-}
-#Neila {
-  background-image: url(https://lh4.googleusercontent.com/-gi7ff5iHmfc/AAAAAAAAAAI/AAAAAAAAAAA/SAt2FLwWnqQ/s170-c-k-no/photo.jpg);
-}
-#Tim {
-  background-image: url(https://lh3.googleusercontent.com/-aldjCkivfjM/UiLJGp9uWkI/AAAAAAACZI0/SzF8u1Sn9Yg/s374-no/2010inField.jpg);
-}
-#Ross {
-  background-image: url(https://lh5.googleusercontent.com/-ZldUgVhYK2I/Ui5w1xJB-GI/AAAAAAABhyw/CYqAw6qNpdU/s747-no/IMG_4199.JPG);
-}
-#Richard {
-  background-image: url(https://lh4.googleusercontent.com/-3hWBW1tTkIs/TrAVPskLAXI/AAAAAAABYxw/tkRaEDCAhPA/w576-h575-no/DSC_0993.jpg);
-}
-#George {
-  background-image: url(https://lh5.googleusercontent.com/-1euFoF6_C1c/T9oVScCtEMI/AAAAAAAAoEw/70Mk-gAXts4/w525-h528-no/GT+color3.jpg);
-}
-#Beaufort {
-  background-image: url(https://lh6.googleusercontent.com/-GnkJpy0jk60/Tqar4gGdvwI/AAAAAAAA-0w/8qaP8zAm31E/s747-no/P1030524.JPG);
-}
-#Ana {
-  background-image: url(https://lh4.googleusercontent.com/-1zxtaYRNh84/AAAAAAAAAAI/AAAAAAAAAAA/7kbNSX3kyZQ/s170-c-k-no/photo.jpg);
-}
-#Mara {
-  background-image: url(https://lh6.googleusercontent.com/-iJYfqnaDuxg/Uc-C9u0u70I/AAAAAAAB4wI/TTxYpcfPTW8/s747-no/DSC_5282.JPG);
-}
-
-/* Local Interactions */
-#contact-1:checked ~ #menu_right {
-  background-image: url(https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png);
-}
-#contact-2:checked ~ #menu_right {
-  background-image: url(https://lh6.googleusercontent.com/-HM-tr3UEejY/UTkJfpIKB0I/AAAAAAAB4Qw/Auc20I2DW50/s207-p-no/PO8A0788.jpg);
-}
-#contact-3:checked ~ #menu_right {
-  background-image: url(https://lh4.googleusercontent.com/-gi7ff5iHmfc/AAAAAAAAAAI/AAAAAAAAAAA/SAt2FLwWnqQ/s170-c-k-no/photo.jpg);
-}
-#contact-4:checked ~ #menu_right {
-  background-image: url(https://lh3.googleusercontent.com/-aldjCkivfjM/UiLJGp9uWkI/AAAAAAACZI0/SzF8u1Sn9Yg/s374-no/2010inField.jpg);
-}
-#contact-5:checked ~ #menu_right {
-  background-image: url(https://lh5.googleusercontent.com/-ZldUgVhYK2I/Ui5w1xJB-GI/AAAAAAABhyw/CYqAw6qNpdU/s747-no/IMG_4199.JPG);
-}
-#contact-6:checked ~ #menu_right {
-  background-image: url(https://lh4.googleusercontent.com/-3hWBW1tTkIs/TrAVPskLAXI/AAAAAAABYxw/tkRaEDCAhPA/w576-h575-no/DSC_0993.jpg);
-}
-#contact-7:checked ~ #menu_right {
-  background-image: url(https://lh5.googleusercontent.com/-1euFoF6_C1c/T9oVScCtEMI/AAAAAAAAoEw/70Mk-gAXts4/w525-h528-no/GT+color3.jpg);
-}
-#contact-8:checked ~ #menu_right {
-  background-image: url(https://lh6.googleusercontent.com/-GnkJpy0jk60/Tqar4gGdvwI/AAAAAAAA-0w/8qaP8zAm31E/s747-no/P1030524.JPG);
-}
-#contact-9:checked ~ #menu_right {
-  background-image: url(https://lh4.googleusercontent.com/-1zxtaYRNh84/AAAAAAAAAAI/AAAAAAAAAAA/7kbNSX3kyZQ/s170-c-k-no/photo.jpg);
-}
-#contact-10:checked ~ #menu_right {
-  background-image: url(https://lh6.googleusercontent.com/-iJYfqnaDuxg/Uc-C9u0u70I/AAAAAAAB4wI/TTxYpcfPTW8/s747-no/DSC_5282.JPG);
 }
 
 /*bloede Bugfixes*/
