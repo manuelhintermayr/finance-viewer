@@ -1,9 +1,11 @@
 <template>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav 
+    id="main_nav" 
+    class="navbar navbar-expand-md bg-dark navbar-dark">
     <a 
       class="navbar-brand" 
-      href="#">Navbar</a>
+      href="#">Finance Viewer</a>
     <button 
       class="navbar-toggler" 
       type="button" 
@@ -19,16 +21,16 @@
       id="navbarSupportedContent" 
       class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a 
-            class="nav-link" 
-            href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
         <li class="nav-item">
           <a 
-            class="nav-link" 
-            href="#">Link</a>
+            class="nav-link disabled" 
+            href="/admin">Admin</a>
         </li>
+        <!-- <dropdown>
+          <template slot="btn">Custom btn</template>
+          <template slot="icon">Custom icon</template>
+          <template slot="body">Custom body</template>
+        </dropdown> -->
         <li class="nav-item dropdown">
           <a 
             id="navbarDropdown" 
@@ -38,38 +40,28 @@
             data-toggle="dropdown" 
             aria-haspopup="true" 
             aria-expanded="false">
-            Dropdown
+            Years
           </a>
           <div 
             class="dropdown-menu" 
             aria-labelledby="navbarDropdown">
             <a 
               class="dropdown-item" 
-              href="#">Action</a>
+              href="#">2017</a>
             <a 
               class="dropdown-item" 
-              href="#">Another action</a>
+              href="#">2018</a>
             <div class="dropdown-divider"/>
             <a 
               class="dropdown-item" 
-              href="#">Something else here</a>
+              href="#">2019</a>
           </div>
-        </li>
-        <li class="nav-item">
-          <a 
-            class="nav-link disabled" 
-            href="#">Disabled</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input 
-          class="form-control mr-sm-2" 
-          type="search" 
-          placeholder="Search" 
-          aria-label="Search">
         <button 
-          class="btn btn-outline-success my-2 my-sm-0" 
-          type="submit">Search</button>
+          class="btn btn-outline-info my-2 my-sm-0" 
+          type="submit"><font-awesome-icon icon="coffee" /><i class="fas fa-sign-out"/> Logout</button>
       </form>
     </div>
   </nav>
@@ -77,8 +69,16 @@
 </template>
 
 <script>
-export default {}
+export default {
+  //   components: { Dropdown }
+}
 </script>
 
 <style scoped>
+#main_nav {
+  border-radius: 0;
+  background: rgba(34, 34, 34, 0.86);
+  border-color: #080808;
+  border-bottom: 2px #080808 solid;
+}
 </style>
