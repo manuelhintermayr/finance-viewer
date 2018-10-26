@@ -1,5 +1,7 @@
 <?php
     //TODO: reverse ! on both first ifs
+    error_reporting(E_ERROR | E_PARSE);
+
     $path = $_SERVER['DOCUMENT_ROOT'];
     include($path."/config/login.php");
     $_POST = json_decode(file_get_contents("php://input"),true);
