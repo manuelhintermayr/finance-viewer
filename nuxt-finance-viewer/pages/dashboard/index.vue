@@ -1,9 +1,13 @@
 <template>
-  <div>
+  <div 
+    id="homeContent" 
+    class="fill-height">
     <bobbles/>
     <!-- Based on http://www.manuelweb.at/old/login1/home.html -->
     
-    <div id="content">
+    <div 
+      id="content" 
+      class="fill-height">
       <navbar />
 
       <div 
@@ -146,7 +150,7 @@ export default {
             'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
         },
         {
-          name: 'Chris Lacy',
+          name: 'Chris Lacy Last',
           description: 'Developer',
           id: 'chris-lacy10',
           count: 10,
@@ -162,10 +166,18 @@ export default {
 <style>
 @charset "UTF-8";
 
+#menu {
+  height: calc(100% - 59px);
+}
+
 #homeContent {
   position: absolute;
   width: 100%;
   left: 0;
+}
+
+.fill-height {
+  height: 100%;
 }
 
 #main_nav {
@@ -354,13 +366,6 @@ input:checked + .item > .details {
         dass dieser Wert vom style_login.css ueberschrieben
         wurde und dadurch der Style komplett anders war. Das wurde hiermit
         gefixt.*/
-}
-#menu {
-  height: calc(100% - 50px);
-  /*Das muss deswegen geschrieben werden, weil sonst dieser div zu gross waere.
-        Die Navigation kommt vor diesem Div und nimmt 50px des Seite schon ein,
-        deshalb ist es nicht mehr height=100%, sondern 100%-50px
-        */
 }
 
 /* Scrollbar */
