@@ -3,17 +3,12 @@
     id="homeContent" 
     class="fill-height">
     <bobbles/>
-    <!-- Based on http://www.manuelweb.at/old/login1/home.html -->
-    
+    <navbar />
     <div 
-      id="content" 
-      class="fill-height">
-      <navbar />
-
+      id="content">
       <div 
         id="menu" 
-        class="row">
-
+        class="row fill-height">
         <div  
           id="menu_left" 
           class="col-md-3 scrollbar fill-height">
@@ -164,9 +159,8 @@ export default {
 </script>
 
 <style>
-@charset "UTF-8";
-
-#menu {
+#content {
+  height: 93.5%;
   height: calc(100% - 59px);
 }
 

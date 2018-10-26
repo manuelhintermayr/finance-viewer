@@ -1,8 +1,9 @@
 <template>
   <div>
     <bobbles />
+    <navbar />
     <div id="content">
-      <navbar />
+
       <main 
         role="main" 
         class="container">
@@ -314,7 +315,8 @@ export default {
   position: absolute;
   width: 100%;
   left: 0;
-  height: 100%;
+  height: 93.5%;
+  height: calc(100% - 59px);
   overflow-y: scroll;
 }
 .transparentModal {
