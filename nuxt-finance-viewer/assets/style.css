@@ -14,3 +14,15 @@ body {
   overflow: hidden;
   /* End shared code*/
 }
+
+.fade-enter-active,
+.fadeEnterActive,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fadeEnter,
+.fade-leave-to {
+  opacity: 0;
+}

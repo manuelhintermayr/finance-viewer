@@ -41,7 +41,7 @@
       <form class="form-inline my-2 my-lg-0">
         <button 
           class="btn btn-outline-info my-2 my-sm-0" 
-          type="submit">
+          @click="loggedOut = !loggedOut">
           <font-awesome-icon icon="sign-out-alt" />
           <font-awesome-icon :icon="['fas', 'Ad']" />
           Logout

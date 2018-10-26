@@ -225,18 +225,6 @@ form button:hover {
 }
 
 /** Correct Login style */
-.fade-enter-active,
-.fadeEnterActive,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-
-.fade-enter,
-.fadeEnter,
-.fade-leave-to {
-  opacity: 0;
-}
-
 .formSuccess .container h1 {
   -webkit-transform: translateY(85px);
   transform: translateY(85px);
