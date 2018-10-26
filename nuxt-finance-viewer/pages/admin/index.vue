@@ -202,7 +202,7 @@
                       required=""
                       maxlength="45">
                   </td>
-                  <td><button class="btn btn-secondary">Update</button></td>
+                  <td><button class="btn btn-secondary">Update Password</button></td>
                 </tr>
               </tbody>
             </table>

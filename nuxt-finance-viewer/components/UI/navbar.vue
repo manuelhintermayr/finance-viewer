@@ -5,7 +5,7 @@
     class="navbar navbar-expand-md bg-dark navbar-dark">
     <a 
       class="navbar-brand" 
-      href="#">Finance Viewer</a>
+      href="#"><font-awesome-icon icon="globe-americas" /> Finance Viewer</a>
     <button 
       class="navbar-toggler" 
       type="button" 
@@ -23,7 +23,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a 
-            class="nav-link disabled" 
+            class="nav-link" 
             href="#">Admin</a>
         </li>
         <li class="nav-item">
@@ -40,7 +40,11 @@
       <form class="form-inline my-2 my-lg-0">
         <button 
           class="btn btn-outline-info my-2 my-sm-0" 
-          type="submit"><font-awesome-icon icon="AddressBook" /><font-awesome-icon :icon="['fas', 'Ad']" /><i class="fas fa-sign-out"/>Logout</button>
+          type="submit">
+          <font-awesome-icon icon="sign-out-alt" />
+          <font-awesome-icon :icon="['fas', 'Ad']" />
+          Logout
+        </button>
       </form>
     </div>
   </nav>
@@ -67,9 +71,17 @@ export default {}
   background-color: transparent;
 }
 .dropdownNavbar {
-  color: rgb(128, 128, 128);
   background: transparent;
   border: none;
   padding-bottom: 3px;
+  cursor: pointer;
+}
+.nav-link,
+.dropdownNavbar {
+  color: rgb(128, 128, 128) !important;
+}
+.nav-link:hover,
+.dropdownNavbar:hover {
+  color: #a2a0a0 !important;
 }
 </style>
