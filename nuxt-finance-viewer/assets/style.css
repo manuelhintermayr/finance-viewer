@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200, 300);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200);
 
 @import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
@@ -13,4 +13,20 @@ body {
   background-attachment: fixed;
   overflow: hidden;
   /* End shared code*/
+}
+
+.fade-enter-active,
+.fadeEnterActive,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fadeEnter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fill-height {
+  height: 100%;
 }

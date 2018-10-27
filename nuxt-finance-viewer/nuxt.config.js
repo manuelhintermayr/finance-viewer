@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const webpack = require('webpack')
 
 module.exports = {
   mode: 'spa',
@@ -15,6 +16,7 @@ module.exports = {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
+  // script: [{ src: 'https://unpkg.com/jquery@3.2.1/dist/jquery.min.js' }],
 
   /*
   ** Customize the progress-bar color
@@ -29,7 +31,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/icons', '~/plugins/bootstrap', '~/plugins/dropdown'],
+  plugins: ['~/plugins/icons', '~/plugins/bootstrap'],
 
   /*
   ** Nuxt.js modules
@@ -45,7 +47,6 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: 'http://localhost:64674/',
-    credentials: false,
     debug: true
   },
 
@@ -69,3 +70,9 @@ module.exports = {
     }
   }
 }
+
+new webpack.ProvidePlugin({
+  jQuery: 'jquery',
+  $: 'jquery',
+  'window.jQuery': 'jquery'
+})
