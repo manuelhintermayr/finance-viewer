@@ -56,6 +56,7 @@
 
 <script>
 import Bobbles from '~/components/UI/bobbles'
+import jquery from 'jquery'
 
 export default {
   components: {

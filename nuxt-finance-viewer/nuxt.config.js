@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const webpack = require('webpack')
 
 module.exports = {
   mode: 'spa',
@@ -15,6 +16,7 @@ module.exports = {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
+  // script: [{ src: 'https://unpkg.com/jquery@3.2.1/dist/jquery.min.js' }],
 
   /*
   ** Customize the progress-bar color
@@ -68,3 +70,9 @@ module.exports = {
     }
   }
 }
+
+new webpack.ProvidePlugin({
+  jQuery: 'jquery',
+  $: 'jquery',
+  'window.jQuery': 'jquery'
+})

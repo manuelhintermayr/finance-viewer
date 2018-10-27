@@ -1,9 +1,7 @@
 <template>
   <div>
     <bobbles />
-    <navbar />
     <div id="content">
-
       <main 
         role="main" 
         class="container">
@@ -97,6 +95,13 @@
                 class="custom-control-label" 
                 for="is-Locked">Lock this user</label>
             </div>
+            <!-- <b-form-checkbox 
+              id="is-Locked"
+              v-model="itemIsLocked"
+              value="accepted"
+              unchecked-value="not_accepted">
+              Lock this user
+            </b-form-checkbox> -->
             <hr class="mb-4">
             <button 
               class="btn btn-secondary btn-lg btn-block" 
@@ -118,6 +123,7 @@
                 <th scope="col">Username</th>
                 <th scope="col">Firstname</th>
                 <th scope="col">Lastname</th>
+                <th scope="col">Is Locked</th>
                 <th scope="col">Update</th>
                 <th scope="col">Remove</th>
                 <th scope="col">Password</th>
@@ -152,6 +158,26 @@
                     class="form-control" 
                     required="" 
                     maxlength="45">
+                </td>
+                <td>
+                  <!-- <bootstrap-toggle 
+                    v-model="u.isLocked" 
+                    :options="{ on: 'Yes', off: 'No' }" 
+                    :disabled="false" /> -->
+
+                  <div class="custom-control custom-checkbox">
+                    <input 
+                      :id="'is-Locked-'+u.id" 
+                      v-model="u.isLocked" 
+                      type="checkbox" 
+                      class="custom-control-input">
+                    <label 
+                      :for="'is-Locked-'+u.id" 
+                      class="custom-control-label"/>
+                  </div>
+                 
+                  
+
                 </td>
                 <td><button class="btn btn-secondary">Update</button></td>
                 <td>
@@ -223,13 +249,14 @@
 
 <script>
 import Bobbles from '~/components/UI/bobbles'
-import Navbar from '~/components/UI/navbar'
+// import BootstrapToggle from 'vue-bootstrap-toggle'
 
 export default {
   components: {
-    Bobbles,
-    Navbar
+    Bobbles
+    // BootstrapToggle
   },
+  layout: 'loggedIn',
   data() {
     return {
       users: [],
@@ -287,6 +314,7 @@ export default {
         origianlUsername: this.itemUsername,
         firstname: this.itemFirstname,
         lastname: this.itemLastname,
+        isLocked: this.itemIsLocked,
         password: ''
       })
       this.itemUsername = this.itemPassword = this.itemFirstname = this.itemLastname = this.itemIsLocked =
@@ -322,7 +350,8 @@ export default {
 .transparentModal {
   background-color: #ffffff45 !important;
 }
-.btn-secondary {
+.btn-secondary,
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #6c757d8c;
 }
 
