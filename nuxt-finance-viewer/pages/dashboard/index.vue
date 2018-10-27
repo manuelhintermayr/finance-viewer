@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fill-height">
     <bobbles />
     <div 
       id="content">
@@ -46,6 +46,44 @@
         <div 
           id="menu_right" 
           class="col-md-8 center-block">
+          <span v-if="createNewViewEnabled" >
+            <div 
+              class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
+              <h3 class="border-bottom border-gray pb-2 mb-0">Set password of user</h3>
+              <br>
+              <p class="lead">Set the password of a current user:</p>
+              <table class="table table-striped table-hover">
+                <thead class="">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">New Password</th>
+                    <th scope="col">Update</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">{{ currentUserToChangePassword.id }}</th>
+                    <td>{{ currentUserToChangePassword.username }}</td>
+                    <td>
+                      <input   
+                        v-model="currentUserToChangePassword.password" 
+                        type="text" 
+                        class="form-control"
+                        required=""
+                        maxlength="45">
+                    </td>
+                    <td><button class="btn btn-secondary">Update Password</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <hr class="mb-4">
+              <button 
+                class="btn btn-secondary btn-lg btn-block" 
+                @click="createNewViewEnabled=!createNewViewEnabled">Hide &amp; go to top</button>
+            </div>
+          </span>
+
           <p class="lead center-block"> Dashboard for normal user. <a href="..\logout.php">Logout</a> </p>
         </div>
 
@@ -66,6 +104,16 @@ export default {
   data() {
     return {
       loggedOut: false,
+      createNewViewEnabled: true,
+      currentUserToChangePassword: {
+        id: 0,
+        username: '',
+        origianlUsername: '',
+        firstname: '',
+        lastname: '',
+        isLocked: false,
+        password: ''
+      },
       tableViews: [
         {
           name: 'Chris Lacy',
@@ -173,6 +221,7 @@ export default {
   max-width: 100%;
   overflow-x: hidden;
   padding-right: 0px;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 input {
@@ -206,7 +255,6 @@ label {
   height: 6em;
   padding: 1px 0;
 
-  background-color: rgba(0, 0, 0, 0.6); /**/
   z-index: 3;
   overflow: hidden;
   -webkit-transition: background-color 0.7s;
