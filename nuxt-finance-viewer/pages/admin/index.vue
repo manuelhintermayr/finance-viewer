@@ -123,7 +123,7 @@
                 <th scope="col">Username</th>
                 <th scope="col">Firstname</th>
                 <th scope="col">Lastname</th>
-                <th scope="col">Is Locked</th>
+                <th scope="col">Locked</th>
                 <th scope="col">Update</th>
                 <th scope="col">Remove</th>
                 <th scope="col">Password</th>
@@ -160,10 +160,6 @@
                     maxlength="45">
                 </td>
                 <td>
-                  <!-- <bootstrap-toggle 
-                    v-model="u.isLocked" 
-                    :options="{ on: 'Yes', off: 'No' }" 
-                    :disabled="false" /> -->
 
                   <div class="custom-control custom-checkbox">
                     <input 
@@ -362,5 +358,18 @@ input,
 
 .table thead th {
   border-top: none;
+}
+
+.table .custom-checkbox .custom-control-label::before {
+  height: 31px;
+  width: 31px;
+  position: relative;
+}
+.table .custom-checkbox .custom-control-label::after {
+  width: 100%;
+  height: 100%;
+}
+.custom-checkbox {
+  padding-left: 2.5rem;
 }
 </style>
