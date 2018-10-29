@@ -24,10 +24,10 @@
                 <p class="name">{{ u.name }}</p>
                 <p class="description">{{ u.description }}</p>
                 <div class="actions">
-                  <div class="mail">&#9993;</div>
-                  <div class="text">&#59168;</div>
-                  <div class="call">&#128222;</div>
                   <div class="info"/>
+                  <div> 
+                    <p class="description"> {{ u.notes }} </p> 
+                  </div>
                 </div>
               </div>
               <label :for="'contact-'+u.count"/>
@@ -116,74 +116,90 @@ export default {
       },
       tableViews: [
         {
-          name: 'Chris Lacy',
-          description: 'Developer',
-          id: 'chris-lacy',
+          name: 'Aldi',
+          description: 'Supermarket',
+          id: 'adli',
           count: 1,
+          notes: 'This is the Aldi supermarket. I use it to buy groceries.',
           profile_url:
-            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+            'https://cdn.aldi-digital.co.uk/32FDVWu4Lhbxgj9Z3v03ji0pGJIp?'
         },
         {
-          name: 'Mara Mascaro',
-          description: 'Video Editor',
-          id: 'Mara',
+          name: 'Wilko',
+          description: 'Supermarket',
+          id: 'wilko',
           count: 2,
+          notes:
+            'Wilko is like the austrian IKEA. You can buy practically everything.',
           profile_url:
-            'https://lh6.googleusercontent.com/-iJYfqnaDuxg/Uc-C9u0u70I/AAAAAAAB4wI/TTxYpcfPTW8/s747-no/DSC_5282.JPG'
+            'https://pbs.twimg.com/profile_images/1018756618635431936/9rRo7jvO_400x400.jpg'
         },
         {
-          name: 'Chris Lacy',
-          description: 'Developer',
-          id: 'chris-lacy3',
+          name: 'Amazon',
+          description: 'Online E-Commerce',
+          id: 'amazon',
           count: 3,
+          notes:
+            'Amazon is an online eCommerce. I use it to buy stuff and proteins.',
           profile_url:
-            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+            'http://mediad.publicbroadcasting.net/p/wkar/files/styles/x_large/public/201706/10398927_9465478123_740_n.jpg'
         },
         {
-          name: 'Chris Lacy',
-          description: 'Developer',
-          id: 'chris-lacy4',
+          name: 'Food',
+          description: 'Food not included in supermarket',
+          id: 'food',
           count: 4,
+          notes:
+            'Everything I eat (besides from what I buy at the supermarket) is included in this list.',
           profile_url:
-            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+            'https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/spaghetti_bolognese_with_23409_16x9.jpg'
         },
         {
-          name: 'Chris Lacy',
-          description: 'Developer',
-          id: 'chris-lacy5',
+          name: 'Car',
+          description: 'Car costs, insurance, gasoline',
+          id: 'car',
           count: 5,
+          notes:
+            'A car doesn`t come cheap. Everything is spend for this car is included here.',
           profile_url:
-            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+            'https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-1fndzcd_41017374.jpeg'
         },
         {
-          name: 'Chris Lacy',
-          description: 'Developer',
-          id: 'chris-lacy6',
+          name: 'Invoices',
+          description: 'Monthly costs, rent, etc.',
+          id: 'invoices',
           count: 6,
+          notes:
+            'All my invoices, like rent, gas, electricity and else is included in this list.',
           profile_url:
-            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+            'https://www.zervant.com/wp-content/uploads/2016/07/sole-trader-invoice-vat.png'
         },
         {
-          name: 'Chris Lacy',
-          description: 'Developer',
-          id: 'chris-lacy7',
+          name: 'Phone',
+          description: 'Costs for the phone provider',
+          id: 'phone',
           count: 7,
+          notes:
+            'A phone doesn`t come cheat. The monthly costs for a phone are included here.',
           profile_url:
-            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+            'https://i5.walmartimages.com/asr/f8bb1886-fb1a-4bd4-8b0c-3107bdd8c9aa_1.25d0865f300a0ec45affe204985f243b.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF'
         },
         {
-          name: 'Chris Lacy',
-          description: 'Developer',
-          id: 'chris-lacy8',
+          name: 'Medicine',
+          description: 'Medicine bought from the pharmacy',
+          id: 'medicine',
           count: 8,
+          notes:
+            'Descriptions and everything I use medically is included here.',
           profile_url:
-            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
+            'https://www.flsouthern.edu/getattachment/5f1866fb-be3b-4b03-bce5-4ffcd2c8ffb0/pre-pharmacy.aspx'
         },
         {
           name: 'Chris Lacy',
           description: 'Developer',
           id: 'chris-lacy9',
           count: 9,
+          notes: 'blabla',
           profile_url:
             'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
         },
@@ -192,6 +208,7 @@ export default {
           description: 'Developer',
           id: 'chris-lacy10',
           count: 10,
+          notes: 'blabla',
           profile_url:
             'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
         }
@@ -322,12 +339,8 @@ label {
   width: 100%;
 }
 .actions > div {
-  font-family: Entypo;
-  font-size: 2.1em;
-
   position: absolute;
-  width: 25%;
-
+  width: 100%;
   color: transparent;
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: #fff;
