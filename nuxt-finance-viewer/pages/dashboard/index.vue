@@ -274,42 +274,43 @@ export default {
       newView_id: 'fvmarket',
       newView_notes: 'This is my local market',
       newView_profile_url:
-        'https://cdn.aldi-digital.co.uk/32FDVWu4Lhbxgj9Z3v03ji0pGJIp?',
+        'https://cdn.stocksnap.io/img-thumbs/960w/AWJD4WV6W1.jpg',
       tableViews: [
         {
-          name: 'Aldi',
+          name: 'FVMarket',
           description: 'Supermarket',
-          id: 'adli',
+          id: 'fvmarket',
           count: 1,
-          notes: 'This is the Aldi supermarket. I use it to buy groceries.',
+          notes: 'This is the FVMarket supermarket. I use it to buy groceries.',
           viewEnabled: false,
           profile_url:
-            'https://cdn.aldi-digital.co.uk/32FDVWu4Lhbxgj9Z3v03ji0pGJIp?',
+            'https://cdn.stocksnap.io/img-thumbs/960w/AWJD4WV6W1.jpg',
           data: {
-            january: '1+1+1',
-            february: '2',
-            march: '3',
-            april: '4',
-            may: '5',
-            june: '6',
-            july: '7',
-            august: '8',
-            september: '9',
-            october: '10',
-            november: '11',
-            december: '12'
+            january: '1+1+41.69+21.49+43.99+14.29',
+            february: '13.99+52.39+10,79+21.49+23.49',
+            march: '0,45+1,39+2,79+0,2+1,99+2,49+0,99+1,49+0,89',
+            april:
+              '43.54-6+16.55+15.42+3.58+6.86+10.17+17.76+-20+2.47+19.15+4.29+18.3+22.02+7.84+6.98',
+            may: '23.97+2.75+16.39+10.53+18.99+5.34+4.31+5.85+24.34+4.74+12.93',
+            june: '89.4',
+            july: '120.3',
+            august: '153.58',
+            september: '194.01',
+            october: '79.99',
+            november: '112.31',
+            december: '126.29'
           }
         },
         {
-          name: 'Wilko',
+          name: 'Richard',
           description: 'Supermarket',
-          id: 'wilko',
+          id: 'richard',
           count: 2,
           notes:
-            'Wilko is like the austrian IKEA. You can buy practically everything.',
+            'Richard is like the austrian big supermarket. You can buy practically everything.',
           viewEnabled: false,
           profile_url:
-            'https://pbs.twimg.com/profile_images/1018756618635431936/9rRo7jvO_400x400.jpg',
+            'https://cdn.stocksnap.io/img-thumbs/960w/R0CTZDRFPY.jpg',
           data: {
             january: '1',
             february: '2',
@@ -326,28 +327,28 @@ export default {
           }
         },
         {
-          name: 'Amazon',
+          name: 'Amazing',
           description: 'Online E-Commerce',
-          id: 'amazon',
+          id: 'amazing',
           count: 3,
           notes:
-            'Amazon is an online eCommerce. I use it to buy stuff and proteins.',
+            'Amazing is an online eCommerce. I use it to buy stuff and proteins.',
           viewEnabled: false,
           profile_url:
-            'http://mediad.publicbroadcasting.net/p/wkar/files/styles/x_large/public/201706/10398927_9465478123_740_n.jpg',
+            'https://image.shutterstock.com/image-photo/boxes-trolley-on-laptop-keyboard-450w-580499569.jpg',
           data: {
-            january: '1',
-            february: '2',
-            march: '3',
-            april: '4',
-            may: '5',
-            june: '6',
-            july: '7',
-            august: '8',
-            september: '9',
-            october: '10',
-            november: '11',
-            december: '12'
+            january: '123.45',
+            february: '20+35.81+11.04+39.9',
+            march: '30.2',
+            april: '39.1+20+1.30+40.91',
+            may: '88.20',
+            june: '60.19',
+            july: '7.91',
+            august: '88.29',
+            september: '90.69',
+            october: '101.29',
+            november: '119.14',
+            december: '124.17'
           }
         },
         {
@@ -359,20 +360,20 @@ export default {
             'Everything I eat (besides from what I buy at the supermarket) is included in this list.',
           viewEnabled: false,
           profile_url:
-            'https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/spaghetti_bolognese_with_23409_16x9.jpg',
+            'https://image.shutterstock.com/image-photo/healthy-salad-bowl-quinoa-tomatoes-450w-521741356.jpg',
           data: {
-            january: '1',
-            february: '2',
-            march: '3',
-            april: '4',
-            may: '5',
-            june: '6',
-            july: '7',
-            august: '8',
-            september: '9',
-            october: '10',
-            november: '11',
-            december: '12'
+            january: '49.25',
+            february: '29.49',
+            march: '90.19',
+            april: '4+1+5+3+3.50+4.5+1+1+1+2+1',
+            may: '5+5+6+7+9',
+            june: '6+4.5',
+            july: '7+70',
+            august: '89.13',
+            september: '99-1',
+            october: '100.01+20.29',
+            november: '111',
+            december: '122'
           }
         },
         {
@@ -384,20 +385,20 @@ export default {
             'A car doesn`t come cheap. Everything is spend for this car is included here.',
           viewEnabled: false,
           profile_url:
-            'https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-1fndzcd_41017374.jpeg',
+            'https://image.shutterstock.com/image-photo/creative-background-highbeam-headlight-newest-450w-1191643888.jpg',
           data: {
-            january: '1',
-            february: '2',
-            march: '3',
-            april: '4',
-            may: '5',
-            june: '6',
-            july: '7',
-            august: '8',
-            september: '9',
-            october: '10',
-            november: '11',
-            december: '12'
+            january: '90+450',
+            february: '80+550',
+            march: '90+350.55',
+            april: '80+154.23',
+            may: '90+431.49',
+            june: '80+350',
+            july: '90+210',
+            august: '80+482',
+            september: '90+211',
+            october: '80+30',
+            november: '91+40',
+            december: '82+430'
           }
         },
         {
@@ -409,20 +410,20 @@ export default {
             'All my invoices, like rent, gas, electricity and else is included in this list.',
           viewEnabled: false,
           profile_url:
-            'https://www.zervant.com/wp-content/uploads/2016/07/sole-trader-invoice-vat.png',
+            'https://image.shutterstock.com/image-vector/e-commerce-order-450w-1148589737.jpg',
           data: {
-            january: '1',
-            february: '2',
-            march: '3',
-            april: '4',
-            may: '5',
-            june: '6',
-            july: '7',
-            august: '8',
-            september: '9',
-            october: '10',
-            november: '11',
-            december: '12'
+            january: '750+35+35+25+25',
+            february: '750+35+35+25+30',
+            march: '750+35+35+25+18.78',
+            april: '750+35+35+25+69',
+            may: '750+35+35+25+169',
+            june: '750+35+35+25+385',
+            july: '750+35+35+25+342',
+            august: '750+35+35+25+295',
+            september: '750+9+35+35+25+284',
+            october: '750+10+35+35+25+284',
+            november: '750+112+35+35+25+10',
+            december: '75012+35+35+25+130'
           }
         },
         {
@@ -434,20 +435,20 @@ export default {
             'A phone doesn`t come cheat. The monthly costs for a phone are included here.',
           viewEnabled: false,
           profile_url:
-            'https://i5.walmartimages.com/asr/f8bb1886-fb1a-4bd4-8b0c-3107bdd8c9aa_1.25d0865f300a0ec45affe204985f243b.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF',
+            'https://image.shutterstock.com/image-photo/hand-holding-black-phone-isolated-450w-386618683.jpg',
           data: {
-            january: '1',
-            february: '2',
-            march: '3',
-            april: '4',
-            may: '5',
-            june: '6',
-            july: '7',
-            august: '8',
-            september: '9',
-            october: '10',
-            november: '11',
-            december: '12'
+            january: '14.2',
+            february: '14.2',
+            march: '14.2',
+            april: '14.2',
+            may: '14.2+30',
+            june: '14.2',
+            july: '14.2+2.60',
+            august: '8+14.2',
+            september: '19',
+            october: '19',
+            november: '19',
+            december: '19'
           }
         },
         {
@@ -459,20 +460,20 @@ export default {
             'Descriptions and everything I use medically is included here.',
           viewEnabled: false,
           profile_url:
-            'https://www.flsouthern.edu/getattachment/5f1866fb-be3b-4b03-bce5-4ffcd2c8ffb0/pre-pharmacy.aspx',
+            'https://cdn.stocksnap.io/img-thumbs/960w/LKM1T38B6S.jpg',
           data: {
-            january: '1',
-            february: '2',
+            january: '12+4',
+            february: '2+1.3',
             march: '3',
-            april: '4',
-            may: '5',
-            june: '6',
-            july: '7',
-            august: '8',
+            april: '6+3.3+10.95+3+4.05+8.3',
+            may: '12+5.2+2.2',
+            june: '1+29+4.2',
+            july: '15.4',
+            august: '9.20',
             september: '9',
-            october: '10',
-            november: '11',
-            december: '12'
+            october: '26.9+29.9+6',
+            november: '12+8.99',
+            december: '13.99+25.28'
           }
         }
       ]
@@ -490,22 +491,22 @@ export default {
       this.tableViews.splice(this.tableViews.indexOf(view), 1)
     },
     eval(content) {
-      return eval(content)
+      return Math.round(eval(content) * 100) / 100
     },
     sumForYear(yearArray) {
-      return (
-        eval(yearArray.january) +
-        eval(yearArray.february) +
-        eval(yearArray.march) +
-        eval(yearArray.april) +
-        eval(yearArray.may) +
-        eval(yearArray.june) +
-        eval(yearArray.july) +
-        eval(yearArray.august) +
-        eval(yearArray.september) +
-        eval(yearArray.october) +
-        eval(yearArray.november) +
-        eval(yearArray.december)
+      return this.eval(
+        this.eval(yearArray.january) +
+          this.eval(yearArray.february) +
+          this.eval(yearArray.march) +
+          this.eval(yearArray.april) +
+          this.eval(yearArray.may) +
+          this.eval(yearArray.june) +
+          this.eval(yearArray.july) +
+          this.eval(yearArray.august) +
+          this.eval(yearArray.september) +
+          this.eval(yearArray.october) +
+          this.eval(yearArray.november) +
+          this.eval(yearArray.december)
       )
     },
     getSumJanuary() {
@@ -513,99 +514,99 @@ export default {
       this.tableViews.forEach(element => {
         result += eval(element.data.january)
       })
-      return result
+      return this.eval(result)
     },
     getSumFebruary() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.february)
       })
-      return result
+      return this.eval(result)
     },
     getSumMarch() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.march)
       })
-      return result
+      return this.eval(result)
     },
     getSumApril() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.april)
       })
-      return result
+      return this.eval(result)
     },
     getSumMay() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.may)
       })
-      return result
+      return this.eval(result)
     },
     getSumJune() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.june)
       })
-      return result
+      return this.eval(result)
     },
     getSumJuly() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.july)
       })
-      return result
+      return this.eval(result)
     },
     getSumAugust() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.august)
       })
-      return result
+      return this.eval(result)
     },
     getSumSeptember() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.september)
       })
-      return result
+      return this.eval(result)
     },
     getSumOctober() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.october)
       })
-      return result
+      return this.eval(result)
     },
     getSumNovember() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.november)
       })
-      return result
+      return this.eval(result)
     },
     getSumDecember() {
       let result = 0
       this.tableViews.forEach(element => {
         result += eval(element.data.december)
       })
-      return result
+      return this.eval(result)
     },
     getTotalSum() {
-      return (
+      return this.eval(
         this.getSumJanuary() +
-        this.getSumFebruary() +
-        this.getSumMarch() +
-        this.getSumApril() +
-        this.getSumMay() +
-        this.getSumJune() +
-        this.getSumJuly() +
-        this.getSumAugust() +
-        this.getSumSeptember() +
-        this.getSumOctober() +
-        this.getSumNovember() +
-        this.getSumDecember()
+          this.getSumFebruary() +
+          this.getSumMarch() +
+          this.getSumApril() +
+          this.getSumMay() +
+          this.getSumJune() +
+          this.getSumJuly() +
+          this.getSumAugust() +
+          this.getSumSeptember() +
+          this.getSumOctober() +
+          this.getSumNovember() +
+          this.getSumDecember()
       )
     }
   }
