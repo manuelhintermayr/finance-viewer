@@ -98,7 +98,78 @@
 
           <!-- start area for total overview -->
           <span v-if="overviewIsEnabled">
-            <h1> Overview is enabled </h1>
+            <h1> Overview for all tables </h1>
+            <table class="table table-striped table-hover">
+              <thead class="">
+                <tr>
+                  <th scope="col"><b>Name</b></th>
+                  <th 
+                    scope="col" 
+                    class="tableBorderLeft">January</th>
+                  <th scope="col">February</th>
+                  <th scope="col">March</th>
+                  <th scope="col">April</th>
+                  <th scope="col">May</th>
+                  <th scope="col">June</th>
+                  <th scope="col">July</th>
+                  <th scope="col">August</th>
+                  <th scope="col">September</th>
+                  <th scope="col">October</th>
+                  <th scope="col">November</th>
+                  <th scope="col">December</th>
+                  <th 
+                    scope="col" 
+                    class="tableBorderLeft">Sum</th>
+                  <th 
+                    scope="col" 
+                    class="tableBorderLeft">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr 
+                  v-for="u in tableViews"
+                  :key="u.name" 
+                  class="text-right">
+                  <th 
+                    scope="row" 
+                    class="text-left">{{ u.name }}</th>
+                  <td class="tableBorderLeft">1&pound;</td>
+                  <td>2&pound;</td>
+                  <td>3&pound;</td>
+                  <td>4&pound;</td>
+                  <td>5&pound;</td>
+                  <td>6&pound;</td>
+                  <td>7&pound;</td>
+                  <td>8&pound;</td>
+                  <td>9&pound;</td>
+                  <td>10&pound;</td>
+                  <td>11&pound;</td>
+                  <td>12&pound;</td>
+                  <td class="tableBorderLeft"><b>178&pound;</b></td>
+                  <td class="tableBorderLeft"><button class="btn btn-secondary">Delete</button></td>
+                </tr>
+                <tr 
+                  class="lastRow text-right">
+                  <th 
+                    scope="row" 
+                    class="text-left">Sum</th>
+                  <td class="tableBorderLeft"><b>1&pound;</b></td>
+                  <td><b>2&pound;</b></td>
+                  <td><b>3&pound;</b></td>
+                  <td><b>4&pound;</b></td>
+                  <td><b>5&pound;</b></td>
+                  <td><b>6&pound;</b></td>
+                  <td><b>7&pound;</b></td>
+                  <td><b>8&pound;</b></td>
+                  <td><b>9&pound;</b></td>
+                  <td><b>10&pound;</b></td>
+                  <td><b>11&pound;</b></td>
+                  <td><b>12&pound;</b></td>
+                  <td class="tableBorderLeft"><b>178&pound;</b></td>
+                  <td class="tableBorderLeft text-center">-</td>
+                </tr>
+              </tbody>
+            </table>
           </span>
           <!-- end area for total overview -->
 
@@ -339,11 +410,9 @@ export default {
 .item {
   position: relative;
   float: left;
-
   width: 100%;
   height: 6em;
   padding: 1px 0;
-
   z-index: 3;
   overflow: hidden;
   -webkit-transition: background-color 0.7s;
@@ -352,14 +421,10 @@ export default {
 .portrait {
   position: relative;
   float: left;
-
   height: 3em;
   width: 3em;
-
   border-radius: 50%;
-
   margin: 1.5em;
-
   background-size: cover;
 }
 .portrait:after {
@@ -367,10 +432,8 @@ export default {
   position: absolute;
   top: -0.3em;
   left: -0.3em;
-
   height: 3.5em;
   width: 3.5em;
-
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   -webkit-transition: border 0.3s;
@@ -380,10 +443,8 @@ export default {
   position: relative;
   float: left;
   top: 0;
-
   width: 55%;
   margin: 1em 0 0 0.75em;
-
   -webkit-transition: top 0.5s;
 }
 
@@ -534,5 +595,13 @@ export default {
 }
 .scrollbarRight::-webkit-scrollbar-thumb:window-inactive {
   background: #204b42;
+}
+
+.tableBorderLeft {
+  border-left: 1px solid #dee2e6;
+}
+
+.lastRow {
+  border-top: 2px solid #dee2e6;
 }
 </style>
