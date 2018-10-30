@@ -111,7 +111,6 @@
         <br>
 
         <div 
-          id="existingUsers" 
           class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal"> 
           <h3 class="border-bottom border-gray pb-2 mb-0">Change user</h3>
           <br>
@@ -191,7 +190,7 @@
           <hr class="mb-4">
           <button 
             class="btn btn-secondary btn-lg btn-block" 
-            @click="goToTop()">Go to top</button>
+            @click="scrollToTop()">Go to top</button>
         </div>
 
         <transition 
@@ -199,7 +198,7 @@
           <div 
             v-if="passwordChangeIsActivated" 
             class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
-            <h3 class="border-bottom border-gray pb-2 mb-0">Set password of user <b>{{ currentUserToChangePassword.username }}</b></h3>
+            <h3 class="border-bottom border-gray pb-2 mb-0">Set password/years of user <b>{{ currentUserToChangePassword.username }}</b></h3>
             <br>
             <p class="lead">Set the password of the current user:</p>
             <table class="table table-striped table-hover">
@@ -253,7 +252,8 @@
                     required=""
                     maxlength="45"></th>
                   <td><button 
-                    class="btn btn-secondary" 
+                    :disabled="newYear==''" 
+                    class="btn btn-secondary"
                     @click="addYear()">Add Year {{ newYear }}</button></td>
                 </tr>
               </tbody>
@@ -261,7 +261,7 @@
             <hr class="mb-4">
             <button 
               class="btn btn-secondary btn-lg btn-block" 
-              @click="goToTop()">Hide &amp; go to top</button>
+              @click="scrollToTop(),passwordChangeIsActivated = false">Hide &amp; go to top</button>
           </div>
         </transition>
 
@@ -368,10 +368,13 @@ export default {
       )
     },
     scrollToEnd() {
-      var container = this.$el.querySelector('#existingUsers')
+      var container = this.$el.querySelector('#content')
       container.scrollTop = container.scrollHeight
     },
-    goToTop() {}
+    scrollToTop() {
+      var container = this.$el.querySelector('#content')
+      container.scrollTop = 0
+    }
   }
 }
 </script>
