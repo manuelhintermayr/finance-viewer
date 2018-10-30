@@ -30,3 +30,17 @@ body {
 .fill-height {
   height: 100%;
 }
+
+.transparentModal {
+  background-color: #ffffff45 !important;
+}
+
+.btn-secondary,
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #6c757d8c;
+}
+
+input,
+.custom-checkbox .custom-control-label::before {
+  background-color: #ffffff73;
+}

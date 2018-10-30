@@ -343,18 +343,6 @@ export default {
   height: calc(100% - 59px);
   overflow-y: scroll;
 }
-.transparentModal {
-  background-color: #ffffff45 !important;
-}
-.btn-secondary,
-.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: #6c757d8c;
-}
-
-input,
-.custom-checkbox .custom-control-label::before {
-  background-color: #ffffff73;
-}
 
 .table thead th {
   border-top: none;
