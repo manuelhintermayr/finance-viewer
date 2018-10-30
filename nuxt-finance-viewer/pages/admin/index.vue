@@ -251,10 +251,13 @@
                     class="form-control"
                     required=""
                     maxlength="45"></th>
-                  <td><button 
-                    :disabled="newYear==''" 
-                    class="btn btn-secondary"
-                    @click="addYear()">Add Year {{ newYear }}</button></td>
+                  <td>
+                    <button 
+                      :disabled="newYear==''" 
+                      class="btn btn-secondary"
+                      @click="addYear()">Add Year {{ newYear }}</button>
+                      <!-- add to :disabled=",currentUserToChangePassword.years.includes(newYear)" -->
+                  </td>
                 </tr>
               </tbody>
             </table>
