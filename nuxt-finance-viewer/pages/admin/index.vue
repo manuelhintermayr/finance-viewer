@@ -126,8 +126,8 @@
                 <th scope="col">Locked</th>
                 <th scope="col">Update</th>
                 <th scope="col">Remove</th>
-                <th scope="col">Password</th>
-                <th scope="col">View</th>
+                <th scope="col">Password/Views</th>
+                <th scope="col">FinanceView</th>
               </tr>
             </thead>
             <tbody>
@@ -172,8 +172,6 @@
                       class="custom-control-label"/>
                   </div>
                  
-                  
-
                 </td>
                 <td><button class="btn btn-secondary">Update</button></td>
                 <td>
@@ -184,7 +182,7 @@
                 <td>
                   <button 
                     class="btn btn-secondary" 
-                    @click="setPassword(u)">Set Password</button>
+                    @click="setPassword(u)">Set Password/Views</button>
                 </td>
                 <td><button class="btn btn-secondary">View FinanceView</button></td>
               </tr>
@@ -201,9 +199,9 @@
           <div 
             v-if="passwordChangeIsActivated" 
             class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
-            <h3 class="border-bottom border-gray pb-2 mb-0">Set password of user</h3>
+            <h3 class="border-bottom border-gray pb-2 mb-0">Set password of user <b>{{ currentUserToChangePassword.username }}</b></h3>
             <br>
-            <p class="lead">Set the password of a current user:</p>
+            <p class="lead">Set the password of the current user:</p>
             <table class="table table-striped table-hover">
               <thead class="">
                 <tr>
@@ -226,6 +224,37 @@
                       maxlength="45">
                   </td>
                   <td><button class="btn btn-secondary">Update Password</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <br >
+            <p class="lead">Add and remove years for current user:</p>
+            <table class="table table-striped table-hover">
+              <thead class="">
+                <tr>
+                  <th scope="col">Viewname</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr 
+                  v-for="y in currentUserToChangePassword.years" 
+                  :key="y">
+                  <th scope="row">{{ y }}</th>
+                  <td><button 
+                    class="btn btn-secondary" 
+                    @click="removeYear(y)">Remove Year</button></td>
+                </tr>
+                <tr class="lastRow">
+                  <th><input   
+                    v-model="newYear" 
+                    type="text" 
+                    class="form-control"
+                    required=""
+                    maxlength="45"></th>
+                  <td><button 
+                    class="btn btn-secondary" 
+                    @click="addYear()">Add Year {{ newYear }}</button></td>
                 </tr>
               </tbody>
             </table>
@@ -263,10 +292,11 @@ export default {
       itemIsLocked: false,
       currentId: 1,
       passwordChangeIsActivated: false,
+      newYear: '',
       currentUserToChangePassword: {
         id: 0,
         username: '',
-        origianlUsername: '',
+        originalUsername: '',
         firstname: '',
         lastname: '',
         isLocked: false,
@@ -291,7 +321,8 @@ export default {
               firstname: element.firstname,
               lastname: element.lastname,
               isLocked: element.isLocked,
-              password: ''
+              password: '',
+              years: element.years
             })
           })
           console.log(api)
@@ -311,15 +342,12 @@ export default {
         firstname: this.itemFirstname,
         lastname: this.itemLastname,
         isLocked: this.itemIsLocked,
-        password: ''
+        password: '',
+        years: [2018, 2019]
       })
       this.itemUsername = this.itemPassword = this.itemFirstname = this.itemLastname = this.itemIsLocked =
         ''
       this.scrollToEnd()
-    },
-    scrollToEnd() {
-      var container = this.$el.querySelector('#existingUsers')
-      container.scrollTop = container.scrollHeight
     },
     removeUser(user) {
       this.users.splice(this.users.indexOf(user), 1)
@@ -328,6 +356,20 @@ export default {
     setPassword(user) {
       this.currentUserToChangePassword = user
       this.passwordChangeIsActivated = true
+    },
+    addYear() {
+      this.currentUserToChangePassword.years.push(this.newYear)
+      this.newYear = ''
+    },
+    removeYear(year) {
+      this.currentUserToChangePassword.years.splice(
+        this.currentUserToChangePassword.years.indexOf(year),
+        1
+      )
+    },
+    scrollToEnd() {
+      var container = this.$el.querySelector('#existingUsers')
+      container.scrollTop = container.scrollHeight
     },
     goToTop() {}
   }

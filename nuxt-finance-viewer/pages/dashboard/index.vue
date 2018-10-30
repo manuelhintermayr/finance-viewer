@@ -653,12 +653,4 @@ export default {
 .scrollbarRight::-webkit-scrollbar-thumb:window-inactive {
   background: #204b42;
 }
-
-.tableBorderLeft {
-  border-left: 1px solid #dee2e6;
-}
-
-.lastRow {
-  border-top: 2px solid #dee2e6;
-}
 </style>
