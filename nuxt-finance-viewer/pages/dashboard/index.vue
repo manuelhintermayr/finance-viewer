@@ -133,19 +133,19 @@
                   <th 
                     scope="row" 
                     class="text-left">{{ u.name }}</th>
-                  <td class="tableBorderLeft">1&pound;</td>
-                  <td>2&pound;</td>
-                  <td>3&pound;</td>
-                  <td>4&pound;</td>
-                  <td>5&pound;</td>
-                  <td>6&pound;</td>
-                  <td>7&pound;</td>
-                  <td>8&pound;</td>
-                  <td>9&pound;</td>
-                  <td>10&pound;</td>
-                  <td>11&pound;</td>
-                  <td>12&pound;</td>
-                  <td class="tableBorderLeft"><b>178&pound;</b></td>
+                  <td class="tableBorderLeft">&pound;{{ eval(u.data.january) }}</td>
+                  <td>&pound;{{ eval(u.data.february) }}</td>
+                  <td>&pound;{{ eval(u.data.march) }}</td>
+                  <td>&pound;{{ eval(u.data.april) }}</td>
+                  <td>&pound;{{ eval(u.data.may) }}</td>
+                  <td>&pound;{{ eval(u.data.june) }}</td>
+                  <td>&pound;{{ eval(u.data.july) }}</td>
+                  <td>&pound;{{ eval(u.data.august) }}</td>
+                  <td>&pound;{{ eval(u.data.september) }}</td>
+                  <td>&pound;{{ eval(u.data.october) }}</td>
+                  <td>&pound;{{ eval(u.data.november) }}</td>
+                  <td>&pound;{{ eval(u.data.december) }}</td>
+                  <td class="tableBorderLeft"><b>&pound;{{ sumForYear(u.data) }}</b></td>
                   <td class="tableBorderLeft"><button 
                     class="btn btn-secondary" 
                     @click="removeView(u)">Delete</button></td>
@@ -155,19 +155,19 @@
                   <th 
                     scope="row" 
                     class="text-left">Sum</th>
-                  <td class="tableBorderLeft"><b>{{ getSumJanuary() }}&pound;</b></td>
-                  <td><b>{{ getSumFebruary() }}&pound;</b></td>
-                  <td><b>{{ getSumMarch() }}&pound;</b></td>
-                  <td><b>{{ getSumApril() }}&pound;</b></td>
-                  <td><b>{{ getSumMay() }}&pound;</b></td>
-                  <td><b>{{ getSumJune() }}&pound;</b></td>
-                  <td><b>{{ getSumJuly() }}&pound;</b></td>
-                  <td><b>{{ getSumAugust() }}&pound;</b></td>
-                  <td><b>{{ getSumSeptember() }}&pound;</b></td>
-                  <td><b>{{ getSumOctober() }}&pound;</b></td>
-                  <td><b>{{ getSumNovember() }}&pound;</b></td>
-                  <td><b>{{ getSumDecember() }}&pound;</b></td>
-                  <td class="tableBorderLeft"><b>{{ getTotalSum() }}&pound;</b></td>
+                  <td class="tableBorderLeft"><b>&pound;{{ getSumJanuary() }}</b></td>
+                  <td><b>&pound;{{ getSumFebruary() }}</b></td>
+                  <td><b>&pound;{{ getSumMarch() }}</b></td>
+                  <td><b>&pound;{{ getSumApril() }}</b></td>
+                  <td><b>&pound;{{ getSumMay() }}</b></td>
+                  <td><b>&pound;{{ getSumJune() }}</b></td>
+                  <td><b>&pound;{{ getSumJuly() }}</b></td>
+                  <td><b>&pound;{{ getSumAugust() }}</b></td>
+                  <td><b>&pound;{{ getSumSeptember() }}</b></td>
+                  <td><b>&pound;{{ getSumOctober() }}</b></td>
+                  <td><b>&pound;{{ getSumNovember() }}</b></td>
+                  <td><b>&pound;{{ getSumDecember() }}</b></td>
+                  <td class="tableBorderLeft"><b>{{ getTotalSum() }}</b></td>
                   <td class="tableBorderLeft text-center">-</td>
                 </tr>
               </tbody>
@@ -262,7 +262,21 @@ export default {
           notes: 'This is the Aldi supermarket. I use it to buy groceries.',
           viewEnabled: false,
           profile_url:
-            'https://cdn.aldi-digital.co.uk/32FDVWu4Lhbxgj9Z3v03ji0pGJIp?'
+            'https://cdn.aldi-digital.co.uk/32FDVWu4Lhbxgj9Z3v03ji0pGJIp?',
+          data: {
+            january: '1+1+1',
+            february: '2',
+            march: '3',
+            april: '4',
+            may: '5',
+            june: '6',
+            july: '7',
+            august: '8',
+            september: '9',
+            october: '10',
+            november: '11',
+            december: '12'
+          }
         },
         {
           name: 'Wilko',
@@ -273,7 +287,21 @@ export default {
             'Wilko is like the austrian IKEA. You can buy practically everything.',
           viewEnabled: false,
           profile_url:
-            'https://pbs.twimg.com/profile_images/1018756618635431936/9rRo7jvO_400x400.jpg'
+            'https://pbs.twimg.com/profile_images/1018756618635431936/9rRo7jvO_400x400.jpg',
+          data: {
+            january: '1',
+            february: '2',
+            march: '3',
+            april: '4',
+            may: '5',
+            june: '6',
+            july: '7',
+            august: '8',
+            september: '9',
+            october: '10',
+            november: '11',
+            december: '12'
+          }
         },
         {
           name: 'Amazon',
@@ -284,7 +312,21 @@ export default {
             'Amazon is an online eCommerce. I use it to buy stuff and proteins.',
           viewEnabled: false,
           profile_url:
-            'http://mediad.publicbroadcasting.net/p/wkar/files/styles/x_large/public/201706/10398927_9465478123_740_n.jpg'
+            'http://mediad.publicbroadcasting.net/p/wkar/files/styles/x_large/public/201706/10398927_9465478123_740_n.jpg',
+          data: {
+            january: '1',
+            february: '2',
+            march: '3',
+            april: '4',
+            may: '5',
+            june: '6',
+            july: '7',
+            august: '8',
+            september: '9',
+            october: '10',
+            november: '11',
+            december: '12'
+          }
         },
         {
           name: 'Food',
@@ -295,7 +337,21 @@ export default {
             'Everything I eat (besides from what I buy at the supermarket) is included in this list.',
           viewEnabled: false,
           profile_url:
-            'https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/spaghetti_bolognese_with_23409_16x9.jpg'
+            'https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/spaghetti_bolognese_with_23409_16x9.jpg',
+          data: {
+            january: '1',
+            february: '2',
+            march: '3',
+            april: '4',
+            may: '5',
+            june: '6',
+            july: '7',
+            august: '8',
+            september: '9',
+            october: '10',
+            november: '11',
+            december: '12'
+          }
         },
         {
           name: 'Car',
@@ -306,7 +362,21 @@ export default {
             'A car doesn`t come cheap. Everything is spend for this car is included here.',
           viewEnabled: false,
           profile_url:
-            'https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-1fndzcd_41017374.jpeg'
+            'https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-1fndzcd_41017374.jpeg',
+          data: {
+            january: '1',
+            february: '2',
+            march: '3',
+            april: '4',
+            may: '5',
+            june: '6',
+            july: '7',
+            august: '8',
+            september: '9',
+            october: '10',
+            november: '11',
+            december: '12'
+          }
         },
         {
           name: 'Invoices',
@@ -317,7 +387,21 @@ export default {
             'All my invoices, like rent, gas, electricity and else is included in this list.',
           viewEnabled: false,
           profile_url:
-            'https://www.zervant.com/wp-content/uploads/2016/07/sole-trader-invoice-vat.png'
+            'https://www.zervant.com/wp-content/uploads/2016/07/sole-trader-invoice-vat.png',
+          data: {
+            january: '1',
+            february: '2',
+            march: '3',
+            april: '4',
+            may: '5',
+            june: '6',
+            july: '7',
+            august: '8',
+            september: '9',
+            october: '10',
+            november: '11',
+            december: '12'
+          }
         },
         {
           name: 'Phone',
@@ -328,7 +412,21 @@ export default {
             'A phone doesn`t come cheat. The monthly costs for a phone are included here.',
           viewEnabled: false,
           profile_url:
-            'https://i5.walmartimages.com/asr/f8bb1886-fb1a-4bd4-8b0c-3107bdd8c9aa_1.25d0865f300a0ec45affe204985f243b.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF'
+            'https://i5.walmartimages.com/asr/f8bb1886-fb1a-4bd4-8b0c-3107bdd8c9aa_1.25d0865f300a0ec45affe204985f243b.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF',
+          data: {
+            january: '1',
+            february: '2',
+            march: '3',
+            april: '4',
+            may: '5',
+            june: '6',
+            july: '7',
+            august: '8',
+            september: '9',
+            october: '10',
+            november: '11',
+            december: '12'
+          }
         },
         {
           name: 'Medicine',
@@ -339,7 +437,21 @@ export default {
             'Descriptions and everything I use medically is included here.',
           viewEnabled: false,
           profile_url:
-            'https://www.flsouthern.edu/getattachment/5f1866fb-be3b-4b03-bce5-4ffcd2c8ffb0/pre-pharmacy.aspx'
+            'https://www.flsouthern.edu/getattachment/5f1866fb-be3b-4b03-bce5-4ffcd2c8ffb0/pre-pharmacy.aspx',
+          data: {
+            january: '1',
+            february: '2',
+            march: '3',
+            april: '4',
+            may: '5',
+            june: '6',
+            july: '7',
+            august: '8',
+            september: '9',
+            october: '10',
+            november: '11',
+            december: '12'
+          }
         }
       ]
     }
@@ -355,41 +467,108 @@ export default {
     removeView(view) {
       this.tableViews.splice(this.tableViews.indexOf(view), 1)
     },
+    eval(content) {
+      return eval(content)
+    },
+    sumForYear(yearArray) {
+      return (
+        eval(yearArray.january) +
+        eval(yearArray.february) +
+        eval(yearArray.march) +
+        eval(yearArray.april) +
+        eval(yearArray.may) +
+        eval(yearArray.june) +
+        eval(yearArray.july) +
+        eval(yearArray.august) +
+        eval(yearArray.september) +
+        eval(yearArray.october) +
+        eval(yearArray.november) +
+        eval(yearArray.december)
+      )
+    },
     getSumJanuary() {
-      return this.tableViews.length
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.january)
+      })
+      return result
     },
     getSumFebruary() {
-      return this.tableViews.length * 2
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.february)
+      })
+      return result
     },
     getSumMarch() {
-      return this.tableViews.length * 3
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.march)
+      })
+      return result
     },
     getSumApril() {
-      return this.tableViews.length * 4
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.april)
+      })
+      return result
     },
     getSumMay() {
-      return this.tableViews.length * 5
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.may)
+      })
+      return result
     },
     getSumJune() {
-      return this.tableViews.length * 6
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.june)
+      })
+      return result
     },
     getSumJuly() {
-      return this.tableViews.length * 7
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.july)
+      })
+      return result
     },
     getSumAugust() {
-      return this.tableViews.length * 8
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.august)
+      })
+      return result
     },
     getSumSeptember() {
-      return this.tableViews.length * 9
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.september)
+      })
+      return result
     },
     getSumOctober() {
-      return this.tableViews.length * 10
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.october)
+      })
+      return result
     },
     getSumNovember() {
-      return this.tableViews.length * 11
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.november)
+      })
+      return result
     },
     getSumDecember() {
-      return this.tableViews.length * 12
+      let result = 0
+      this.tableViews.forEach(element => {
+        result += eval(element.data.december)
+      })
+      return result
     },
     getTotalSum() {
       return (
