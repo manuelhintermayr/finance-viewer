@@ -98,7 +98,7 @@
 
           <!-- start area for total overview -->
           <span v-if="overviewIsEnabled">
-            <h1> Overview for all tables </h1>
+            <h1> Overview for all views </h1>
             <table class="table table-striped table-hover">
               <thead class="">
                 <tr>
@@ -146,26 +146,28 @@
                   <td>11&pound;</td>
                   <td>12&pound;</td>
                   <td class="tableBorderLeft"><b>178&pound;</b></td>
-                  <td class="tableBorderLeft"><button class="btn btn-secondary">Delete</button></td>
+                  <td class="tableBorderLeft"><button 
+                    class="btn btn-secondary" 
+                    @click="removeView(u)">Delete</button></td>
                 </tr>
                 <tr 
                   class="lastRow text-right">
                   <th 
                     scope="row" 
                     class="text-left">Sum</th>
-                  <td class="tableBorderLeft"><b>1&pound;</b></td>
-                  <td><b>2&pound;</b></td>
-                  <td><b>3&pound;</b></td>
-                  <td><b>4&pound;</b></td>
-                  <td><b>5&pound;</b></td>
-                  <td><b>6&pound;</b></td>
-                  <td><b>7&pound;</b></td>
-                  <td><b>8&pound;</b></td>
-                  <td><b>9&pound;</b></td>
-                  <td><b>10&pound;</b></td>
-                  <td><b>11&pound;</b></td>
-                  <td><b>12&pound;</b></td>
-                  <td class="tableBorderLeft"><b>178&pound;</b></td>
+                  <td class="tableBorderLeft"><b>{{ getSumJanuary() }}&pound;</b></td>
+                  <td><b>{{ getSumFebruary() }}&pound;</b></td>
+                  <td><b>{{ getSumMarch() }}&pound;</b></td>
+                  <td><b>{{ getSumApril() }}&pound;</b></td>
+                  <td><b>{{ getSumMay() }}&pound;</b></td>
+                  <td><b>{{ getSumJune() }}&pound;</b></td>
+                  <td><b>{{ getSumJuly() }}&pound;</b></td>
+                  <td><b>{{ getSumAugust() }}&pound;</b></td>
+                  <td><b>{{ getSumSeptember() }}&pound;</b></td>
+                  <td><b>{{ getSumOctober() }}&pound;</b></td>
+                  <td><b>{{ getSumNovember() }}&pound;</b></td>
+                  <td><b>{{ getSumDecember() }}&pound;</b></td>
+                  <td class="tableBorderLeft"><b>{{ getTotalSum() }}&pound;</b></td>
                   <td class="tableBorderLeft text-center">-</td>
                 </tr>
               </tbody>
@@ -349,6 +351,61 @@ export default {
       })
       this.overviewIsEnabled = false
       this.createNewViewEnabled = false
+    },
+    removeView(view) {
+      this.tableViews.splice(this.tableViews.indexOf(view), 1)
+    },
+    getSumJanuary() {
+      return this.tableViews.length
+    },
+    getSumFebruary() {
+      return this.tableViews.length * 2
+    },
+    getSumMarch() {
+      return this.tableViews.length * 3
+    },
+    getSumApril() {
+      return this.tableViews.length * 4
+    },
+    getSumMay() {
+      return this.tableViews.length * 5
+    },
+    getSumJune() {
+      return this.tableViews.length * 6
+    },
+    getSumJuly() {
+      return this.tableViews.length * 7
+    },
+    getSumAugust() {
+      return this.tableViews.length * 8
+    },
+    getSumSeptember() {
+      return this.tableViews.length * 9
+    },
+    getSumOctober() {
+      return this.tableViews.length * 10
+    },
+    getSumNovember() {
+      return this.tableViews.length * 11
+    },
+    getSumDecember() {
+      return this.tableViews.length * 12
+    },
+    getTotalSum() {
+      return (
+        this.getSumJanuary() +
+        this.getSumFebruary() +
+        this.getSumMarch() +
+        this.getSumApril() +
+        this.getSumMay() +
+        this.getSumJune() +
+        this.getSumJuly() +
+        this.getSumAugust() +
+        this.getSumSeptember() +
+        this.getSumOctober() +
+        this.getSumNovember() +
+        this.getSumDecember()
+      )
     }
   }
 }
