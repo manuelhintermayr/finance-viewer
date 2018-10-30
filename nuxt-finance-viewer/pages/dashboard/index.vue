@@ -9,14 +9,60 @@
         <div  
           id="menu_left" 
           class="col-md-3 scrollbar scrollbarLeft fill-height">
+
+          <span>
+            <input 
+              id="overview-view" 
+              type="radio" 
+              name="views"> 
+            <div 
+              class="item" 
+              @click="disableAll(), overviewIsEnabled=true">
+              <div class="details">
+                <p class="name">Overview</p> 
+                <p class="description">Overview of all views.</p> 
+                <div class="actions">
+                  <div class="info equals"/> 
+                  <div>
+                    <p class="description">This view shows all views in an overall view.</p>
+                  </div>
+                </div>
+              </div> 
+              <label for="overview-view"/>
+            </div> 
+          </span>
+
+          <span>
+            <input 
+              id="addNew-view" 
+              type="radio" 
+              name="views"> 
+            <div 
+              class="item" 
+              @click="disableAll(), createNewViewEnabled=true">
+              <div class="details">
+                <p class="name">Add view</p> 
+                <p 
+                  class="description" 
+                  style="width: 230px;">Add a new view to your current entries.</p> 
+                <div class="actions">
+                  <div class="info plus"/> 
+                  <div>
+                    <p class="description"> This is the Aldi supermarket. I use it to buy groceries. </p>
+                  </div>
+                </div>
+              </div> 
+              <label for="addNew-view"/>
+            </div> 
+          </span>
+
           <span 
             v-for="u in tableViews" 
             :key="u.id">
             <input 
-              :id="'contact-'+u.count" 
-
+              :id="'view-'+u.count" 
               type="radio"
-              name="contatcs">
+              name="views">
             <div 
               class="item" 
               @click="disableAll(), u.viewEnabled=true">
@@ -33,10 +79,10 @@
                   </div>
                 </div>
               </div>
-              <label :for="'contact-'+u.count"/>
+              <label :for="'view-'+u.count"/>
             </div>
             <style>
-              #contact-{{ u.count }}:checked ~ #menu_right {
+              #view-{{ u.count }}:checked ~ #menu_right {
               background-image: url('{{ u.profile_url }}');
               }
               #{{ u.id }} {
@@ -51,6 +97,9 @@
           class="col-md-8 center-block scrollbar scrollbarRight fill-height">
 
           <!-- start area for total overview -->
+          <span v-if="overviewIsEnabled">
+            <h1> Overview is enabled </h1>
+          </span>
           <!-- end area for total overview -->
 
           <!-- start area for specific view -->
@@ -120,7 +169,8 @@ export default {
   data() {
     return {
       loggedOut: false,
-      createNewViewEnabled: true,
+      overviewIsEnabled: true,
+      createNewViewEnabled: false,
       currentUserToChangePassword: {
         id: 0,
         username: '',
@@ -217,26 +267,6 @@ export default {
           viewEnabled: false,
           profile_url:
             'https://www.flsouthern.edu/getattachment/5f1866fb-be3b-4b03-bce5-4ffcd2c8ffb0/pre-pharmacy.aspx'
-        },
-        {
-          name: 'Chris Lacy',
-          description: 'Developer',
-          id: 'chris-lacy9',
-          count: 9,
-          notes: 'blabla',
-          viewEnabled: false,
-          profile_url:
-            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
-        },
-        {
-          name: 'Chris Lacy Last',
-          description: 'Developer',
-          id: 'chris-lacy10',
-          count: 10,
-          notes: 'blabla',
-          viewEnabled: false,
-          profile_url:
-            'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
         }
       ]
     }
@@ -246,6 +276,7 @@ export default {
       this.tableViews.forEach(element => {
         element.viewEnabled = false
       })
+      this.overviewIsEnabled = false
       this.createNewViewEnabled = false
     }
   }
@@ -371,6 +402,7 @@ export default {
 .description {
   font-size: 0.9em;
   color: rgba(255, 255, 255, 0.8);
+  width: 95%;
 }
 
 .actions {
@@ -417,6 +449,12 @@ export default {
   border: 1px solid #fff;
   border-radius: 50%;
   padding: 2px 11px;
+}
+.plus:after {
+  content: '+';
+}
+.equals:after {
+  content: '=';
 }
 .info:hover:after {
   background-color: rgba(255, 255, 255, 0.2);
