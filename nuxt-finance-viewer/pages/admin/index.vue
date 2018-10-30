@@ -365,6 +365,7 @@ export default {
       this.newYear = ''
     },
     removeYear(year) {
+      //if(this.currentUserToChangePassword.years>1) ==> spaeter noch implementieren mit fehlermeldung
       this.currentUserToChangePassword.years.splice(
         this.currentUserToChangePassword.years.indexOf(year),
         1

@@ -48,7 +48,9 @@
                 <div class="actions">
                   <div class="info plus"/> 
                   <div>
-                    <p class="description"> This is the Aldi supermarket. I use it to buy groceries. </p>
+                    <p 
+                      class="description" 
+                      style="width: 250px;"> This creates a new view for FinanceViewer with the current selected year. </p>
                   </div>
                 </div>
               </div> 
@@ -187,40 +189,63 @@
           <span v-if="createNewViewEnabled" >
             <div 
               class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
-              <h3 class="border-bottom border-gray pb-2 mb-0">Set password of user</h3>
+              <h3 class="border-bottom border-gray pb-2 mb-0">Add a new view</h3>
               <br>
-              <p class="lead">Set the password of a current user:</p>
-              <table class="table table-striped table-hover">
-                <thead class="">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">New Password</th>
-                    <th scope="col">Update</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">{{ currentUserToChangePassword.id }}</th>
-                    <td>{{ currentUserToChangePassword.username }}</td>
-                    <td>
-                      <input   
-                        v-model="currentUserToChangePassword.password" 
-                        type="text" 
-                        class="form-control"
-                        required=""
-                        maxlength="45">
-                    </td>
-                    <td><button class="btn btn-secondary">Update Password</button></td>
-                  </tr>
-                </tbody>
-              </table>
+              <p class="lead">Add a new view:</p>
               <hr class="mb-4">
-              <button 
-                class="btn btn-secondary btn-lg btn-block" 
-                @click="createNewViewEnabled=!createNewViewEnabled">Hide &amp; go to top</button>
+              <p class="lead">Preview:</p>
+
+              <span 
+                id="menu_left" 
+                style="border: none;">
+                <input 
+                  id="view-x" 
+                  type="radio" 
+                  name="sample">
+                <div 
+                  id="sampleItem" 
+                  class="item">
+                  <div 
+                    id="sampleView" 
+                    class="portrait"/> 
+                  <div class="details">
+                    <p class="name">{{ newView_name }}</p> 
+                    <p class="description">{{ newView_description }}</p>
+                    <div class="actions">
+                      <div class="info"/> 
+                      <div>
+                        <p class="description"> {{ newView_notes }} </p>
+                      </div>
+                    </div>
+                  </div>
+                  <label for="view-x"/>
+                </div> 
+                <style>
+                  #view-x:checked ~ #menu_right {
+                  background-image: url('{{ newView_profile_url }}');
+                  }
+                  #sampleView {
+                  background-image: url('{{ newView_profile_url }}');
+                  }
+                </style>
+              </span>
+
+              <div class="custom-control custom-radio">
+                <input 
+                  id="sampleReset" 
+                  name="sample" 
+                  type="radio" 
+                  class="custom-control-input" 
+                  checked="" 
+                  required="">
+                <label 
+                  class="custom-control-label" 
+                  for="sampleReset">Reset</label>
+              </div>
+
+
             </div>
-            <p class="lead center-block"> Dashboard for normal user. <a href="..\logout.php">Logout</a> </p>
+
           </span>
           <!-- end area for create new entry -->
 
@@ -244,15 +269,12 @@ export default {
       loggedOut: false,
       overviewIsEnabled: true,
       createNewViewEnabled: false,
-      currentUserToChangePassword: {
-        id: 0,
-        username: '',
-        origianlUsername: '',
-        firstname: '',
-        lastname: '',
-        isLocked: false,
-        password: ''
-      },
+      newView_name: 'FVMarkt',
+      newView_description: 'Supermarket',
+      newView_id: 'fvmarket',
+      newView_notes: 'This is my local market',
+      newView_profile_url:
+        'https://cdn.aldi-digital.co.uk/32FDVWu4Lhbxgj9Z3v03ji0pGJIp?',
       tableViews: [
         {
           name: 'Aldi',
@@ -644,6 +666,7 @@ export default {
 }
 
 .item {
+  /* left-menu code partly used from https://codepen.io/meChrisReed/pen/mtHna?love_type=gamma& */
   position: relative;
   float: left;
   width: 100%;
@@ -755,6 +778,15 @@ export default {
 }
 .info:hover:after {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+#sampleItem {
+  float: none;
+  width: 370px;
+  left: 35%;
+  left: calc(50% - 185px);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
 }
 
 /* Genreal Interaction */
