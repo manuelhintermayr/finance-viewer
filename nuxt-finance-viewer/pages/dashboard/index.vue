@@ -8,15 +8,18 @@
         class="row fill-height">
         <div  
           id="menu_left" 
-          class="col-md-3 scrollbar fill-height">
+          class="col-md-3 scrollbar scrollbarLeft fill-height">
           <span 
             v-for="u in tableViews" 
             :key="u.id">
             <input 
               :id="'contact-'+u.count" 
-              type="radio" 
+
+              type="radio"
               name="contatcs">
-            <div class="item">
+            <div 
+              class="item" 
+              @click="disableAll(), u.viewEnabled=true">
               <div 
                 :id="u.id" 
                 class="portrait"/>
@@ -45,7 +48,20 @@
 
         <div 
           id="menu_right" 
-          class="col-md-8 center-block">
+          class="col-md-8 center-block scrollbar scrollbarRight fill-height">
+
+          <!-- start area for total overview -->
+          <!-- end area for total overview -->
+
+          <!-- start area for specific view -->
+          <span 
+            v-for="u in tableViews" 
+            v-if="u.viewEnabled" 
+            :key="u.id"> {{ u.name }} - is shown <br>
+          </span>
+          <!-- end area for specific view -->
+          
+          <!-- start area for create new entry -->
           <span v-if="createNewViewEnabled" >
             <div 
               class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
@@ -82,11 +98,11 @@
                 class="btn btn-secondary btn-lg btn-block" 
                 @click="createNewViewEnabled=!createNewViewEnabled">Hide &amp; go to top</button>
             </div>
+            <p class="lead center-block"> Dashboard for normal user. <a href="..\logout.php">Logout</a> </p>
           </span>
+          <!-- end area for create new entry -->
 
-          <p class="lead center-block"> Dashboard for normal user. <a href="..\logout.php">Logout</a> </p>
         </div>
-
       </div>
     </div>
   </div>
@@ -121,6 +137,7 @@ export default {
           id: 'adli',
           count: 1,
           notes: 'This is the Aldi supermarket. I use it to buy groceries.',
+          viewEnabled: false,
           profile_url:
             'https://cdn.aldi-digital.co.uk/32FDVWu4Lhbxgj9Z3v03ji0pGJIp?'
         },
@@ -131,6 +148,7 @@ export default {
           count: 2,
           notes:
             'Wilko is like the austrian IKEA. You can buy practically everything.',
+          viewEnabled: false,
           profile_url:
             'https://pbs.twimg.com/profile_images/1018756618635431936/9rRo7jvO_400x400.jpg'
         },
@@ -141,6 +159,7 @@ export default {
           count: 3,
           notes:
             'Amazon is an online eCommerce. I use it to buy stuff and proteins.',
+          viewEnabled: false,
           profile_url:
             'http://mediad.publicbroadcasting.net/p/wkar/files/styles/x_large/public/201706/10398927_9465478123_740_n.jpg'
         },
@@ -151,6 +170,7 @@ export default {
           count: 4,
           notes:
             'Everything I eat (besides from what I buy at the supermarket) is included in this list.',
+          viewEnabled: false,
           profile_url:
             'https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/spaghetti_bolognese_with_23409_16x9.jpg'
         },
@@ -161,6 +181,7 @@ export default {
           count: 5,
           notes:
             'A car doesn`t come cheap. Everything is spend for this car is included here.',
+          viewEnabled: false,
           profile_url:
             'https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-1fndzcd_41017374.jpeg'
         },
@@ -171,6 +192,7 @@ export default {
           count: 6,
           notes:
             'All my invoices, like rent, gas, electricity and else is included in this list.',
+          viewEnabled: false,
           profile_url:
             'https://www.zervant.com/wp-content/uploads/2016/07/sole-trader-invoice-vat.png'
         },
@@ -181,6 +203,7 @@ export default {
           count: 7,
           notes:
             'A phone doesn`t come cheat. The monthly costs for a phone are included here.',
+          viewEnabled: false,
           profile_url:
             'https://i5.walmartimages.com/asr/f8bb1886-fb1a-4bd4-8b0c-3107bdd8c9aa_1.25d0865f300a0ec45affe204985f243b.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF'
         },
@@ -191,6 +214,7 @@ export default {
           count: 8,
           notes:
             'Descriptions and everything I use medically is included here.',
+          viewEnabled: false,
           profile_url:
             'https://www.flsouthern.edu/getattachment/5f1866fb-be3b-4b03-bce5-4ffcd2c8ffb0/pre-pharmacy.aspx'
         },
@@ -200,6 +224,7 @@ export default {
           id: 'chris-lacy9',
           count: 9,
           notes: 'blabla',
+          viewEnabled: false,
           profile_url:
             'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
         },
@@ -209,10 +234,19 @@ export default {
           id: 'chris-lacy10',
           count: 10,
           notes: 'blabla',
+          viewEnabled: false,
           profile_url:
             'https://lh3.googleusercontent.com/-_RbzbA4U-AY/T3le0hEjh5I/AAAAAAAAPbU/H6aRDFguJMY/s207-p-no/profile_pic.png'
         }
       ]
+    }
+  },
+  methods: {
+    disableAll() {
+      this.tableViews.forEach(element => {
+        element.viewEnabled = false
+      })
+      this.createNewViewEnabled = false
     }
   }
 }
@@ -231,7 +265,6 @@ export default {
   border-bottom: 2px #080808 solid;
 }
 
-/*menu Links*/
 #menu_left {
   border-right: 2px #080808 solid;
   position: relative;
@@ -241,7 +274,15 @@ export default {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-input {
+#menu_right {
+  position: relative;
+  overflow: scroll;
+  overflow-x: hidden;
+  flex: 0 0 74.17%;
+  max-width: 100% !important;
+}
+
+#menu_left input {
   position: absolute;
   visibility: hidden;
 }
@@ -256,7 +297,7 @@ input {
   z-index: 0;
 }
 
-label {
+#menu_left label {
   position: absolute;
   left: 0;
   height: 100%;
@@ -382,19 +423,19 @@ label {
 }
 
 /* Genreal Interaction */
-.item:hover > .portrait:after {
+#menu_left .item:hover > .portrait:after {
   border: 1px solid rgba(116, 226, 21, 1);
   box-shadow: 0 0 3px rgba(116, 226, 21, 0.5);
 }
 
-input:checked + .item {
+#menu_left input:checked + .item {
   background-color: rgba(0, 0, 0, 0.3); /**/
   padding-top: 0px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-input:checked + .item > .details {
+#menu_left input:checked + .item > .details {
   top: -6em;
   z-index: 2;
 }
@@ -422,14 +463,38 @@ input:checked + .item > .details {
 .scrollbar::-webkit-scrollbar-track,
 .scrollbar::-webkit-scrollbar-track-piece {
   border-radius: 0px;
-  background: #204b42;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
   border-radius: 10px;
+}
+
+.scrollbarLeft::-webkit-scrollbar-track,
+.scrollbarLeft::-webkit-scrollbar-track,
+.scrollbarLeft::-webkit-scrollbar-track-piece {
+  background: #204b42;
+}
+
+.scrollbarLeft::-webkit-scrollbar-thumb {
   background: #52d0a5;
 }
-.scrollbar::-webkit-scrollbar-thumb:window-inactive {
+.scrollbarLeft::-webkit-scrollbar-thumb:window-inactive {
   background: #3fb68d;
+}
+
+.scrollbarRight::-webkit-scrollbar {
+  width: 14px;
+  height: 8px;
+}
+.scrollbarRight::-webkit-scrollbar-track,
+.scrollbarRight::-webkit-scrollbar-track,
+.scrollbarRight::-webkit-scrollbar-track-piece {
+  background: #52d0a5;
+}
+.scrollbarRight::-webkit-scrollbar-thumb {
+  background: #204b42;
+}
+.scrollbarRight::-webkit-scrollbar-thumb:window-inactive {
+  background: #204b42;
 }
 </style>
