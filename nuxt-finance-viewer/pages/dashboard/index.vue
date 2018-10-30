@@ -192,56 +192,155 @@
               <h3 class="border-bottom border-gray pb-2 mb-0">Add a new view</h3>
               <br>
               <p class="lead">Add a new view:</p>
-              <hr class="mb-4">
-              <p class="lead">Preview:</p>
 
-              <span 
-                id="menu_left" 
-                style="border: none;">
-                <input 
-                  id="view-x" 
-                  type="radio" 
-                  name="sample">
-                <div 
-                  id="sampleItem" 
-                  class="item">
-                  <div 
-                    id="sampleView" 
-                    class="portrait"/> 
-                  <div class="details">
-                    <p class="name">{{ newView_name }}</p> 
-                    <p class="description">{{ newView_description }}</p>
-                    <div class="actions">
-                      <div class="info"/> 
-                      <div>
-                        <p class="description"> {{ newView_notes }} </p>
-                      </div>
+              <form 
+                class="needs-validation" 
+                novalidate="">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="viewName">Name</label>
+                    <input 
+                      id="viewName" 
+                      v-model="newView_name" 
+                      type="text" 
+                      class="form-control" 
+                      placeholder="" 
+                      value="" 
+                      maxlength="45"
+                      required="">
+                    <div class="invalid-feedback">
+                      Valid name is required.
                     </div>
                   </div>
-                  <label for="view-x"/>
-                </div> 
-                <style>
-                  #view-x:checked ~ #menu_right {
-                  background-image: url('{{ newView_profile_url }}');
-                  }
-                  #sampleView {
-                  background-image: url('{{ newView_profile_url }}');
-                  }
-                </style>
-              </span>
+                  <div class="col-md-6 mb-3">
+                    <label for="viewDescription">Description</label>
+                    <input 
+                      id="viewDescription" 
+                      v-model="newView_description" 
+                      type="text" 
+                      class="form-control" 
+                      placeholder="" 
+                      value="" 
+                      maxlength="80"
+                      required="" >
+                    <div class="invalid-feedback">
+                      Valid description is required.
+                    </div>
+                  </div>
+                </div>
 
-              <div class="custom-control custom-radio">
-                <input 
-                  id="sampleReset" 
-                  name="sample" 
-                  type="radio" 
-                  class="custom-control-input" 
-                  checked="" 
-                  required="">
-                <label 
-                  class="custom-control-label" 
-                  for="sampleReset">Reset</label>
-              </div>
+                <div class="mb-3">
+                  <label for="viewID">ID</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">@</span>
+                    </div>
+                    <input 
+                      id="viewID" 
+                      v-model="newView_id" 
+                      type="text" 
+                      class="form-control" 
+                      placeholder="Username" 
+                      required=""
+                      maxlength="45">
+                    <div 
+                      class="invalid-feedback" 
+                      style="width: 100%;">
+                      A id is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="viewNotes">Notes</label>
+                    <input 
+                      id="viewNotes" 
+                      v-model="newView_notes" 
+                      type="text" 
+                      class="form-control" 
+                      placeholder="" 
+                      value="" 
+                      maxlength="80"
+                      required="">
+                    <div class="invalid-feedback">
+                      Valid notes are required.
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="viewPicUrl">Profile Url</label>
+                    <input 
+                      id="viewPicUrl" 
+                      v-model="newView_profile_url" 
+                      type="text" 
+                      class="form-control" 
+                      placeholder="" 
+                      value="" 
+                      maxlength="80"
+                      required="" >
+                    <div class="invalid-feedback">
+                      Valid profile url is required.
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="mb-4">
+                <p class="lead">Preview:</p>
+
+                <span 
+                  id="menu_left" 
+                  style="border: none;">
+                  <input 
+                    id="view-x" 
+                    type="radio" 
+                    name="sample">
+                  <div 
+                    id="sampleItem" 
+                    class="item">
+                    <div 
+                      id="sampleView" 
+                      class="portrait"/> 
+                    <div class="details">
+                      <p class="name">{{ newView_name }}</p> 
+                      <p class="description">{{ newView_description }}</p>
+                      <div class="actions">
+                        <div class="info"/> 
+                        <div>
+                          <p class="description"> {{ newView_notes }} </p>
+                        </div>
+                      </div>
+                    </div>
+                    <label for="view-x"/>
+                  </div> 
+                  <style>
+                    #view-x:checked ~ #menu_right {
+                    background-image: url('{{ newView_profile_url }}');
+                    }
+                    #sampleView {
+                    background-image: url('{{ newView_profile_url }}');
+                    }
+                  </style>
+                </span>
+
+                <div class="custom-control custom-radio">
+                  <input 
+                    id="sampleReset" 
+                    name="sample" 
+                    type="radio" 
+                    class="custom-control-input" 
+                    checked="" 
+                    required="">
+                  <label 
+                    class="custom-control-label" 
+                    for="sampleReset">Reset</label>
+                </div>
+                <hr class="mb-4">
+
+                <button 
+                  class="btn btn-secondary btn-lg btn-block" 
+                  @click.prevent="addView">Add View</button>
+              </form>
+
+
 
 
             </div>
@@ -269,9 +368,9 @@ export default {
       loggedOut: false,
       overviewIsEnabled: true,
       createNewViewEnabled: false,
-      newView_name: 'FVMarkt',
+      newView_name: 'FVMarkt2',
       newView_description: 'Supermarket',
-      newView_id: 'fvmarket',
+      newView_id: 'fvmarket2',
       newView_notes: 'This is my local market',
       newView_profile_url:
         'https://cdn.stocksnap.io/img-thumbs/960w/AWJD4WV6W1.jpg',
@@ -423,7 +522,7 @@ export default {
             september: '750+9+35+35+25+284',
             october: '750+10+35+35+25+284',
             november: '750+112+35+35+25+10',
-            december: '75012+35+35+25+130'
+            december: '712+35+35+25+130'
           }
         },
         {
@@ -486,6 +585,33 @@ export default {
       })
       this.overviewIsEnabled = false
       this.createNewViewEnabled = false
+    },
+    addView() {
+      this.tableViews.push({
+        name: this.newView_name,
+        description: this.newView_description,
+        id: this.newView_id,
+        count: this.newView_id,
+        notes: this.newView_notes,
+        viewEnabled: false,
+        profile_url: this.newView_profile_url,
+        data: {
+          january: '0',
+          february: '0',
+          march: '0',
+          april: '0',
+          may: '0',
+          june: '0',
+          july: '0',
+          august: '0',
+          september: '0',
+          october: '0',
+          november: '0',
+          december: '0'
+        }
+      })
+      this.newView_name = this.newView_description = this.newView_id = this.newView_notes = this.newView_profile_url =
+        ''
     },
     removeView(view) {
       this.tableViews.splice(this.tableViews.indexOf(view), 1)
