@@ -313,7 +313,7 @@ export default {
   methods: {
     loadAll() {
       this.$axios
-        .get('options.php?action=getUsers')
+        .get('admin/options.php?action=getUsers')
         .then(response => {
           let api = response.data
           api.forEach(element => {

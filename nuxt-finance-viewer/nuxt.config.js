@@ -33,13 +33,6 @@ module.exports = {
   */
   plugins: ['~/plugins/icons', '~/plugins/bootstrap'],
 
-  /**
-   * Router Configuration
-   */
-  router: {
-    base: '/demo/'
-  },
-
   /*
   ** Nuxt.js modules
   */
@@ -53,7 +46,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'http://financeviewer.manuelweb.at/demo/',
+    baseURL: 'http://localhost:64674/',
     debug: true
   },
 
