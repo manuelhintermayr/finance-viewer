@@ -31,13 +31,14 @@
               <li class="nav-item">
                 <a 
                   class="nav-link" 
-                  href="#">Admin</a>
+                  href="/admin">Admin</a>
               </li>
               <li class="nav-item">
                 <select 
                   id="years" 
                   class="custom-select dropdown dropdownNavbar" 
-                  required="">
+                  required="" 
+                  @change="goToDashboard">
                   <option value="">Years</option>
                   <option>2017</option>
                   <option>2018</option>
@@ -49,7 +50,6 @@
                 class="btn btn-outline-info my-2 my-sm-0" 
                 @click.prevent="logout()">
                 <font-awesome-icon icon="sign-out-alt" />
-                <font-awesome-icon :icon="['fas', 'Ad']" />
                 Logout
               </button>
             </form>
@@ -89,6 +89,9 @@ export default {
       setTimeout(() => {
         this.$router.replace('/logout.php')
       }, 2000)
+    },
+    goToDashboard: function(event) {
+      this.$router.replace('/dashboard#' + event.target.value)
     }
   }
 }

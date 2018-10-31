@@ -30,3 +30,26 @@ body {
 .fill-height {
   height: 100%;
 }
+
+.transparentModal {
+  background-color: #ffffff45 !important;
+}
+
+.btn-secondary,
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before,
+.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #6c757d8c;
+}
+
+input,
+.custom-checkbox .custom-control-label::before {
+  background-color: #ffffff73;
+}
+
+.tableBorderLeft {
+  border-left: 1px solid #dee2e6;
+}
+
+.lastRow {
+  border-top: 2px solid #dee2e6;
+}
