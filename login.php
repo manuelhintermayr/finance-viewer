@@ -1,23 +1,21 @@
 <?php
-    include("config/login.php");
+
     $_POST = json_decode(file_get_contents("php://input"),true);
 
     if(isset($_POST) && isset($_POST['username'])) {
         $username = $_POST['username'];
-        $password = encrypt($_POST['password']);
+        $password = $_POST['password'];
 
-        $works = checkCorrectUser($username, $password);
-        setUserCredentials($username, $password);
-        if($works) {
+        if($username=="admin"&&$password=="admin") {
             $userPrefs = array(  
-                'name' => getFirstNameForUsername($username),
-                'url' => getUrlForUser($username)
+                'name' => 'Administrator',
+                'url' => 'admin'
             );
             echo json_encode($userPrefs);
         }
         else {
             header('HTTP/1.1 403 Forbidden');
-            echo "Login invalid {user: ".$username."}";
+            echo "Login invalid {try user=\"admin\", password=\"admin\"}";
         }
     }
     else {

@@ -608,8 +608,7 @@ export default {
       newView_description: 'Supermarket',
       newView_id: 'fvmarket2',
       newView_notes: 'This is my local market',
-      newView_profile_url:
-        'https://cdn.stocksnap.io/img-thumbs/960w/AWJD4WV6W1.jpg',
+      newView_profile_url: 'img/AWJD4WV6W1.jpg',
       tableViews: [
         {
           name: 'FVMarket',
@@ -618,8 +617,7 @@ export default {
           count: 1,
           notes: 'This is the FVMarket supermarket. I use it to buy groceries.',
           viewEnabled: false,
-          profile_url:
-            'https://cdn.stocksnap.io/img-thumbs/960w/AWJD4WV6W1.jpg',
+          profile_url: 'img/AWJD4WV6W1.jpg',
           data: {
             january: '1+1+41.69+21.49+43.99+14.29',
             february: '13.99+52.39+10.79+21.49+23.49',
@@ -658,8 +656,7 @@ export default {
           notes:
             'Richard is like the austrian big supermarket. You can buy practically everything.',
           viewEnabled: false,
-          profile_url:
-            'https://cdn.stocksnap.io/img-thumbs/960w/R0CTZDRFPY.jpg',
+          profile_url: 'img/R0CTZDRFPY.jpg',
           data: {
             january: '1',
             february: '2',
@@ -696,7 +693,7 @@ export default {
             'Amazing is an online eCommerce. I use it to buy stuff and proteins.',
           viewEnabled: false,
           profile_url:
-            'https://image.shutterstock.com/image-photo/boxes-trolley-on-laptop-keyboard-450w-580499569.jpg',
+            'img/boxes-trolley-on-laptop-keyboard-450w-580499569.jpg',
           data: {
             january: '123.45',
             february: '20+35.81+11.04+39.9',
@@ -733,7 +730,7 @@ export default {
             'Everything I eat (besides from what I buy at the supermarket) is included in this list.',
           viewEnabled: false,
           profile_url:
-            'https://image.shutterstock.com/image-photo/healthy-salad-bowl-quinoa-tomatoes-450w-521741356.jpg',
+            'img/healthy-salad-bowl-quinoa-tomatoes-450w-521741356.jpg',
           data: {
             january: '49.25',
             february: '29.49',
@@ -770,7 +767,7 @@ export default {
             'A car doesn`t come cheap. Everything is spend for this car is included here.',
           viewEnabled: false,
           profile_url:
-            'https://image.shutterstock.com/image-photo/creative-background-highbeam-headlight-newest-450w-1191643888.jpg',
+            'img/creative-background-highbeam-headlight-newest-450w-1191643888.jpg',
           data: {
             january: '90+450',
             february: '80+550',
@@ -806,8 +803,7 @@ export default {
           notes:
             'All my invoices, like rent, gas, electricity and else is included in this list.',
           viewEnabled: false,
-          profile_url:
-            'https://image.shutterstock.com/image-vector/e-commerce-order-450w-1148589737.jpg',
+          profile_url: 'img/e-commerce-order-450w-1148589737.jpg',
           data: {
             january: '750+35+35+25+25',
             february: '750+35+35+25+30',
@@ -844,7 +840,7 @@ export default {
             'A phone doesn`t come cheat. The monthly costs for a phone are included here.',
           viewEnabled: false,
           profile_url:
-            'https://image.shutterstock.com/image-photo/hand-holding-black-phone-isolated-450w-386618683.jpg',
+            'img/hand-holding-black-phone-isolated-450w-386618683.jpg',
           data: {
             january: '14.2',
             february: '14.2',
@@ -880,8 +876,7 @@ export default {
           notes:
             'Descriptions and everything I use medically is included here.',
           viewEnabled: false,
-          profile_url:
-            'https://cdn.stocksnap.io/img-thumbs/960w/LKM1T38B6S.jpg',
+          profile_url: 'img/LKM1T38B6S.jpg',
           data: {
             january: '12+4',
             february: '2+1.3',
