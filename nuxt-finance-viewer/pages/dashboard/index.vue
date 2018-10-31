@@ -1080,6 +1080,21 @@ export default {
           this.getSumNovember() +
           this.getSumDecember()
       )
+    },
+    updateJanuary(view) {
+      try {
+        let result = this.eval(view.data.tempJanuary)
+        if (view.data.tempJanuary.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.january = '' + view.data.tempJanuary
+        } else {
+          alert('New January value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New January value is invalid: ' + err)
+        console.log(err)
+      }
     }
   }
 }
