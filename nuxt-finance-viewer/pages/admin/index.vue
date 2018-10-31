@@ -76,7 +76,7 @@
                 id="password"
                 v-model="itemPassword" 
                 maxlength="45" 
-                type="text" 
+                type="password" 
                 class="form-control" 
                 placeholder="Password"
                 required="" >

@@ -181,7 +181,243 @@
           <span 
             v-for="u in tableViews" 
             v-if="u.viewEnabled" 
-            :key="u.id"> {{ u.name }} - is shown <br>
+            :key="u.id">
+
+            <div class="my-3 p-3 bg-white rounded shadow-sm text-dark transparentModal">
+              <h3 class="border-bottom border-gray pb-2 mb-0">Change content for <b>{{ u.name }}</b>:</h3> 
+              <br> 
+              <p class="lead">Edit current entries:</p> 
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr> 
+                    <th scope="col">Month</th> 
+                    <th scope="col">New Value</th> 
+                    <th scope="col">Update</th>
+                    <th scope="col">Current Value</th>          
+                  </tr>
+                </thead> 
+                <tbody>
+
+                  <tr> 
+                    <td>January</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempJanuary" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateJanuary(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.january) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>February</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempFebruary" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateFebruary(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.february) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>March</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempMarch" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateMarch(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.march) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>April</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempApril" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateApril(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.april) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>May</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempMay" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateMay(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.may) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>June</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempJune" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateJune(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.june) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>July</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempJuly" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateJuly(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.july) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>August</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempAugust" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateAugust(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.august) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>September</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempSeptember" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateSeptember(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.september) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>October</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempOctober" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateOctober(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.october) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>November</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempNovember" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateNovember(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.november) }}</b></td>                    
+                  </tr>
+
+                  <tr> 
+                    <td>December</td> 
+                    <td>                  
+                      <input  
+                        v-model="u.data.tempDecember" 
+                        type="text" 
+                        class="form-control" 
+                        required="" 
+                        maxlength="1000">
+                    </td>
+                    <td> 
+                      <button 
+                        class="btn btn-secondary" 
+                        @click="updateDecember(u)">Update</button> 
+                    </td>         
+                    <td>&pound; <b>{{ eval(u.data.december) }}</b></td>                    
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
           </span>
           <!-- end area for specific view -->
           
@@ -387,7 +623,7 @@ export default {
           data: {
             january: '1+1+41.69+21.49+43.99+14.29',
             february: '13.99+52.39+10,79+21.49+23.49',
-            march: '0,45+1,39+2,79+0,2+1,99+2,49+0,99+1,49+0,89',
+            march: '0.45+1.39+2.79+0.2+1.99+2.49+0.99+1.49+0.89',
             april:
               '43.54-6+16.55+15.42+3.58+6.86+10.17+17.76+-20+2.47+19.15+4.29+18.3+22.02+7.84+6.98',
             may: '23.97+2.75+16.39+10.53+18.99+5.34+4.31+5.85+24.34+4.74+12.93',
@@ -397,7 +633,21 @@ export default {
             september: '194.01',
             october: '79.99',
             november: '112.31',
-            december: '126.29'
+            december: '126.29',
+            tempJanuary: '1+1+41.69+21.49+43.99+14.29',
+            tempFebruary: '13.99+52.39+10,79+21.49+23.49',
+            tempMarch: '0.45+1.39+2.79+0.2+1.99+2.49+0.99+1.49+0.89',
+            tempApril:
+              '43.54-6+16.55+15.42+3.58+6.86+10.17+17.76+-20+2.47+19.15+4.29+18.3+22.02+7.84+6.98',
+            tempMay:
+              '23.97+2.75+16.39+10.53+18.99+5.34+4.31+5.85+24.34+4.74+12.93',
+            tempJune: '89.4',
+            tempJuly: '120.3',
+            tempAugust: '153.58',
+            tempSeptember: '194.01',
+            tempOctober: '79.99',
+            tempNovember: '112.31',
+            tempDecember: '126.29'
           }
         },
         {
@@ -422,7 +672,19 @@ export default {
             september: '9',
             october: '10',
             november: '11',
-            december: '12'
+            december: '12',
+            tempJanuary: '1',
+            tempFebruary: '2',
+            tempMarch: '3',
+            tempApril: '4',
+            tempMay: '5',
+            tempJune: '6',
+            tempJuly: '7',
+            tempAugust: '8',
+            tempSeptember: '9',
+            tempOctober: '10',
+            tempNovember: '11',
+            tempDecember: '12'
           }
         },
         {
@@ -447,7 +709,19 @@ export default {
             september: '90.69',
             october: '101.29',
             november: '119.14',
-            december: '124.17'
+            december: '124.17',
+            tempJanuary: '123.45',
+            tempFebruary: '20+35.81+11.04+39.9',
+            tempMarch: '30.2',
+            tempApril: '39.1+20+1.30+40.91',
+            tempMay: '88.20',
+            tempJune: '60.19',
+            tempJuly: '7.91',
+            tempAugust: '88.29',
+            tempSeptember: '90.69',
+            tempOctober: '101.29',
+            tempNovember: '119.14',
+            tempDecember: '124.17'
           }
         },
         {
@@ -472,7 +746,19 @@ export default {
             september: '99-1',
             october: '100.01+20.29',
             november: '111',
-            december: '122'
+            december: '122',
+            tempJanuary: '49.25',
+            tempFebruary: '29.49',
+            tempMarch: '90.19',
+            tempApril: '4+1+5+3+3.50+4.5+1+1+1+2+1',
+            tempMay: '5+5+6+7+9',
+            tempJune: '6+4.5',
+            tempJuly: '7+70',
+            tempAugust: '89.13',
+            tempSeptember: '99-1',
+            tempOctober: '100.01+20.29',
+            tempNovember: '111',
+            tempDecember: '122'
           }
         },
         {
@@ -497,7 +783,19 @@ export default {
             september: '90+211',
             october: '80+30',
             november: '91+40',
-            december: '82+430'
+            december: '82+430',
+            tempJanuary: '90+450',
+            tempFebruary: '80+550',
+            tempMarch: '90+350.55',
+            tempApril: '80+154.23',
+            tempMay: '90+431.49',
+            tempJune: '80+350',
+            tempJuly: '90+210',
+            tempAugust: '80+482',
+            tempSeptember: '90+211',
+            tempOctober: '80+30',
+            tempNovember: '91+40',
+            tempDecember: '82+430'
           }
         },
         {
@@ -522,7 +820,19 @@ export default {
             september: '750+9+35+35+25+284',
             october: '750+10+35+35+25+284',
             november: '750+112+35+35+25+10',
-            december: '712+35+35+25+130'
+            december: '712+35+35+25+130',
+            tempJanuary: '750+35+35+25+25',
+            tempFebruary: '750+35+35+25+30',
+            tempMarch: '750+35+35+25+18.78',
+            tempApril: '750+35+35+25+69',
+            tempMay: '750+35+35+25+169',
+            tempJune: '750+35+35+25+385',
+            tempJuly: '750+35+35+25+342',
+            tempAugust: '750+35+35+25+295',
+            tempSeptember: '750+9+35+35+25+284',
+            tempOctober: '750+10+35+35+25+284',
+            tempNovember: '750+112+35+35+25+10',
+            tempDecember: '712+35+35+25+130'
           }
         },
         {
@@ -547,7 +857,19 @@ export default {
             september: '19',
             october: '19',
             november: '19',
-            december: '19'
+            december: '19',
+            tempJanuary: '14.2',
+            tempFebruary: '14.2',
+            tempMarch: '14.2',
+            tempApril: '14.2',
+            tempMay: '14.2+30',
+            tempJune: '14.2',
+            tempJuly: '14.2+2.60',
+            tempAugust: '8+14.2',
+            tempSeptember: '19',
+            tempOctober: '19',
+            tempNovember: '19',
+            tempDecember: '19'
           }
         },
         {
@@ -572,7 +894,19 @@ export default {
             september: '9',
             october: '26.9+29.9+6',
             november: '12+8.99',
-            december: '13.99+25.28'
+            december: '13.99+25.28',
+            tempJanuary: '12+4',
+            tempFebruary: '2+1.3',
+            tempMarch: '3',
+            tempApril: '6+3.3+10.95+3+4.05+8.3',
+            tempMay: '12+5.2+2.2',
+            tempJune: '1+29+4.2',
+            tempJuly: '15.4',
+            tempAugust: '9.20',
+            tempSeptember: '9',
+            tempOctober: '26.9+29.9+6',
+            tempNovember: '12+8.99',
+            tempDecember: '13.99+25.28'
           }
         }
       ]
@@ -597,17 +931,29 @@ export default {
         profile_url: this.newView_profile_url,
         data: {
           january: '0',
+          tempJanuary: '0',
           february: '0',
+          tempFebruary: '0',
           march: '0',
+          tempMarch: '0',
           april: '0',
+          tempApril: '0',
           may: '0',
+          tempMay: '0',
           june: '0',
+          tempJune: '0',
           july: '0',
+          tempJuly: '0',
           august: '0',
+          tempAugust: '0',
           september: '0',
+          tempSeptember: '0',
           october: '0',
+          tempOctober: '0',
           november: '0',
-          december: '0'
+          tempNovember: '0',
+          december: '0',
+          tempDecember: '0'
         }
       })
       this.newView_name = this.newView_description = this.newView_id = this.newView_notes = this.newView_profile_url =
@@ -764,7 +1110,6 @@ export default {
 #menu_right {
   position: relative;
   overflow: scroll;
-  overflow-x: hidden;
   flex: 0 0 74.17%;
   max-width: 100% !important;
 }
@@ -790,6 +1135,11 @@ export default {
   height: 100%;
   width: 100%;
   cursor: pointer;
+}
+
+#menu_right > span > div > table > thead > tr > th:nth-child(4),
+#menu_right > span > div > table > tbody > tr > td:nth-child(4) {
+  text-align: right;
 }
 
 .item {
@@ -978,7 +1328,7 @@ export default {
 
 .scrollbarRight::-webkit-scrollbar {
   width: 14px;
-  height: 8px;
+  height: 14px;
 }
 .scrollbarRight::-webkit-scrollbar-track,
 .scrollbarRight::-webkit-scrollbar-track,
