@@ -622,7 +622,7 @@ export default {
             'https://cdn.stocksnap.io/img-thumbs/960w/AWJD4WV6W1.jpg',
           data: {
             january: '1+1+41.69+21.49+43.99+14.29',
-            february: '13.99+52.39+10,79+21.49+23.49',
+            february: '13.99+52.39+10.79+21.49+23.49',
             march: '0.45+1.39+2.79+0.2+1.99+2.49+0.99+1.49+0.89',
             april:
               '43.54-6+16.55+15.42+3.58+6.86+10.17+17.76+-20+2.47+19.15+4.29+18.3+22.02+7.84+6.98',
@@ -635,7 +635,7 @@ export default {
             november: '112.31',
             december: '126.29',
             tempJanuary: '1+1+41.69+21.49+43.99+14.29',
-            tempFebruary: '13.99+52.39+10,79+21.49+23.49',
+            tempFebruary: '13.99+52.39+10.79+21.49+23.49',
             tempMarch: '0.45+1.39+2.79+0.2+1.99+2.49+0.99+1.49+0.89',
             tempApril:
               '43.54-6+16.55+15.42+3.58+6.86+10.17+17.76+-20+2.47+19.15+4.29+18.3+22.02+7.84+6.98',
@@ -1093,6 +1093,171 @@ export default {
         }
       } catch (err) {
         alert('New January value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateFebruary(view) {
+      try {
+        let result = this.eval(view.data.tempFebruary)
+        if (view.data.tempFebruary.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.february = '' + view.data.tempFebruary
+        } else {
+          alert('New February value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New February value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateMarch(view) {
+      try {
+        let result = this.eval(view.data.tempMarch)
+        if (view.data.tempMarch.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.march = '' + view.data.tempMarch
+        } else {
+          alert('New March value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New March value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateApril(view) {
+      try {
+        let result = this.eval(view.data.tempApril)
+        if (view.data.tempApril.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.april = '' + view.data.tempApril
+        } else {
+          alert('New April value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New April value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateMay(view) {
+      try {
+        let result = this.eval(view.data.tempMay)
+        if (view.data.tempMay.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.may = '' + view.data.tempMay
+        } else {
+          alert('New May value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New May value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateJune(view) {
+      try {
+        let result = this.eval(view.data.tempJune)
+        if (view.data.tempJune.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.june = '' + view.data.tempJune
+        } else {
+          alert('New June value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New June value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateJuly(view) {
+      try {
+        let result = this.eval(view.data.tempJuly)
+        if (view.data.tempJuly.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.july = '' + view.data.tempJuly
+        } else {
+          alert('New July value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New July value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateAugust(view) {
+      try {
+        let result = this.eval(view.data.tempAugust)
+        if (view.data.tempAugust.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.august = '' + view.data.tempAugust
+        } else {
+          alert('New August value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New August value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateSeptember(view) {
+      try {
+        let result = this.eval(view.data.tempSeptember)
+        if (view.data.tempSeptember.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.september = '' + view.data.tempSeptember
+        } else {
+          alert('New September value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New September value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateOctober(view) {
+      try {
+        let result = this.eval(view.data.tempOctober)
+        if (view.data.tempOctober.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.october = '' + view.data.tempOctober
+        } else {
+          alert('New October value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New October value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateNovember(view) {
+      try {
+        let result = this.eval(view.data.tempNovember)
+        if (view.data.tempNovember.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.november = '' + view.data.tempNovember
+        } else {
+          alert('New November value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New November value is invalid: ' + err)
+        console.log(err)
+      }
+    },
+    updateDecember(view) {
+      try {
+        let result = this.eval(view.data.tempDecember)
+        if (view.data.tempDecember.includes(',')) {
+          alert('Please do not use , use . instead')
+        } else if (isFinite(result)) {
+          view.data.december = '' + view.data.tempDecember
+        } else {
+          alert('New December value is invalid: ' + result)
+        }
+      } catch (err) {
+        alert('New December value is invalid: ' + err)
         console.log(err)
       }
     }
