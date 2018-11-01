@@ -48,8 +48,6 @@
     function getUsers()
     {
         global $mysqli;
-
-        global $mysqli;
         $sql = "SELECT * FROM fv_users;";
         $result = $mysqli->query($sql);
         
@@ -75,6 +73,8 @@
 
     function addUser()
     {
+        global $mysqli;
+
         if(isset($_POST['id'])
         &&isset($_POST['username'])
         &&isset($_POST['firstname'])
@@ -109,9 +109,20 @@
                     'years' => $years
                 );
 
-                //todo
+                //weitereChecks
 
-                echo json_encode($newUser);
+                $sqlCreateUser = "INSERT INTO `fv_users` (`u_name`, `u_password`, `u_isLocked`, `u_firstName`, `u_lastName`) VALUES ('$username', '$password', '$isLocked', '$firstname', '$lastname');";
+                $resultCreateUser = $mysqli->query($sqlCreateUser);
+                if($resultCreateUser==1)
+                {
+                    //weitere aktionen
+                    echo json_encode($newUser);
+                }
+                else{
+                    header('HTTP/1.1 400 Bad request');
+                    echo "Could not create new user. SQL Execution failed."; 
+                }
+                
             }
             else{
                 header('HTTP/1.1 400 Bad request');
