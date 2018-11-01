@@ -332,8 +332,7 @@ export default {
         })
         .catch(error => {
           alert(
-            'Could not load users. The following error occured: ' +
-              error.response.data
+            'Could not load users. An error calling the middleware occured. Look in the console for further information.'
           )
         })
     },
