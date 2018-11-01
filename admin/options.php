@@ -87,7 +87,6 @@
         &&$_POST['firstname']!=' '
         &&$_POST['lastname']!=''
         &&$_POST['lastname']!=' '
-        &&$_POST['isLocked']!=''
         &&$_POST['isLocked']!=' '
         &&$_POST['password']!=''
         &&$_POST['password']!=' '
@@ -95,6 +94,17 @@
         &&$_POST['years']!=' '
         &&!empty($_POST['years']))
         {
+            $username = mysql_real_escape_string($_POST['username']);
+            $firstname = mysql_real_escape_string($_POST['firstname']);
+            $lastname = mysql_real_escape_string($_POST['lastname']);
+            $isLocked = mysql_real_escape_string($_POST['isLocked']);
+            $password = encrypt($_POST['password']);
+            $years = array();
+            while($year = $_POST['years']->fetch_assoc()) 
+            {
+                $years[] = mysql_real_escape_string($year);
+            }
+
             
             
         }
