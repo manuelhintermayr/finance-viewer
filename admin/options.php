@@ -75,11 +75,33 @@
 
     function addUser()
     {
-        //var_dump($_POST);
-        //if(isset($_POST['username'])
-        //&&isset($_POST['firstname'])
-        //&&isset($_POST['lastname'])
-        //&&isset($_POST['isLocked']))
+        if(isset($_POST['username'])
+        &&isset($_POST['firstname'])
+        &&isset($_POST['lastname'])
+        &&isset($_POST['isLocked'])
+        &&isset($_POST['password'])
+        &&isset($_POST['years'])
+        &&$_POST['username']!=''
+        &&$_POST['username']!=' '
+        &&$_POST['firstname']!=''
+        &&$_POST['firstname']!=' '
+        &&$_POST['lastname']!=''
+        &&$_POST['lastname']!=' '
+        &&$_POST['isLocked']!=''
+        &&$_POST['isLocked']!=' '
+        &&$_POST['password']!=''
+        &&$_POST['password']!=' '
+        &&$_POST['years']!=''
+        &&$_POST['years']!=' '
+        &&!empty($_POST['years']))
+        {
+            
+            
+        }
+        else{
+           header('HTTP/1.1 400 Bad request');
+           echo "Not all values are set.";
+        }
     }
 
     function setView()

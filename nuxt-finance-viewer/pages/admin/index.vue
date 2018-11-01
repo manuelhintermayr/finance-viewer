@@ -346,27 +346,36 @@ export default {
         firstname: this.itemFirstname,
         lastname: this.itemLastname,
         isLocked: this.itemIsLocked,
-        password: '',
+        password: this.itemPassword,
         years: [2018, 2019]
       }
 
-      this.$axios
-        .post('admin/options.php?action=addUser', newUser)
-        .then(response => {
-          let api = response.data
-          if (api.message == 'User added.') {
-            this.users.push(newUser)
-            this.itemUsername = this.itemPassword = this.itemFirstname = this.itemLastname = this.itemIsLocked =
-              ''
-            this.scrollToEnd()
-          } else {
-            console.log(reponse)
+      if (
+        newUser.username == '' ||
+        newUser.firstname == '' ||
+        newUser.lastname == '' ||
+        newUser.password == ''
+      ) {
+        alert('Please fill out all fields.')
+      } else {
+        this.$axios
+          .post('admin/options.php?action=addUser', newUser)
+          .then(response => {
+            let api = response.data
+            if (api.message == 'User added.') {
+              this.users.push(newUser)
+              this.itemUsername = this.itemPassword = this.itemFirstname = this.itemLastname = this.itemIsLocked =
+                ''
+              this.scrollToEnd()
+            } else {
+              console.log(reponse)
+              alert('Could not add a new User. Check console for more info.')
+            }
+          })
+          .catch(error => {
             alert('Could not add a new User. Check console for more info.')
-          }
-        })
-        .catch(error => {
-          alert('Could not add a new User. Check console for more info.')
-        })
+          })
+      }
     },
     removeUser(user) {
       this.users.splice(this.users.indexOf(user), 1)
