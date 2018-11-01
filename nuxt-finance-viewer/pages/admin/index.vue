@@ -340,9 +340,8 @@ export default {
     },
     addUser() {
       let newUser = {
-        // id: this.currentId++,
+        id: this.currentId++,
         username: this.itemUsername,
-        // origianlUsername: this.itemUsername,
         firstname: this.itemFirstname,
         lastname: this.itemLastname,
         isLocked: this.itemIsLocked,

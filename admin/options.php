@@ -75,7 +75,8 @@
 
     function addUser()
     {
-        if(isset($_POST['username'])
+        if(isset($_POST['id'])
+        &&isset($_POST['username'])
         &&isset($_POST['firstname'])
         &&isset($_POST['lastname'])
         &&isset($_POST['isLocked'])
@@ -99,7 +100,19 @@
             
             if(!strpos($username, ' '))
             {
+                $newUser = array(
+                    'id' => $_POST['id'],
+                    'username' => $username,
+                    'origianlUsername'=> $username,
+                    'firstname'=> $firstname,
+                    'lastname'=> $lastname,
+                    'isLocked'=> $isLocked =="0"?FALSE:TRUE,
+                    'years' => $years
+                );
+
                 //todo
+
+                //echo json_encode($newUser);
             }
             else{
                 header('HTTP/1.1 400 Bad request');
