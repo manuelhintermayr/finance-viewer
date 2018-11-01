@@ -32,6 +32,9 @@
                     case 'addUser':
                         addUser();
                         break;
+                    case 'removeUser':
+                        removeUser();
+                        break;
                     default:
                         actionNotSupported($action);
                 }
@@ -40,8 +43,6 @@
                 header('HTTP/1.1 400 Bad request');
                 echo 'Bad request.'; 
             }
-            
-            
         }
     }
 
@@ -116,7 +117,7 @@
                     foreach($years as $year) 
                     {
                         $sqlCreateYear = "INSERT INTO `fv_years` (`y_year`, `y_u_name`) VALUES ('$year', '$username');";
-                        $result = $mysqli->query($sqlCreateYear);
+                        $resultCreateYear = $mysqli->query($sqlCreateYear);
                     }
 
                     echo json_encode($newUser);
@@ -135,6 +136,41 @@
            header('HTTP/1.1 400 Bad request');
            echo "Not all values are set.";
         }
+    }
+    function removeUser()
+    {
+        global $mysqli;
+
+        if(isset($_POST['username']))
+        {
+            $username = mysql_real_escape_string($_POST['username']);
+
+            //update this method to also remove views when they are being implemented
+            $sqlDeleteYears ="DELETE FROM `fv_years` WHERE `fv_years`.`y_u_name` = '$username'";
+            $resultDelteYears = $mysqli->query($sqlDeleteYears);
+            if($resultDelteYears==1)
+            {
+                $sqlDeleteUser = "DELETE FROM `fv_users` WHERE `fv_users`.`u_name` = '$username'";
+                $resultDeleteUser = $mysqli->query($sqlDeleteUser);  
+                if($resultDeleteUser==1)
+                {
+                    echo json_encode(array('message' => "User deleted."));
+                }                  
+                else{
+                    header('HTTP/1.1 400 Bad request');
+                    echo "Could not delete user \"$username\".";
+                }
+            }
+            else{
+                header('HTTP/1.1 400 Bad request');
+                echo "Could not delete years for the user \"$username\".";
+            }
+
+        }
+        else{
+           header('HTTP/1.1 400 Bad request');
+           echo "Username is not set.";
+        }    
     }
 
     function setView()

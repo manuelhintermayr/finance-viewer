@@ -388,7 +388,26 @@ export default {
       return exists
     },
     removeUser(user) {
-      this.users.splice(this.users.indexOf(user), 1)
+      if (
+        confirm('Are you sure you want to delte user ' + user.username + '?')
+      ) {
+        this.$axios
+          .post('admin/options.php?action=removeUser', {
+            username: user.username
+          })
+          .then(response => {
+            let api = response.data
+            if (api.message == 'User deleted.') {
+              this.users.splice(this.users.indexOf(user), 1)
+            } else {
+              console.log(reponse)
+              alert('Could not delete user. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not delete user. Check console for more info.')
+          })
+      }
     },
     updateUser(user) {},
     setPassword(user) {
