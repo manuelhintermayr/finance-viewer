@@ -73,8 +73,26 @@
     /* Get FirstName for username 
     ----------------------------- */
     function getFirstNameForUsername($username)  
-    {    
-        return "Administrator";   
+    {
+        global $mysqli;
+
+        if(userIsAdmin($username))
+        {
+            return "Administrator";
+        }
+
+        $sql = "SELECT * FROM fv_users where u_name = '$username';";
+        
+        $result = $mysqli->query($sql);
+        
+        if ($result){
+            while($row = $result->fetch_assoc()) 
+            {
+                return $row['u_firstName'];
+            }
+        }
+            
+        return "[undefined]";   
     }
 
     /* Check for correct user credentials in database
