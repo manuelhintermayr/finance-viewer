@@ -80,7 +80,6 @@
         &&isset($_POST['lastname'])
         &&isset($_POST['isLocked'])
         &&isset($_POST['password'])
-        &&isset($_POST['years'])
         &&$_POST['username']!=''
         &&$_POST['username']!=' '
         &&$_POST['firstname']!=''
@@ -89,24 +88,23 @@
         &&$_POST['lastname']!=' '
         &&$_POST['isLocked']!=' '
         &&$_POST['password']!=''
-        &&$_POST['password']!=' '
-        &&$_POST['years']!=''
-        &&$_POST['years']!=' '
-        &&!empty($_POST['years']))
+        &&$_POST['password']!=' ')
         {
             $username = mysql_real_escape_string($_POST['username']);
             $firstname = mysql_real_escape_string($_POST['firstname']);
             $lastname = mysql_real_escape_string($_POST['lastname']);
             $isLocked = mysql_real_escape_string($_POST['isLocked']);
             $password = encrypt($_POST['password']);
-            $years = $_POST['years'];
-            foreach($years as &$year) 
+            $years = array("2018", "2019");
+            
+            if(!strpos($username, ' '))
             {
-                $year = mysql_real_escape_string($year);
+                //todo
             }
-
-            
-            
+            else{
+                header('HTTP/1.1 400 Bad request');
+                echo "Username should not contain whitespaces."; 
+            }
         }
         else{
            header('HTTP/1.1 400 Bad request');

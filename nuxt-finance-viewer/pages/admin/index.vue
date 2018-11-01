@@ -322,7 +322,7 @@ export default {
             this.users.push({
               id: this.currentId++,
               username: element.username,
-              origianlUsername: element.username,
+              originalUsername: element.username,
               firstname: element.firstname,
               lastname: element.lastname,
               isLocked: element.isLocked,
@@ -340,14 +340,13 @@ export default {
     },
     addUser() {
       let newUser = {
-        id: this.currentId++,
+        // id: this.currentId++,
         username: this.itemUsername,
-        origianlUsername: this.itemUsername,
+        // origianlUsername: this.itemUsername,
         firstname: this.itemFirstname,
         lastname: this.itemLastname,
         isLocked: this.itemIsLocked,
-        password: this.itemPassword,
-        years: [2018, 2019]
+        password: this.itemPassword
       }
 
       if (
@@ -357,6 +356,8 @@ export default {
         newUser.password == ''
       ) {
         alert('Please fill out all fields.')
+      } else if (newUser.username.includes(' ')) {
+        alert('Username is not allowed to have wite spaces.')
       } else {
         this.$axios
           .post('admin/options.php?action=addUser', newUser)
