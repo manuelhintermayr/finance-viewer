@@ -8,7 +8,7 @@
     }
     else
     {
-        if(loggedInUserIsAdmin())
+        if(loggedInUserIsAdmin()&&isset($_SESSION['m_view_username'])==FALSE)
         {
             redirectToCorrectDashboard();
         }

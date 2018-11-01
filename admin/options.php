@@ -29,6 +29,9 @@
                     case 'setView':
                         setView();
                         break;
+                    case 'addUser':
+                        addUser();
+                        break;
                     default:
                         actionNotSupported($action);
                 }
@@ -68,6 +71,15 @@
         else{
             echo '{}';
         }
+    }
+
+    function addUser()
+    {
+        //var_dump($_POST);
+        //if(isset($_POST['username'])
+        //&&isset($_POST['firstname'])
+        //&&isset($_POST['lastname'])
+        //&&isset($_POST['isLocked']))
     }
 
     function setView()
