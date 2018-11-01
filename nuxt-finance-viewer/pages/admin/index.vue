@@ -183,7 +183,9 @@
                     class="btn btn-secondary" 
                     @click="setPassword(u)">Set Password/Views</button>
                 </td>
-                <td><button class="btn btn-secondary">View FinanceView</button></td>
+                <td><button 
+                  class="btn btn-secondary" 
+                  @click="setView(u)">View FinanceView</button></td>
               </tr>
             </tbody>
           </table>
@@ -369,6 +371,22 @@ export default {
         this.currentUserToChangePassword.years.indexOf(year),
         1
       )
+    },
+    setView(user) {
+      this.$axios
+        .post('admin/options.php?action=setView', { username: user.username })
+        .then(response => {
+          let api = response.data
+          if (api.message == 'Username for view set.') {
+            this.$router.replace('/dashboard')
+          } else {
+            console.log(reponse)
+            alert('Could not set View. Check console for more info.')
+          }
+        })
+        .catch(error => {
+          alert('Could not set View. Check console for more info.')
+        })
     },
     scrollToEnd() {
       var container = this.$el.querySelector('#content')

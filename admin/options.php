@@ -26,6 +26,9 @@
                     case 'getUsers':
                         getUsers();
                         break;
+                    case 'setView':
+                        setView();
+                        break;
                     default:
                         actionNotSupported($action);
                 }
@@ -65,6 +68,19 @@
         else{
             echo '{}';
         }
+    }
+
+    function setView()
+    {
+       if(isset($_POST['username']))
+       {
+           $_SESSION['m_view_username'] = $_POST['username'];
+           echo json_encode(array('message' => "Username for view set."));
+       } 
+       else{
+           header('HTTP/1.1 400 Bad request');
+           echo "Username is not set.";
+       }
     }
 
     function actionNotSupported($action)
