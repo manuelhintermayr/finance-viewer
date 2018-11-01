@@ -109,20 +109,22 @@
                     'years' => $years
                 );
 
-                //weitereChecks
-
                 $sqlCreateUser = "INSERT INTO `fv_users` (`u_name`, `u_password`, `u_isLocked`, `u_firstName`, `u_lastName`) VALUES ('$username', '$password', '$isLocked', '$firstname', '$lastname');";
                 $resultCreateUser = $mysqli->query($sqlCreateUser);
                 if($resultCreateUser==1)
                 {
-                    //weitere aktionen
+                    foreach($years as $year) 
+                    {
+                        $sqlCreateYear = "INSERT INTO `fv_years` (`y_year`, `y_u_name`) VALUES ('$year', '$username');";
+                        $result = $mysqli->query($sqlCreateYear);
+                    }
+
                     echo json_encode($newUser);
                 }
                 else{
                     header('HTTP/1.1 400 Bad request');
                     echo "Could not create new user. SQL Execution failed."; 
                 }
-                
             }
             else{
                 header('HTTP/1.1 400 Bad request');

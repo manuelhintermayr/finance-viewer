@@ -219,7 +219,7 @@
                   <td>
                     <input   
                       v-model="currentUserToChangePassword.password" 
-                      type="text" 
+                      type="password" 
                       class="form-control"
                       required=""
                       maxlength="45">
@@ -258,7 +258,6 @@
                       :disabled="newYear==''" 
                       class="btn btn-secondary"
                       @click="addYear()">Add Year {{ newYear }}</button>
-                      <!-- add to :disabled=",currentUserToChangePassword.years.includes(newYear)" -->
                   </td>
                 </tr>
               </tbody>
@@ -357,6 +356,8 @@ export default {
         alert('Please fill out all fields.')
       } else if (newUser.username.includes(' ')) {
         alert('Username is not allowed to have wite spaces.')
+      } else if (this.doesUserAlreadyExists(newUser.username)) {
+        alert('Username "' + newUser.username + '" exists already.')
       } else {
         this.$axios
           .post('admin/options.php?action=addUser', newUser)
@@ -376,6 +377,15 @@ export default {
             alert('Could not add a new User. Check console for more info.')
           })
       }
+    },
+    doesUserAlreadyExists(username) {
+      let exists = false
+      this.users.forEach(element => {
+        if (username === element.username) {
+          exists = true
+        }
+      })
+      return exists
     },
     removeUser(user) {
       this.users.splice(this.users.indexOf(user), 1)
