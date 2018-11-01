@@ -362,8 +362,8 @@ export default {
           .post('admin/options.php?action=addUser', newUser)
           .then(response => {
             let api = response.data
-            if (api.message == 'User added.') {
-              this.users.push(newUser)
+            if (api.username != null) {
+              this.users.push(api)
               this.itemUsername = this.itemPassword = this.itemFirstname = this.itemLastname = this.itemIsLocked =
                 ''
               this.scrollToEnd()
