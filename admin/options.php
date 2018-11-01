@@ -99,10 +99,10 @@
             $lastname = mysql_real_escape_string($_POST['lastname']);
             $isLocked = mysql_real_escape_string($_POST['isLocked']);
             $password = encrypt($_POST['password']);
-            $years = array();
-            while($year = $_POST['years']->fetch_assoc()) 
+            $years = $_POST['years'];
+            foreach($years as &$year) 
             {
-                $years[] = mysql_real_escape_string($year);
+                $year = mysql_real_escape_string($year);
             }
 
             
