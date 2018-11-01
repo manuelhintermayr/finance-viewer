@@ -35,6 +35,9 @@
                     case 'removeUser':
                         removeUser();
                         break;
+                    case 'updateUser':
+                        updateUser();
+                        break;
                     default:
                         actionNotSupported($action);
                 }
@@ -171,6 +174,11 @@
            header('HTTP/1.1 400 Bad request');
            echo "Username is not set.";
         }    
+    }
+
+    function updateUser()
+    {
+        var_dump($_POST);
     }
 
     function setView()

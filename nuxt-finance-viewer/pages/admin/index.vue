@@ -140,7 +140,8 @@
                     type="text" 
                     class="form-control" 
                     required="" 
-                    maxlength="45">
+                    maxlength="45"
+                    disabled>
                 </td>
                 <td>
                   <input  
@@ -172,7 +173,9 @@
                   </div>
                  
                 </td>
-                <td><button class="btn btn-secondary">Update</button></td>
+                <td><button 
+                  class="btn btn-secondary" 
+                  @click="updateUser(u)">Update</button></td>
                 <td>
                   <button 
                     class="btn btn-secondary" 
@@ -409,7 +412,22 @@ export default {
           })
       }
     },
-    updateUser(user) {},
+    updateUser(user) {
+      this.$axios
+        .post('admin/options.php?action=updateUser', user)
+        .then(response => {
+          // let api = response.data
+          // if (api.message == 'Username for view set.') {
+          //   this.$router.replace('/dashboard')
+          // } else {
+          //   console.log(reponse)
+          //   alert('Could not set View. Check console for more info.')
+          // }
+        })
+        .catch(error => {
+          alert('Could not update user. Check console for more info.')
+        })
+    },
     setPassword(user) {
       this.currentUserToChangePassword = user
       this.passwordChangeIsActivated = true
