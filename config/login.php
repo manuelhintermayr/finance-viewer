@@ -82,9 +82,7 @@
         }
 
         $sql = "SELECT * FROM fv_users where u_name = '$username';";
-        
         $result = $mysqli->query($sql);
-        
         if ($result){
             while($row = $result->fetch_assoc()) 
             {
@@ -93,6 +91,30 @@
         }
             
         return "[undefined]";   
+    }
+
+    /* Returns all available years 
+    ------------------------------ */
+    function getYearsForUser($username)
+    {
+        global $mysqli;
+
+        $resultArray = array();
+        if(userIsAdmin($username))
+        {
+            return $resultArray;
+        }
+        
+        $sql = "SELECT * FROM fv_years where y_u_name = '$username';";
+        $result = $mysqli->query($sql);
+        if ($result){
+            while($row = $result->fetch_assoc()) 
+            {
+                $resultArray[] = $row['y_year'];
+            }
+        }
+
+        return $resultArray;
     }
 
     /* Check for correct user credentials in database

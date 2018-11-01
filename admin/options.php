@@ -56,7 +56,7 @@
                     'firstname' => $row['u_firstName'],
                     'lastname' => $row['u_lastName'],
                     'isLocked' => $row['u_isLocked']=="0"?FALSE:TRUE,
-                    'years' => array(2017, 2018)
+                    'years' => getYearsForUser($row['u_name'])
                 );
                 $resultArray[] = $user;
             }
