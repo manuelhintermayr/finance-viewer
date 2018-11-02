@@ -1,7 +1,6 @@
 <?php
     include("config/login.php");
                
-               phpinfo();
                              
     if(userLoggedIn())
     {
