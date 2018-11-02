@@ -9,9 +9,23 @@ function redirect($url) {
     exit();
 }
 
-/* Hashes a text
+/* Hashes a text 
 ---------------- */
-function encrypt($pwd)
+function encrypt($text)
+{
+    return password_hash($text, PASSWORD_BCRYPT, ['application' => 'financeViewer']);
+}
+
+/* Verifys the encryptext text with the plain text
+-------------------------------------------------- */
+function verify_encryption($plainText, $encryptedText)
+{
+    return password_verify($plainText, $encryptedText);
+}
+
+/* Hashes a text in SHA
+----------------------- */
+function encryptSHA($pwd)
 {
     $password_hash = hash('sha512', $pwd);
 	return $password_hash;

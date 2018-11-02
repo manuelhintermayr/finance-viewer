@@ -98,7 +98,7 @@
             $firstname = mysql_real_escape_string($_POST['firstname']);
             $lastname = mysql_real_escape_string($_POST['lastname']);
             $isLocked = $_POST['isLocked']=='' ? '0' : mysql_real_escape_string($_POST['isLocked']);
-            $password = encrypt($_POST['password']);
+            $password = encrypt( encryptSHA($_POST['password']) );
             $years = array("2018", "2019");
             
             if(!strpos($username, ' '))

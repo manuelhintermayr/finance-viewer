@@ -4,7 +4,7 @@
 
     if(isset($_POST) && isset($_POST['username'])) {
         $username = $_POST['username'];
-        $password = encrypt($_POST['password']);
+        $password = encryptSHA($_POST['password']);
 
         $works = checkCorrectUser($username, $password);
         setUserCredentials($username, $password);

@@ -62,7 +62,8 @@
         global $adminName;
         global $adminPw;
 
-        if($username==$adminName&&$password==encrypt($adminPw))
+        if($username==$adminName
+        &&verify_encryption($password, encrypt( encryptSHA($adminPw) )))
         {
             return TRUE;
         }
@@ -128,7 +129,8 @@
         if ($result){
             while($row = $result->fetch_assoc()) 
             {
-                if($username==$row['u_name']&&$password==$row['u_password'])
+                if($username==$row['u_name']&&
+                verify_encryption($password, $row['u_password']))
                 {
                     if($row['u_isLocked']=="0")
                     {
