@@ -416,13 +416,16 @@ export default {
       this.$axios
         .post('admin/options.php?action=updateUser', user)
         .then(response => {
-          // let api = response.data
-          // if (api.message == 'Username for view set.') {
-          //   this.$router.replace('/dashboard')
-          // } else {
-          //   console.log(reponse)
-          //   alert('Could not set View. Check console for more info.')
-          // }
+          let api = response.data
+          if (api.username != null) {
+            user.firstname = api.firstname
+            user.lastname = api.lastname
+            user.isLocked = api.isLocked
+            alert('User ' + user.username + ' was successfully updated!')
+          } else {
+            console.log(reponse)
+            alert('Could not update user. Check console for more info.')
+          }
         })
         .catch(error => {
           alert('Could not update user. Check console for more info.')

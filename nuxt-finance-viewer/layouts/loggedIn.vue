@@ -87,7 +87,7 @@ export default {
       }, 1500)
 
       setTimeout(() => {
-        this.$router.replace('/logout.php')
+        window.location = '/logout.php'
       }, 2000)
     },
     goToDashboard: function(event) {

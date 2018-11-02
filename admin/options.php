@@ -178,7 +178,46 @@
 
     function updateUser()
     {
-        var_dump($_POST);
+        global $mysqli;
+
+        if(isset($_POST['username'])
+        &&isset($_POST['firstname'])
+        &&isset($_POST['lastname'])
+        &&isset($_POST['isLocked'])
+        &&$_POST['username']!=''
+        &&$_POST['username']!=' '
+        &&$_POST['firstname']!=''
+        &&$_POST['firstname']!=' '
+        &&$_POST['lastname']!=''
+        &&$_POST['lastname']!=' ')
+        {
+            $username = mysql_real_escape_string($_POST['username']);
+            $firstname = mysql_real_escape_string($_POST['firstname']);
+            $lastname = mysql_real_escape_string($_POST['lastname']);
+            $isLocked = $_POST['isLocked']=='' ? '0' : mysql_real_escape_string($_POST['isLocked']);
+
+            $sqlUpdateUser = "UPDATE `fv_users` SET `u_isLocked` = '$isLocked', `u_firstName` = '$firstname', `u_lastName` = '$lastname' WHERE `fv_users`.`u_name` = '$username'";
+            $resultUpdateUser = $mysqli->query($sqlUpdateUser);
+            if($resultUpdateUser==1)
+            {
+                $updatedUser = array(
+                    'username' => $username,
+                    'firstname'=> $firstname,
+                    'lastname'=> $lastname,
+                    'isLocked'=> $isLocked =="0"?FALSE:TRUE,
+                );
+
+                echo json_encode($updatedUser);
+            }
+            else{
+                header('HTTP/1.1 400 Bad request');
+                echo "Could not updated user. SQL Execution failed."; 
+            }
+        }
+        else{
+           header('HTTP/1.1 400 Bad request');
+           echo "Not all values are set.";
+        }
     }
 
     function setView()
