@@ -31,7 +31,7 @@
               <li class="nav-item">
                 <a 
                   class="nav-link" 
-                  href="/admin">Admin</a>
+                  href="/demo/admin">Admin</a>
               </li>
               <li class="nav-item">
                 <select 

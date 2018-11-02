@@ -53,7 +53,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'http://financeviewer.manuelweb.at/demo/',
+    baseURL: 'https://financeviewer.manuelweb.at/demo/',
     debug: true
   },
 

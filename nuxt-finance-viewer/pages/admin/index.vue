@@ -137,9 +137,10 @@
                 <td>
                   <input  
                     v-model="u.username" 
+                    disabled 
                     type="text" 
                     class="form-control" 
-                    required="" 
+                    required=""
                     maxlength="45">
                 </td>
                 <td>
