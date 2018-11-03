@@ -14,6 +14,8 @@
         }
         else
         {
+            //todo: select first aviable year if session not set
+
 //START INSERT GENERATED CODE HERE            
             ?>
 

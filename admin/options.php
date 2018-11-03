@@ -1,5 +1,4 @@
 <?php
-    //TODO: reverse ! on both first ifs
     error_reporting(E_ERROR | E_PARSE);
 
     $path = $_SERVER['DOCUMENT_ROOT'];
