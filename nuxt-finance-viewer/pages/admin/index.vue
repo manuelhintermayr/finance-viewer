@@ -508,11 +508,34 @@ export default {
       return exists
     },
     removeYear(year) {
-      //if(this.currentUserToChangePassword.years>1) ==> spaeter noch implementieren mit fehlermeldung
-      this.currentUserToChangePassword.years.splice(
-        this.currentUserToChangePassword.years.indexOf(year),
-        1
-      )
+      if (
+        confirm('Are you sure you want to delte the year entry ' + year + '?')
+      ) {
+        if (this.currentUserToChangePassword.years.length > 1) {
+          this.$axios
+            .post('admin/options.php?action=removeYear', {
+              username: this.currentUserToChangePassword.username,
+              year
+            })
+            .then(response => {
+              let api = response.data
+              if (api.message == 'Year deleted.') {
+                this.currentUserToChangePassword.years.splice(
+                  this.currentUserToChangePassword.years.indexOf(year),
+                  1
+                )
+              } else {
+                console.log(reponse)
+                alert('Could not delete year. Check console for more info.')
+              }
+            })
+            .catch(error => {
+              alert('Could not delete year. Check console for more info.')
+            })
+        } else {
+          alert('There has to be at least one year.')
+        }
+      }
     },
     setView(user) {
       this.$axios
