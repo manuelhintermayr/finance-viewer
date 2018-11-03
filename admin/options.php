@@ -6,13 +6,13 @@
     include($path."/config/login.php");
     $_POST = json_decode(file_get_contents("php://input"),true);
 
-    if(userLoggedIn())
+    if(!userLoggedIn())
     {
         header('HTTP/1.1 403 Forbidden');
         echo "Not logged in.";
     }
     else{
-        if(loggedInUserIsAdmin())
+        if(!loggedInUserIsAdmin())
         {
             header('HTTP/1.1 403 Forbidden');
             echo "Logged in user is not admin.";
@@ -327,7 +327,7 @@
                 }
                 else{
                     header('HTTP/1.1 400 Bad request');
-                    echo "Could not delte the year entry. SQL Execution failed."; 
+                    echo "Could not delete the year entry. SQL Execution failed."; 
                 }
             }
             else{

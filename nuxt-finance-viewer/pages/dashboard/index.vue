@@ -511,7 +511,7 @@
                       class="form-control" 
                       placeholder="" 
                       value="" 
-                      maxlength="80"
+                      maxlength="180"
                       required="" >
                     <div class="invalid-feedback">
                       Valid profile url is required.
