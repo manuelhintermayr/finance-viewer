@@ -41,6 +41,9 @@
                     case 'setPassword':
                         setPassword();
                         break;
+                    case 'addYear':
+                        addYear();
+                        break;
                     default:
                         actionNotSupported($action);
                 }
@@ -130,7 +133,7 @@
                 }
                 else{
                     header('HTTP/1.1 400 Bad request');
-                    echo "Could not create new user. SQL Execution failed."; 
+                    echo "Could not create a new user. SQL Execution failed."; 
                 }
             }
             else{
@@ -214,7 +217,7 @@
             }
             else{
                 header('HTTP/1.1 400 Bad request');
-                echo "Could not updated user. SQL Execution failed."; 
+                echo "Could not update the user. SQL Execution failed."; 
             }
         }
         else{
@@ -247,6 +250,45 @@
             else{
                 header('HTTP/1.1 400 Bad request');
                 echo "Could not set password. SQL Execution failed."; 
+            }
+        }
+        else{
+           header('HTTP/1.1 400 Bad request');
+           echo "Not all values are set.";
+        }
+    }
+
+    function addYear()
+    {
+        global $mysqli;
+
+        if(isset($_POST['username'])
+        &&isset($_POST['year'])
+        &&$_POST['username']!=''
+        &&$_POST['username']!=' '
+        &&$_POST['year']!=''
+        &&$_POST['year']!=' ')
+        {
+            $username = mysql_real_escape_string($_POST['username']);
+            $newYear = mysql_real_escape_string($_POST['year']);
+            
+            if(ctype_digit($newYear)&&$newYear>0)
+            {
+                $sqlCreateYear = "INSERT INTO `fv_years` (`y_year`, `y_u_name`) VALUES ('$newYear', '$username');";
+                $resultCreateYear = $mysqli->query($sqlCreateYear);
+                if($resultCreateYear==1)
+                {
+                    $newYearObject = array('newYear' => $newYear);
+                    echo json_encode($newYearObject);
+                }
+                else{
+                    header('HTTP/1.1 400 Bad request');
+                    echo "Could not create a new year entry. SQL Execution failed."; 
+                }
+            }
+            else{
+                header('HTTP/1.1 400 Bad request');
+                echo "Value for new year is not valid."; 
             }
         }
         else{

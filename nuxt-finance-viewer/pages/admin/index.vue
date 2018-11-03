@@ -464,8 +464,48 @@ export default {
         })
     },
     addYear() {
-      this.currentUserToChangePassword.years.push(this.newYear)
-      this.newYear = ''
+      let newYearObject = {
+        username: this.currentUserToChangePassword.username,
+        year: this.newYear
+      }
+
+      if (
+        !this.doesYearForUserAlreadyExists(
+          this.currentUserToChangePassword.username,
+          this.newYear
+        )
+      ) {
+        this.$axios
+          .post('admin/options.php?action=addYear', newYearObject)
+          .then(response => {
+            let api = response.data
+            if (api.newYear != null) {
+              this.currentUserToChangePassword.years.push(api.newYear)
+              this.newYear = ''
+            } else {
+              console.log(reponse)
+              alert('Could not add a new year. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not add a new year. Check console for more info.')
+          })
+      } else {
+        alert('Year ' + this.newYear + ' does already exist.')
+      }
+    },
+    doesYearForUserAlreadyExists(username, year) {
+      let exists = false
+      this.users.forEach(element => {
+        if (username === element.username) {
+          element.years.forEach(yearElement => {
+            if (year == yearElement) {
+              exists = true
+            }
+          })
+        }
+      })
+      return exists
     },
     removeYear(year) {
       //if(this.currentUserToChangePassword.years>1) ==> spaeter noch implementieren mit fehlermeldung
