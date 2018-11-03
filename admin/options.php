@@ -38,6 +38,9 @@
                     case 'updateUser':
                         updateUser();
                         break;
+                    case 'setPassword':
+                        setPassword();
+                        break;
                     default:
                         actionNotSupported($action);
                 }
@@ -103,16 +106,6 @@
             
             if(!strpos($username, ' '))
             {
-                $newUser = array(
-                    'id' => $_POST['id'],
-                    'username' => $username,
-                    'origianlUsername'=> $username,
-                    'firstname'=> $firstname,
-                    'lastname'=> $lastname,
-                    'isLocked'=> $isLocked =="0"?FALSE:TRUE,
-                    'years' => $years
-                );
-
                 $sqlCreateUser = "INSERT INTO `fv_users` (`u_name`, `u_password`, `u_isLocked`, `u_firstName`, `u_lastName`) VALUES ('$username', '$password', '$isLocked', '$firstname', '$lastname');";
                 $resultCreateUser = $mysqli->query($sqlCreateUser);
                 if($resultCreateUser==1)
@@ -122,6 +115,16 @@
                         $sqlCreateYear = "INSERT INTO `fv_years` (`y_year`, `y_u_name`) VALUES ('$year', '$username');";
                         $resultCreateYear = $mysqli->query($sqlCreateYear);
                     }
+
+                    $newUser = array(
+                        'id' => $_POST['id'],
+                        'username' => $_POST['username'],
+                        'origianlUsername'=> $_POST['username'],
+                        'firstname'=> $_POST['firstname'],
+                        'lastname'=> $_POST['lastname'],
+                        'isLocked'=> $isLocked =="0"?FALSE:TRUE,
+                        'years' => $years
+                    );
 
                     echo json_encode($newUser);
                 }
@@ -201,9 +204,9 @@
             if($resultUpdateUser==1)
             {
                 $updatedUser = array(
-                    'username' => $username,
-                    'firstname'=> $firstname,
-                    'lastname'=> $lastname,
+                    'username' => $_POST['username'],
+                    'firstname'=> $_POST['firstname'],
+                    'lastname'=> $_POST['lastname'],
                     'isLocked'=> $isLocked =="0"?FALSE:TRUE,
                 );
 
@@ -212,6 +215,38 @@
             else{
                 header('HTTP/1.1 400 Bad request');
                 echo "Could not updated user. SQL Execution failed."; 
+            }
+        }
+        else{
+           header('HTTP/1.1 400 Bad request');
+           echo "Not all values are set.";
+        }
+    }
+
+    function setPassword()
+    {
+        global $mysqli;
+
+        if(isset($_POST['username'])
+        &&isset($_POST['newPassword'])
+        &&$_POST['username']!=''
+        &&$_POST['username']!=' '
+        &&$_POST['newPassword']!=''
+        &&$_POST['newPassword']!=' ')
+        {
+            $username = mysql_real_escape_string($_POST['username']);
+            $password = encrypt( encryptSHA($_POST['newPassword']) );
+
+            $sqlSetPassword = "UPDATE `fv_users` SET `u_password` = '$password' WHERE `fv_users`.`u_name` = '$username'";
+            $resultSqlSetPassword = $mysqli->query($sqlSetPassword);
+
+            if($resultSqlSetPassword==1)
+            {
+                echo json_encode(array('message' => "Password set."));
+            }
+            else{
+                header('HTTP/1.1 400 Bad request');
+                echo "Could not set password. SQL Execution failed."; 
             }
         }
         else{

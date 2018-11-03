@@ -184,7 +184,7 @@
                 <td>
                   <button 
                     class="btn btn-secondary" 
-                    @click="setPassword(u)">Set Password/Views</button>
+                    @click="setPasswordView(u)">Set Password/Views</button>
                 </td>
                 <td><button 
                   class="btn btn-secondary" 
@@ -227,7 +227,10 @@
                       required=""
                       maxlength="45">
                   </td>
-                  <td><button class="btn btn-secondary">Update Password</button></td>
+                  <td><button 
+                    :disabled="currentUserToChangePassword.password==''" 
+                    class="btn btn-secondary" 
+                    @click="setNewPassword()">Update Password</button></td>
                 </tr>
               </tbody>
             </table>
@@ -300,15 +303,7 @@ export default {
       currentId: 1,
       passwordChangeIsActivated: false,
       newYear: '',
-      currentUserToChangePassword: {
-        id: 0,
-        username: '',
-        originalUsername: '',
-        firstname: '',
-        lastname: '',
-        isLocked: false,
-        password: ''
-      }
+      currentUserToChangePassword: {}
     }
   },
   mounted() {
@@ -354,7 +349,8 @@ export default {
         newUser.username == '' ||
         newUser.firstname == '' ||
         newUser.lastname == '' ||
-        newUser.password == ''
+        newUser.password == '' ||
+        newUser.password == ' '
       ) {
         alert('Please fill out all fields.')
       } else if (newUser.username.includes(' ')) {
@@ -402,6 +398,7 @@ export default {
             let api = response.data
             if (api.message == 'User deleted.') {
               this.users.splice(this.users.indexOf(user), 1)
+              this.passwordChangeIsActivated = false
             } else {
               console.log(reponse)
               alert('Could not delete user. Check console for more info.')
@@ -421,7 +418,9 @@ export default {
             user.firstname = api.firstname
             user.lastname = api.lastname
             user.isLocked = api.isLocked
-            alert('User ' + user.username + ' was successfully updated!')
+            setTimeout(() => {
+              alert('User ' + user.username + ' was successfully updated!')
+            }, 100)
           } else {
             console.log(reponse)
             alert('Could not update user. Check console for more info.')
@@ -431,9 +430,38 @@ export default {
           alert('Could not update user. Check console for more info.')
         })
     },
-    setPassword(user) {
+    setPasswordView(user) {
       this.currentUserToChangePassword = user
       this.passwordChangeIsActivated = true
+      setTimeout(() => {
+        this.scrollToEnd()
+      }, 100)
+    },
+    setNewPassword() {
+      this.$axios
+        .post('admin/options.php?action=setPassword', {
+          username: this.currentUserToChangePassword.username,
+          newPassword: this.currentUserToChangePassword.password
+        })
+        .then(response => {
+          let api = response.data
+          if (api.message == 'Password set.') {
+            this.currentUserToChangePassword.password = ''
+            setTimeout(() => {
+              alert(
+                'Pasword for user ' +
+                  this.currentUserToChangePassword.username +
+                  ' was successfully set!'
+              )
+            }, 100)
+          } else {
+            console.log(reponse)
+            alert('Could not set password. Check console for more info.')
+          }
+        })
+        .catch(error => {
+          alert('Could not set password. Check console for more info.')
+        })
     },
     addYear() {
       this.currentUserToChangePassword.years.push(this.newYear)
