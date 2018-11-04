@@ -32,6 +32,9 @@
                     case 'addView':
                         addView();
                         break;
+                    case 'removeView':
+                        removeView();
+                        break;
                     default:
                         actionNotSupported($action);
                 }
@@ -181,6 +184,34 @@
            header('HTTP/1.1 400 Bad request');
            echo "Not all values are set.";
         }
+    }
+
+    function removeView()
+    {
+        global $mysqli;
+        global $year;
+        global $username;
+
+        if(isset($_POST['view_id']))
+        {
+            $id = mysql_real_escape_string($_POST['view_id']);
+
+            $sqlDeleteView ="DELETE FROM `fv_views` WHERE `fv_views`.`v_id` = $id AND `fv_views`.`v_u_name` = '$username'";
+            $resultDelteView = $mysqli->query($sqlDeleteView);
+            if($resultDelteView)
+            {
+                echo json_encode(array('message' => "View deleted."));
+            }
+            else{
+                header('HTTP/1.1 400 Bad request');
+                echo "Could not delete view $id for the user \"$username\".";
+            }
+
+        }
+        else{
+           header('HTTP/1.1 400 Bad request');
+           echo "Username is not set.";
+        }  
     }
 
     function actionNotSupported($action)

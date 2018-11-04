@@ -770,7 +770,24 @@ export default {
       return exists
     },
     removeView(view) {
-      this.tableViews.splice(this.tableViews.indexOf(view), 1)
+      if (confirm('Are you sure you want to delte view ' + view.name + '?')) {
+        this.$axios
+          .post('dashboard/options.php?action=removeView', {
+            view_id: view.count
+          })
+          .then(response => {
+            let api = response.data
+            if (api.message == 'View deleted.') {
+              this.tableViews.splice(this.tableViews.indexOf(view), 1)
+            } else {
+              console.log(reponse)
+              alert('Could not delete view. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not delete view. Check console for more info.')
+          })
+      }
     },
     eval(content) {
       return Math.round(eval(content) * 100) / 100

@@ -313,6 +313,7 @@
             $username = mysql_real_escape_string($_POST['username']);
             $year = mysql_real_escape_string($_POST['year']);
             
+            //todo: remove also views
             $sqlYearsForUser = "SELECT * FROM `fv_years` WHERE `y_u_name` = '$username'";
             $resultYearsForUser = $mysqli->query($sqlYearsForUser);
             
