@@ -86,6 +86,7 @@
     function addUser()
     {
         global $mysqli;
+        global $adminName;
 
         if(isset($_POST['id'])
         &&isset($_POST['username'])
@@ -100,7 +101,8 @@
         &&$_POST['lastname']!=''
         &&$_POST['lastname']!=' '
         &&$_POST['password']!=''
-        &&$_POST['password']!=' ')
+        &&$_POST['password']!=' '
+        &&$_POST['username']!=$adminName)
         {
             $username = mysql_real_escape_string($_POST['username']);
             $firstname = mysql_real_escape_string($_POST['firstname']);
