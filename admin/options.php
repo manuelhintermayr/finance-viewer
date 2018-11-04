@@ -142,22 +142,38 @@
         if (isset($_POST['username'])) {
             $username = mysql_real_escape_string($_POST['username']);
 
-            //update this method to also remove views when they are being implemented
-            $sqlDeleteYears ="DELETE FROM `fv_years` WHERE `fv_years`.`y_u_name` = '$username'";
-            $resultDelteYears = $mysqli->query($sqlDeleteYears);
-            if ($resultDelteYears) {
-                $sqlDeleteUser = "DELETE FROM `fv_users` WHERE `fv_users`.`u_name` = '$username'";
-                $resultDeleteUser = $mysqli->query($sqlDeleteUser);
-                if ($resultDeleteUser) {
-                    echo json_encode(array('message' => "User deleted."));
+            $sqlDeleteViews ="DELETE FROM `fv_views` WHERE `fv_views`.`v_u_name` = '$username'";
+            $resultDelteViews = $mysqli->query($sqlDeleteViews);
+            if ($resultDelteViews) {
+
+                $years = getYearsForUser($username);
+                $errorWhileDeletingYears = FALSE;
+                foreach ($years as &$value) {
+                    if(!removeYearByYearAndUsername($value, $username))
+                    {
+                        $errorWhileDeletingYears = TRUE;
+                    }
+                }
+
+                if (!$errorWhileDeletingYears) {
+                    $sqlDeleteUser = "DELETE FROM `fv_users` WHERE `fv_users`.`u_name` = '$username'";
+                    $resultDeleteUser = $mysqli->query($sqlDeleteUser);
+                    if ($resultDeleteUser) {
+                        echo json_encode(array('message' => "User deleted."));
+                    } else {
+                        header('HTTP/1.1 400 Bad request');
+                        echo "Could not delete user \"$username\".";
+                    }
                 } else {
                     header('HTTP/1.1 400 Bad request');
-                    echo "Could not delete user \"$username\".";
+                    echo "Could not delete years for the user \"$username\".";
                 }
+
             } else {
                 header('HTTP/1.1 400 Bad request');
-                echo "Could not delete years for the user \"$username\".";
+                echo "Could not delete views for the user \"$username\".";
             }
+
         } else {
             header('HTTP/1.1 400 Bad request');
             echo "Username is not set.";
@@ -278,7 +294,6 @@
             $username = mysql_real_escape_string($_POST['username']);
             $year = mysql_real_escape_string($_POST['year']);
             
-            //todo: remove also views
             $sqlYearsForUser = "SELECT * FROM `fv_years` WHERE `y_u_name` = '$username'";
             $resultYearsForUser = $mysqli->query($sqlYearsForUser);
             
@@ -288,9 +303,7 @@
                 $resultDelteViews = $mysqli->query($sqlDeleteViews);
                 if ($resultDelteViews) {
 
-                    $sqlDeleteYear = "DELETE FROM `fv_years` WHERE `fv_years`.`y_year` = '$year' AND `fv_years`.`y_u_name` = '$username';";
-                    $resultDeleteYear = $mysqli->query($sqlDeleteYear);
-                    if ($resultDeleteYear) {
+                    if (removeYearByYearAndUsername($year, $username)) {
                         echo json_encode(array('message' => "Year deleted."));
                     } else {
                         header('HTTP/1.1 400 Bad request');
@@ -299,7 +312,7 @@
 
                 } else {
                     header('HTTP/1.1 400 Bad request');
-                    echo "Could not delete years for the user \"$username\".";
+                    echo "Could not delete views for the user \"$username\".";
                 }
 
             } else {
@@ -310,6 +323,16 @@
             header('HTTP/1.1 400 Bad request');
             echo "Not all values are set.";
         }
+    }
+
+    function removeYearByYearAndUsername($year, $username)
+    {
+        global $mysqli;
+        $mysqli->query("SET foreign_key_checks = 0;"); //TODO ==> look at this
+        $sqlDeleteYear = "DELETE FROM `fv_years` WHERE `fv_years`.`y_year` = '$year' AND `fv_years`.`y_u_name` = '$username';";
+        $resultDeleteYear = $mysqli->query($sqlDeleteYear);
+        $mysqli->query("SET foreign_key_checks = 1;");
+        return $resultDeleteYear;
     }
 
     function setView()
