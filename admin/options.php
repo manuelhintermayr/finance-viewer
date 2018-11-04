@@ -283,14 +283,25 @@
             $resultYearsForUser = $mysqli->query($sqlYearsForUser);
             
             if (($resultYearsForUser->num_rows)>1) {
-                $sqlDeleteYear = "DELETE FROM `fv_years` WHERE `fv_years`.`y_year` = '$year' AND `fv_years`.`y_u_name` = '$username';";
-                $resultDeleteYear = $mysqli->query($sqlDeleteYear);
-                if ($resultDeleteYear) {
-                    echo json_encode(array('message' => "Year deleted."));
+
+                $sqlDeleteViews ="DELETE FROM `fv_views` WHERE `fv_views`.`v_u_name` = '$username'";
+                $resultDelteViews = $mysqli->query($sqlDeleteViews);
+                if ($resultDelteViews) {
+
+                    $sqlDeleteYear = "DELETE FROM `fv_years` WHERE `fv_years`.`y_year` = '$year' AND `fv_years`.`y_u_name` = '$username';";
+                    $resultDeleteYear = $mysqli->query($sqlDeleteYear);
+                    if ($resultDeleteYear) {
+                        echo json_encode(array('message' => "Year deleted."));
+                    } else {
+                        header('HTTP/1.1 400 Bad request');
+                        echo "Could not delete the year entry. SQL Execution failed.";
+                    }
+
                 } else {
                     header('HTTP/1.1 400 Bad request');
-                    echo "Could not delete the year entry. SQL Execution failed.";
+                    echo "Could not delete years for the user \"$username\".";
                 }
+
             } else {
                 header('HTTP/1.1 400 Bad request');
                 echo "There must be at least on year left.";
