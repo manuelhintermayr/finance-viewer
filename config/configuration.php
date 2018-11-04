@@ -1,8 +1,8 @@
 <?php
     //General
-    $inDev = TRUE; 
-    $devUsername = "root";   
-    $devYear = "2018";  
+    $inDev = true;
+    $devUsername = "root";
+    $devYear = "2018";
 
     //Admin credentials:
     $adminName = "admin";

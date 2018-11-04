@@ -12,5 +12,4 @@
         global $dbasename;
         return new mysqli($servername, $username, $password, $dbasename);
     }
-
 ?>

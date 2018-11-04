@@ -2,14 +2,15 @@
 
 /* Redirects to url from root
 ----------------------------- */
-function redirect($url) {
+function redirect($url)
+{
     $path = $_SERVER['HTTP_HOST'];
     echo "<script>window.location=window.location.protocol + '//' + '".$path."/".$url."';</script>";
-    echo"<h2>Error occured:</h2> Please click <a href='".$path."/".$url."'>here</a>."; 
+    echo"<h2>Error occured:</h2> Please click <a href='".$path."/".$url."'>here</a>.";
     exit();
 }
 
-/* Hashes a text 
+/* Hashes a text
 ---------------- */
 function encrypt($text)
 {
@@ -28,7 +29,6 @@ function verify_encryption($plainText, $encryptedText)
 function encryptSHA($pwd)
 {
     $password_hash = hash('sha512', $pwd);
-	return $password_hash;
+    return $password_hash;
 }
-
 ?>

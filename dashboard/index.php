@@ -1,22 +1,14 @@
-<?php 
+<?php
     $path = $_SERVER['DOCUMENT_ROOT'];
     include($path."/config/login.php");
 
-    if(!userLoggedIn())
-    {
+    if (!userLoggedIn()) {
         redirect("../logout.php");
-    }
-    else
-    {
-        if(loggedInUserIsAdmin()&&isset($_SESSION['m_view_username'])==FALSE)
-        {
+    } else {
+        if (loggedInUserIsAdmin()&&isset($_SESSION['m_view_username'])==false) {
             redirectToCorrectDashboard();
-        }
-        else
-        {
-            //todo: select first aviable year if session not set
-
-//START INSERT GENERATED CODE HERE            
+        } else {
+//START INSERT GENERATED CODE HERE
             ?>
 
 <!doctype html>
@@ -31,6 +23,6 @@
 
     <?php
 //END INSERT GENERATED CODE HERE
-        }       
+        }
     }
 ?>

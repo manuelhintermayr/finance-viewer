@@ -1,5 +1,5 @@
 <?php
-    session_start(); 
+    session_start();
     $path = $_SERVER['DOCUMENT_ROOT'];
     include($path."/config/configuration.php");
     include($path."/config/generator.php");
@@ -10,15 +10,13 @@
     function userLoggedIn()
     {
         global $inDev;
-        if($inDev)
-        {
-            return TRUE;
+        if ($inDev) {
+            return true;
         }
 
         $session = $_SESSION;
-        if(empty($_SESSION['m_user'])||empty($_SESSION['m_password']))
-        {
-            return FALSE;
+        if (empty($_SESSION['m_user'])||empty($_SESSION['m_password'])) {
+            return false;
         }
         return checkCorrectUser($_SESSION['m_user'], $_SESSION['m_password']);
     }
@@ -43,20 +41,16 @@
     function loggedInUserIsAdmin()
     {
         global $inDev;
-        if($inDev)
-        {
-            return TRUE;
+        if ($inDev) {
+            return true;
         }
 
-        if(isset($_SESSION['m_user']))
-        {
+        if (isset($_SESSION['m_user'])) {
             $username = $_SESSION['m_user'];
-            return userIsAdmin($username);            
+            return userIsAdmin($username);
+        } else {
+            return false;
         }
-        else{
-            return FALSE;
-        }
-
     }
 
     /* Checks if user is admin
@@ -64,8 +58,8 @@
     function userIsAdmin($username)
     {
         global $adminName;
-        return $username == $adminName;    
-    }  
+        return $username == $adminName;
+    }
       
     /* Checks if given user credentials are correct
     ----------------------------------------------- */
@@ -74,39 +68,36 @@
         global $adminName;
         global $adminPw;
 
-        if($username==$adminName
-        &&verify_encryption($password, encrypt( encryptSHA($adminPw) )))
-        {
-            return TRUE;
+        if ($username==$adminName
+        &&verify_encryption($password, encrypt(encryptSHA($adminPw)))) {
+            return true;
         }
 
         return checkUserCredentialsInDb($username, $password);
     }
 
-    /* Get FirstName for username 
+    /* Get FirstName for username
     ----------------------------- */
-    function getFirstNameForUsername($username)  
+    function getFirstNameForUsername($username)
     {
         global $mysqli;
 
-        if(userIsAdmin($username))
-        {
+        if (userIsAdmin($username)) {
             return "Administrator";
         }
 
         $sql = "SELECT * FROM fv_users where u_name = '$username';";
         $result = $mysqli->query($sql);
-        if ($result){
-            while($row = $result->fetch_assoc()) 
-            {
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
                 return $row['u_firstName'];
             }
         }
             
-        return "[undefined]";   
+        return "[undefined]";
     }
 
-    /* Returns all available years 
+    /* Returns all available years
     ------------------------------ */
     function getYearsForUser($username)
     {
@@ -114,22 +105,19 @@
         global $inDev;
         global $devUsername;
 
-        if($inDev&&userIsAdmin($username))
-        {
+        if ($inDev&&userIsAdmin($username)) {
             $username = $devUsername;
         }
 
         $resultArray = array();
-        if(userIsAdmin($username))
-        {
+        if (userIsAdmin($username)) {
             return $resultArray;
         }
         
         $sql = "SELECT * FROM fv_years where y_u_name = '$username';";
         $result = $mysqli->query($sql);
-        if ($result){
-            while($row = $result->fetch_assoc()) 
-            {
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
                 $resultArray[] = $row['y_year'];
             }
         }
@@ -145,24 +133,21 @@
         $sql = "SELECT * FROM fv_users;";
         $result = $mysqli->query($sql);
         
-        if ($result){
-            while($row = $result->fetch_assoc()) 
-            {
-                if($username==$row['u_name']&&
-                verify_encryption($password, $row['u_password']))
-                {
-                    if($row['u_isLocked']=="0")
-                    {
-                        return TRUE;    
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                if ($username==$row['u_name']&&
+                verify_encryption($password, $row['u_password'])) {
+                    if ($row['u_isLocked']=="0") {
+                        return true;
                     }
                 }
             }
         }
 
-        return FALSE;
+        return false;
     }
 
-    /* Sets user credentials 
+    /* Sets user credentials
     ------------------------ */
     function setUserCredentials($username, $password)
     {

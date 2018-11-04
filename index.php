@@ -1,31 +1,22 @@
 <?php
-    include("config/login.php");              
+    include("config/login.php");
                              
-    if(userLoggedIn())
-    {
+    if (userLoggedIn()) {
         redirectToCorrectDashboard();
-    }
-    else
-    {
-        if ( !empty( $_POST ) && !empty($_POST['username']) && !empty($_POST['password']) ) 
-        {
+    } else {
+        if (!empty($_POST) && !empty($_POST['username']) && !empty($_POST['password'])) {
             $username = $_POST[ 'username' ];
             $password = encrypt($_POST['password']);
 
-            if(checkCorrectUser($username, $password))
-            {
+            if (checkCorrectUser($username, $password)) {
                 setUserCredentials($username, $password);
                 redirectToCorrectDashboard();
-            }
-            else
-            {
+            } else {
                 echo "Login unsuccessfull.<hr />";
             }
-        }      
-    }     
-
-
-    //START INSERT GENERATED CODE HERE
+        }
+    }
+//START INSERT GENERATED CODE HERE
 ?> 
 
 <!doctype html>
@@ -38,6 +29,6 @@
   <script type="text/javascript" src="/_nuxt/9c0e0cb4747684602c44.js"></script><script type="text/javascript" src="/_nuxt/2016db8774d371ebecf4.js"></script><script type="text/javascript" src="/_nuxt/122bbd625259c9b3a6c4.js"></script><script type="text/javascript" src="/_nuxt/d99b8dbdac5b965a6ba4.js"></script></body>
 </html>
 
-<?php 
- //END INSERT GENERATED CODE HERE
+<?php
+//END INSERT GENERATED CODE HERE
  ?>
