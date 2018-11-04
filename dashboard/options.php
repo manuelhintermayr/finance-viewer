@@ -62,7 +62,11 @@
                 $resultArray[] = getViewArrayByRowResult($row);
             }
             header('Content-Type: application/json');
-            echo json_encode($resultArray, JSON_PRETTY_PRINT);
+            $finalArray = array(
+                'year' => $year, 
+                'username' => $username, 
+                'data' => $resultArray);
+            echo json_encode($finalArray, JSON_PRETTY_PRINT);
         }
         else{
             echo '{}';

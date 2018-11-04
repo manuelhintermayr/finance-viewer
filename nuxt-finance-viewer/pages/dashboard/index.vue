@@ -100,7 +100,7 @@
 
           <!-- start area for total overview -->
           <span v-if="overviewIsEnabled">
-            <h1> Overview for all views </h1>
+            <h1> Overview for all views for year <b>{{ year }}</b> for user <b>{{ username }}</b>:</h1>
             <table class="table table-striped table-hover">
               <thead class="">
                 <tr>
@@ -211,7 +211,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateJanuary(u)">Update</button> 
+                        @click="updateMonth(u, 1)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.january) }}</b></td>                    
                   </tr>
@@ -229,7 +229,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateFebruary(u)">Update</button> 
+                        @click="updateMonth(u, 2)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.february) }}</b></td>                    
                   </tr>
@@ -247,7 +247,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateMarch(u)">Update</button> 
+                        @click="updateMonth(u, 3)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.march) }}</b></td>                    
                   </tr>
@@ -265,7 +265,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateApril(u)">Update</button> 
+                        @click="updateMonth(u, 4)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.april) }}</b></td>                    
                   </tr>
@@ -283,7 +283,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateMay(u)">Update</button> 
+                        @click="updateMonth(u, 5)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.may) }}</b></td>                    
                   </tr>
@@ -301,7 +301,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateJune(u)">Update</button> 
+                        @click="updateMonth(u, 6)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.june) }}</b></td>                    
                   </tr>
@@ -319,7 +319,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateJuly(u)">Update</button> 
+                        @click="updateMonth(u, 7)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.july) }}</b></td>                    
                   </tr>
@@ -337,7 +337,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateAugust(u)">Update</button> 
+                        @click="updateMonth(u, 8)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.august) }}</b></td>                    
                   </tr>
@@ -355,7 +355,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateSeptember(u)">Update</button> 
+                        @click="updateMonth(u, 9)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.september) }}</b></td>                    
                   </tr>
@@ -373,7 +373,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateOctober(u)">Update</button> 
+                        @click="updateMonth(u, 10)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.october) }}</b></td>                    
                   </tr>
@@ -391,7 +391,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateNovember(u)">Update</button> 
+                        @click="updateMonth(u, 11)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.november) }}</b></td>                    
                   </tr>
@@ -409,7 +409,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateDecember(u)">Update</button> 
+                        @click="updateMonth(u, 12)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.december) }}</b></td>                    
                   </tr>
@@ -577,8 +577,6 @@
               </form>
 
 
-
-
             </div>
 
           </span>
@@ -604,6 +602,8 @@ export default {
       loggedOut: false,
       overviewIsEnabled: true,
       createNewViewEnabled: false,
+      year: '',
+      username: '',
       newView_name: 'FVMarket2',
       newView_description: 'Supermarket',
       newView_id: 'fvmarket2',
@@ -621,7 +621,9 @@ export default {
       this.$axios
         .get('dashboard/options.php?action=getViews')
         .then(response => {
-          let api = response.data
+          let api = response.data.data
+          this.username = response.data.username
+          this.year = response.data.year
           api.forEach(element => {
             this.tableViews.push({
               name: element.name,
@@ -908,184 +910,109 @@ export default {
           this.getSumDecember()
       )
     },
-    updateJanuary(view) {
-      try {
-        let result = this.eval(view.data.tempJanuary)
-        if (view.data.tempJanuary.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.january = '' + view.data.tempJanuary
-        } else {
-          alert('New January value is invalid: ' + result)
+    updateMonth(view, month) {
+      let monthName = this.$moment('01.' + month + '.2000').format('MMMM')
+      if (month != 'Inavalid date') {
+        let newValue = ''
+
+        try {
+          newValue = this.getTempMonthValue(view, month)
+
+          let result = this.eval(newValue)
+          if (newValue.includes(',')) {
+            alert('Please do not use , use . instead')
+          } else if (isFinite(result)) {
+            //todo
+
+            switch (month) {
+              case 1:
+                view.data.january = '' + view.data.tempJanuary
+                break
+              case 2:
+                view.data.february = '' + view.data.tempFebruary
+                break
+              case 3:
+                view.data.march = '' + view.data.tempMarch
+                break
+              case 4:
+                view.data.april = '' + view.data.tempApril
+                break
+              case 5:
+                view.data.may = '' + view.data.tempMay
+                break
+              case 6:
+                view.data.june = '' + view.data.tempJune
+                break
+              case 7:
+                view.data.july = '' + view.data.tempJuly
+                break
+              case 8:
+                view.data.august = '' + view.data.tempAugust
+                break
+              case 9:
+                view.data.september = '' + view.data.tempSeptember
+                break
+              case 10:
+                view.data.october = '' + view.data.tempOctober
+                break
+              case 11:
+                view.data.november = '' + view.data.tempNovember
+                break
+              case 12:
+                view.data.december = '' + view.data.tempDecember
+                break
+            }
+          } else {
+            alert('New January value is invalid: ' + result)
+          }
+        } catch (err) {
+          alert('New ' + monthName + ' value is invalid: ' + err)
+          console.log(err)
         }
-      } catch (err) {
-        alert('New January value is invalid: ' + err)
-        console.log(err)
+      } else {
+        alert('Month "' + month + '" is invalid.')
       }
     },
-    updateFebruary(view) {
-      try {
-        let result = this.eval(view.data.tempFebruary)
-        if (view.data.tempFebruary.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.february = '' + view.data.tempFebruary
-        } else {
-          alert('New February value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New February value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateMarch(view) {
-      try {
-        let result = this.eval(view.data.tempMarch)
-        if (view.data.tempMarch.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.march = '' + view.data.tempMarch
-        } else {
-          alert('New March value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New March value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateApril(view) {
-      try {
-        let result = this.eval(view.data.tempApril)
-        if (view.data.tempApril.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.april = '' + view.data.tempApril
-        } else {
-          alert('New April value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New April value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateMay(view) {
-      try {
-        let result = this.eval(view.data.tempMay)
-        if (view.data.tempMay.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.may = '' + view.data.tempMay
-        } else {
-          alert('New May value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New May value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateJune(view) {
-      try {
-        let result = this.eval(view.data.tempJune)
-        if (view.data.tempJune.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.june = '' + view.data.tempJune
-        } else {
-          alert('New June value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New June value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateJuly(view) {
-      try {
-        let result = this.eval(view.data.tempJuly)
-        if (view.data.tempJuly.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.july = '' + view.data.tempJuly
-        } else {
-          alert('New July value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New July value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateAugust(view) {
-      try {
-        let result = this.eval(view.data.tempAugust)
-        if (view.data.tempAugust.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.august = '' + view.data.tempAugust
-        } else {
-          alert('New August value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New August value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateSeptember(view) {
-      try {
-        let result = this.eval(view.data.tempSeptember)
-        if (view.data.tempSeptember.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.september = '' + view.data.tempSeptember
-        } else {
-          alert('New September value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New September value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateOctober(view) {
-      try {
-        let result = this.eval(view.data.tempOctober)
-        if (view.data.tempOctober.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.october = '' + view.data.tempOctober
-        } else {
-          alert('New October value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New October value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateNovember(view) {
-      try {
-        let result = this.eval(view.data.tempNovember)
-        if (view.data.tempNovember.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.november = '' + view.data.tempNovember
-        } else {
-          alert('New November value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New November value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateDecember(view) {
-      try {
-        let result = this.eval(view.data.tempDecember)
-        if (view.data.tempDecember.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
-          view.data.december = '' + view.data.tempDecember
-        } else {
-          alert('New December value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New December value is invalid: ' + err)
-        console.log(err)
+    getTempMonthValue(view, month) {
+      switch (month) {
+        case 1:
+          return view.data.tempJanuary
+          break
+        case 2:
+          return view.data.tempFebruary
+          break
+        case 3:
+          return view.data.tempMarch
+          break
+        case 4:
+          return view.data.tempApril
+          break
+        case 5:
+          return view.data.tempMay
+          break
+        case 6:
+          return view.data.tempJune
+          break
+        case 7:
+          return view.data.tempJuly
+          break
+        case 8:
+          return view.data.tempAugust
+          break
+        case 9:
+          return view.data.tempSeptember
+          break
+        case 10:
+          return view.data.tempOctober
+          break
+        case 11:
+          return view.data.tempNovember
+          break
+        case 12:
+          return view.data.tempDecember
+          break
+        default:
+          throw month + ' is not a valid month'
       }
     }
   }
