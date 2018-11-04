@@ -43,8 +43,9 @@
                   required="" 
                   @change="goToDashboard">
                   <option value="">Years</option>
-                  <option>2017</option>
-                  <option>2018</option>
+                  <option 
+                    v-for="y in years"
+                    :key="y">{{ y }}</option>
                 </select>
               </li>
             </ul>
@@ -116,8 +117,22 @@ export default {
       }, 2000)
     },
     goToDashboard: function(event) {
-      //set view year: event.target.value
-      this.$router.replace('/dashboard')
+      if (event.target.value != '') {
+        this.$axios
+          .post('options.php?action=setViewYear', { year: event.target.value })
+          .then(response => {
+            let api = response.data
+            if (api.message == 'Year for view set.') {
+              this.$router.replace('/dashboard')
+            } else {
+              console.log(reponse)
+              alert('Could not set year for View. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not set year for View. Check console for more info.')
+          })
+      }
     }
   }
 }
