@@ -112,10 +112,11 @@
     {
         global $mysqli;
         global $inDev;
+        global $devUsername;
 
         if($inDev&&userIsAdmin($username))
         {
-            return array('2018');
+            $username = $devUsername;
         }
 
         $resultArray = array();
