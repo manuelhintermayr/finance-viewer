@@ -132,13 +132,13 @@
         global $mysqli;
         $sql = "SELECT * FROM fv_users;";
         $result = $mysqli->query($sql);
-        
         if ($result) {
             while ($row = $result->fetch_assoc()) {
-                if ($username==$row['u_name']&&
-                verify_encryption($password, $row['u_password'])) {
-                    if ($row['u_isLocked']=="0") {
-                        return true;
+                if ($username==$row['u_name']) {
+                    if(verify_encryption($password, $row['u_password'])) {
+                        if ($row['u_isLocked']=="0") {
+                            return true;
+                        }
                     }
                 }
             }

@@ -5,10 +5,9 @@
     if (isset($_POST) && isset($_POST['username'])) {
         $username = $_POST['username'];
         $password = encryptSHA($_POST['password']);
-
         $works = checkCorrectUser($username, $password);
-        setUserCredentials($username, $password);
         if ($works) {
+            setUserCredentials($username, $password);
             $userPrefs = array(
                 'name' => getFirstNameForUsername($username),
                 'url' => getUrlForUser($username)
