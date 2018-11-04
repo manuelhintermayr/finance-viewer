@@ -12,8 +12,7 @@
     }
     else{
         setUsernameForView();
-        //todo: set year properly
-        $year = "2018";
+        setYearForView();
 
         if(isset($_GET) && isset($_GET['action']))
         {
@@ -62,6 +61,44 @@
             }else{
                 $username = $_SESSION['m_user'];                
             }
+        }
+    }
+
+    function setYearForView()
+    {
+        global $username;
+        global $year;
+        global $inDev;
+        global $devYear;
+        $years = getYearsForUser($username);
+
+        if(isset($_SESSION['m_view_year']))
+        {            
+            if(in_array($_SESSION['m_view_year'], $years))//check if set year is valid
+            {
+                $year = $_SESSION['m_view_year'];
+            }
+            else{
+                setYearFirstValueOfArray($years);
+            }
+        }
+        else{
+            if($inDev){
+                $year = $devYear; 
+            } else{
+                setYearFirstValueOfArray($years);                
+            }
+        }
+    }
+
+    function setYearFirstValueOfArray($array)
+    {
+        global $year;
+
+        try{
+            $year = array_values($array)[0];                    
+        } catch (Exception $e) {
+            $year = "";
         }
     }
 
