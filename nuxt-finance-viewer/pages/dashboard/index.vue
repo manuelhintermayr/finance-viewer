@@ -911,7 +911,9 @@ export default {
       )
     },
     updateMonth(view, month) {
-      let monthName = this.$moment('01.' + month + '.2000').format('MMMM')
+      let monthName = this.$moment(
+        (month > 9 ? '0' + month : month) + '/01/2000'
+      ).format('MMMM')
       if (month != 'Inavalid date') {
         let newValue = ''
 
