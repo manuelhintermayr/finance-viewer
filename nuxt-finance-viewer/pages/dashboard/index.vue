@@ -922,55 +922,49 @@ export default {
           if (newValue.includes(',')) {
             alert('Please do not use , use . instead')
           } else if (isFinite(result)) {
-            //todo
-
-            switch (month) {
-              case 1:
-                view.data.january = '' + view.data.tempJanuary
-                break
-              case 2:
-                view.data.february = '' + view.data.tempFebruary
-                break
-              case 3:
-                view.data.march = '' + view.data.tempMarch
-                break
-              case 4:
-                view.data.april = '' + view.data.tempApril
-                break
-              case 5:
-                view.data.may = '' + view.data.tempMay
-                break
-              case 6:
-                view.data.june = '' + view.data.tempJune
-                break
-              case 7:
-                view.data.july = '' + view.data.tempJuly
-                break
-              case 8:
-                view.data.august = '' + view.data.tempAugust
-                break
-              case 9:
-                view.data.september = '' + view.data.tempSeptember
-                break
-              case 10:
-                view.data.october = '' + view.data.tempOctober
-                break
-              case 11:
-                view.data.november = '' + view.data.tempNovember
-                break
-              case 12:
-                view.data.december = '' + view.data.tempDecember
-                break
+            let backEndObject = {
+              view_id: view.count,
+              updatedMonth: month,
+              value: newValue
             }
+
+            this.$axios
+              .post(
+                'dashboard/options.php?action=updateViewMonth',
+                backEndObject
+              )
+              .then(response => {
+                let api = response.data
+                if (api.message == 'Month updated.') {
+                  this.updateMonthValue(view, month)
+                  setTimeout(() => {
+                    alert(monthName + ' was successfully updated!')
+                  }, 100)
+                } else {
+                  console.log(reponse)
+                  alert(
+                    'Could not update ' +
+                      monthName +
+                      '. Check console for more info.'
+                  )
+                }
+              })
+              .catch(error => {
+                alert(
+                  'Could not update ' +
+                    monthName +
+                    '. Check console for more info.'
+                )
+              })
           } else {
-            alert('New January value is invalid: ' + result)
+            alert('New ' + monthName + ' value is invalid: ' + result)
           }
         } catch (err) {
           alert('New ' + monthName + ' value is invalid: ' + err)
           console.log(err)
         }
       } else {
-        alert('Month "' + month + '" is invalid.')
+        alert('Month "' + monthName + '" is invalid.')
       }
     },
     getTempMonthValue(view, month) {
@@ -1013,6 +1007,46 @@ export default {
           break
         default:
           throw month + ' is not a valid month'
+      }
+    },
+    updateMonthValue(view, month) {
+      switch (month) {
+        case 1:
+          view.data.january = '' + view.data.tempJanuary
+          break
+        case 2:
+          view.data.february = '' + view.data.tempFebruary
+          break
+        case 3:
+          view.data.march = '' + view.data.tempMarch
+          break
+        case 4:
+          view.data.april = '' + view.data.tempApril
+          break
+        case 5:
+          view.data.may = '' + view.data.tempMay
+          break
+        case 6:
+          view.data.june = '' + view.data.tempJune
+          break
+        case 7:
+          view.data.july = '' + view.data.tempJuly
+          break
+        case 8:
+          view.data.august = '' + view.data.tempAugust
+          break
+        case 9:
+          view.data.september = '' + view.data.tempSeptember
+          break
+        case 10:
+          view.data.october = '' + view.data.tempOctober
+          break
+        case 11:
+          view.data.november = '' + view.data.tempNovember
+          break
+        case 12:
+          view.data.december = '' + view.data.tempDecember
+          break
       }
     }
   }

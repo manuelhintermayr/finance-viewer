@@ -35,6 +35,12 @@
                     case 'removeView':
                         removeView();
                         break;
+                    case 'removeView':
+                        removeView();
+                        break;
+                    case 'updateViewMonth':
+                        updateViewMonth();
+                        break;
                     default:
                         actionNotSupported($action);
                 }
@@ -216,6 +222,50 @@
            header('HTTP/1.1 400 Bad request');
            echo "Username is not set.";
         }  
+    }
+
+    function updateViewMonth()
+    {
+        global $mysqli;
+        global $username;
+
+        if(isset($_POST['view_id'])
+        &&isset($_POST['updatedMonth'])
+        &&isset($_POST['value'])
+        &&$_POST['view_id']!=''
+        &&$_POST['view_id']!=' '
+        &&$_POST['updatedMonth']!=''
+        &&$_POST['updatedMonth']!=' '
+        &&$_POST['value']!=''
+        &&$_POST['value']!=' ')
+        {
+            $id = mysql_real_escape_string($_POST['view_id']);
+            $monthNumber = intval(mysql_real_escape_string($_POST['updatedMonth']));
+            $month = $monthNumber>9 ? "$monthNumber" : "0$monthNumber";
+            $value = mysql_real_escape_string($_POST['value']);
+
+            if (preg_match("^[0-9+(*)/.-]^", $value)) 
+            {
+                $sqlUpdateMonthView = "UPDATE `fv_views` SET `v_month_$month` = '$value' WHERE `fv_views`.`v_id` = $id AND `fv_views`.`v_u_name` = '$username'";
+                $resultUpdateMonthView = $mysqli->query($sqlUpdateMonthView);
+                if($resultUpdateMonthView)
+                {
+                    echo json_encode(array('message' => "Month updated."));
+                }
+                else{
+                    header('HTTP/1.1 400 Bad request');
+                    echo "Could not update the month. SQL Execution failed."; 
+                }
+            }
+            else{
+                header('HTTP/1.1 400 Bad request');
+                echo "New value is invalid: $value"; 
+            }
+        }
+        else{
+           header('HTTP/1.1 400 Bad request');
+           echo "Not all values are set.";
+        }
     }
 
     function actionNotSupported($action)
