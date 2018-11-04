@@ -1,6 +1,5 @@
 <?php
-    include("config/login.php");
-               
+    include("config/login.php");              
                              
     if(userLoggedIn())
     {

@@ -1,4 +1,7 @@
 <?php
+    //General
+    $inDev = TRUE;    
+
     //Admin credentials:
     $adminName = "admin";
     $adminPw = "admin";

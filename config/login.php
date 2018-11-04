@@ -9,6 +9,12 @@
     ---------------------------------------- */
     function userLoggedIn()
     {
+        global $inDev;
+        if($inDev)
+        {
+            return TRUE;
+        }
+
         $session = $_SESSION;
         if(empty($_SESSION['m_user'])||empty($_SESSION['m_password']))
         {
@@ -36,6 +42,12 @@
     -------------------------------------------- */
     function loggedInUserIsAdmin()
     {
+        global $inDev;
+        if($inDev)
+        {
+            return TRUE;
+        }
+
         if(isset($_SESSION['m_user']))
         {
             $username = $_SESSION['m_user'];
@@ -99,6 +111,12 @@
     function getYearsForUser($username)
     {
         global $mysqli;
+        global $inDev;
+
+        if($inDev&&userIsAdmin($username))
+        {
+            return array('2018');
+        }
 
         $resultArray = array();
         if(userIsAdmin($username))

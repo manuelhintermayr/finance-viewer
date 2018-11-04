@@ -29,11 +29,14 @@
             class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a 
+                <a
+                  v-if="isAdmin"
                   class="nav-link" 
                   href="/admin">Admin</a>
               </li>
-              <li class="nav-item">
+              <li 
+                v-if="years.length > 0"
+                class="nav-item">
                 <select 
                   id="years" 
                   class="custom-select dropdown dropdownNavbar" 
@@ -63,7 +66,7 @@
     <div 
       id="byeMessage" 
       :class="{ logoutEnd: !startLogoutAnimations}"
-      class="container dynamicChanges">Bye Administrator!
+      class="container dynamicChanges">Bye {{ name }}!
     </div>
   </div>
 </template>
@@ -74,10 +77,32 @@ export default {
   data() {
     return {
       loggedOut: false,
-      startLogoutAnimations: false
+      startLogoutAnimations: false,
+      name: '',
+      isAdmin: false,
+      years: []
     }
   },
+  mounted() {
+    this.loadAll()
+  },
   methods: {
+    loadAll() {
+      this.$axios
+        .get('options.php?action=getInfo')
+        .then(response => {
+          let api = response.data
+          this.name = api.name
+          this.isAdmin = api.isAdmin
+          this.years = api.years
+
+          console.log(api)
+        })
+        .catch(error => {
+          console.log(error)
+          this.$router.replace('/')
+        })
+    },
     logout() {
       this.loggedOut = true
       this.startLogoutAnimations = true
@@ -91,7 +116,8 @@ export default {
       }, 2000)
     },
     goToDashboard: function(event) {
-      this.$router.replace('/dashboard#' + event.target.value)
+      //set view year: event.target.value
+      this.$router.replace('/dashboard')
     }
   }
 }

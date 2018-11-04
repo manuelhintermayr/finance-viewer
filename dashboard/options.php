@@ -8,7 +8,7 @@
     $username = "root";
     $year = "2018";
 
-    if(userLoggedIn())
+    if(!userLoggedIn())
     {
         header('HTTP/1.1 403 Forbidden');
         echo "Not logged in.";
