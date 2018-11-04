@@ -604,7 +604,7 @@ export default {
       loggedOut: false,
       overviewIsEnabled: true,
       createNewViewEnabled: false,
-      newView_name: 'FVMarkt2',
+      newView_name: 'FVMarket2',
       newView_description: 'Supermarket',
       newView_id: 'fvmarket2',
       newView_notes: 'This is my local market',
@@ -711,9 +711,63 @@ export default {
           tempDecember: '0'
         }
       }
-      this.tableViews.push(newView)
-      this.newView_name = this.newView_description = this.newView_id = this.newView_notes = this.newView_profile_url =
-        ''
+      if (
+        newView.name == '' ||
+        newView.name == ' ' ||
+        newView.description == '' ||
+        newView.description == ' ' ||
+        newView.id == '' ||
+        newView.id == ' ' ||
+        newView.notes == '' ||
+        newView.notes == ' ' ||
+        newView.profile_url == '' ||
+        newView.profile_url == ' '
+      ) {
+        alert('Please fill out all fields')
+      } else if (this.doesViewIdAlreadyExists(newView.id)) {
+        alert('A view with the same id does already exist.')
+      } else if (this.doesViewNameAlreadyExists(newView.name)) {
+        alert('A view with the same name does already exist.')
+      } else if (newView.id.includes(' ')) {
+        alert('ID is not allowed to have wite spaces.')
+      } else if (newView.profile_url.includes(' ')) {
+        alert('Profile Url is not allowed to have wite spaces.')
+      } else {
+        this.$axios
+          .post('dashboard/options.php?action=addView', newView)
+          .then(response => {
+            let api = response.data
+            if (api.name != null) {
+              this.tableViews.push(api)
+              this.newView_name = this.newView_description = this.newView_id = this.newView_notes = this.newView_profile_url =
+                ''
+            } else {
+              console.log(reponse)
+              alert('Could not add a new view. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not add a new view. Check console for more info.')
+          })
+      }
+    },
+    doesViewIdAlreadyExists(newViewID) {
+      let exists = false
+      this.tableViews.forEach(element => {
+        if (newViewID === element.id) {
+          exists = true
+        }
+      })
+      return exists
+    },
+    doesViewNameAlreadyExists(newViewName) {
+      let exists = false
+      this.tableViews.forEach(element => {
+        if (newViewName === element.name) {
+          exists = true
+        }
+      })
+      return exists
     },
     removeView(view) {
       this.tableViews.splice(this.tableViews.indexOf(view), 1)
