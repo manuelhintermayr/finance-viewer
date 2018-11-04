@@ -63,7 +63,6 @@
         global $inDev;
         global $devYear;
         $years = getYearsForUser($username);
-
         if (isset($_SESSION['m_view_year'])) {
             if (in_array($_SESSION['m_view_year'], $years)) {//check if set year is valid
                 $year = $_SESSION['m_view_year'];

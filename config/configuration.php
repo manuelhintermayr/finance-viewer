@@ -1,6 +1,6 @@
 <?php
     //General
-    $inDev = true;
+    $inDev = false;
     $devUsername = "root";
     $devYear = "2018";
 

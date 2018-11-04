@@ -123,7 +123,7 @@ export default {
           .then(response => {
             let api = response.data
             if (api.message == 'Year for view set.') {
-              this.$router.replace('/dashboard')
+              window.location = '/dashboard'
             } else {
               console.log(reponse)
               alert('Could not set year for View. Check console for more info.')

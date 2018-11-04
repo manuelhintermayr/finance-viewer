@@ -162,5 +162,6 @@
         $_SESSION['m_user']="";
         $_SESSION['m_password']="";
         $_SESSION['m_view_username']="";
+        $_SESSION['m_view_year']="";
     }
 ?>

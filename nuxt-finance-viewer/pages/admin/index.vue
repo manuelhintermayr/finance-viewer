@@ -543,7 +543,7 @@ export default {
         .then(response => {
           let api = response.data
           if (api.message == 'Username for view set.') {
-            this.$router.replace('/dashboard')
+            window.location = '/dashboard'
           } else {
             console.log(reponse)
             alert('Could not set View. Check console for more info.')
