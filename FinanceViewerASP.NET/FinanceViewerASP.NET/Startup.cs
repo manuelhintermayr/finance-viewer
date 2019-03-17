@@ -57,12 +57,12 @@ namespace FinanceViewerASP.NET
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Main}/{action=Index}/{id?}");
-                routes.MapRoute(
-                    name: "admins",
-                    template: "{controller=Main}/{action=Index}/Admin"
-                );
-                routes.MapRoute("admin", "admin/{*article}",
-                    defaults: new { controller = "Blog", action = "Article" });
+
+                routes.MapRoute("admin", "admin/",
+                    defaults: new {controller = "Admin", action = "Admin"});
+
+                routes.MapRoute("dashboard", "dashboard/",
+                    defaults: new { controller = "Dashboard", action = "Dashboard" });
             });
         }
     }

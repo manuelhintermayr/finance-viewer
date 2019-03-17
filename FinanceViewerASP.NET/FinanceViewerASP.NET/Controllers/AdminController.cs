@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using FinanceViewerASP.NET.Models;
 
 namespace FinanceViewerASP.NET.Controllers
 {
-    public class MainController : Controller
+    public class AdminController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Admin()
         {
             return View();
         }
