@@ -16,11 +16,11 @@ namespace FinanceViewerASP.NET.Controllers.Api
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly financeviewerContext _context;
+        private readonly FinanceviewerContext _context;
 
-        public LoginController(financeviewerContext context)
+        public LoginController()
         {
-            _context = context;
+            _context = new FinanceviewerContext();
         }
 
         [HttpPost]

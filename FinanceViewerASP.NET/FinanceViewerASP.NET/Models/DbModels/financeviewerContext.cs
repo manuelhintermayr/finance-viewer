@@ -1,20 +1,18 @@
 ﻿using System;
+using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using FinanceViewerASP.NET.Models.GetModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace FinanceViewerASP.NET.Models.DbModels
 {
-    public partial class financeviewerContext : DbContext
+    public partial class FinanceviewerContext : DbContext
     {
-        public financeviewerContext()
-        {
-        }
+        public FinanceviewerContext() : base() { }
 
-        public financeviewerContext(DbContextOptions<financeviewerContext> options)
-            : base(options)
-        {
-        }
+        public FinanceviewerContext(DbContextOptions<FinanceviewerContext> options) : base(options) { }
 
         public virtual DbSet<FvUsers> FvUsers { get; set; }
         public virtual DbSet<FvViews> FvViews { get; set; }
@@ -24,9 +22,12 @@ namespace FinanceViewerASP.NET.Models.DbModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-                
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-EFETRO2;Database=financeviewer;Trusted_Connection=True;");
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(connectionString);
             }
         }
 
