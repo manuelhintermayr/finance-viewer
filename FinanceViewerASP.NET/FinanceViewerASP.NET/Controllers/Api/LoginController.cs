@@ -31,9 +31,13 @@ namespace FinanceViewerASP.NET.Controllers.Api
                 return BadRequest("Bad request. Please go to the main page and try again.");
             }
 
-            if (_context.ValidLogin(loginData))
+            if (_context.CheckCorrectUser(loginData))
             {
-                return Ok(new UserPrefs() { name = "Admin", url = "admin" });
+                return Ok(new UserPrefs()
+                {
+                    name = _context.GetFirstNameForUsername(loginData.username),
+                    url = _context.GetUrlForUser(loginData.username)
+                });
             }
             else
             {

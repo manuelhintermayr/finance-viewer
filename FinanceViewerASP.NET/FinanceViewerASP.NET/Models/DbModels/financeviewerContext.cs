@@ -210,16 +210,68 @@ namespace FinanceViewerASP.NET.Models.DbModels
         }
 
 
-        public Boolean ValidLogin(LoginData loginData)
+        public Boolean CheckCorrectUser(LoginData loginData)
         {
-            var a = FvUsers;
-            var b = a.Count();
             if (loginData.username == AdminCredentials.Username && loginData.password == AdminCredentials.Password)
             {
                 return true;
             }
-            else return false;
+
+            //Check if user was found
+            FvUsers finalUser = null;
+            try
+            {
+                finalUser = FvUsers.Single(m => m.UName == loginData.username);
+            }
+            catch (InvalidOperationException) { }
+            if (finalUser == null)
+            {
+                return false;
+            }
+
+            //Check if password is right
+            if ((finalUser.UName == loginData.username) && (finalUser.UPassword == loginData.password))
+            {
+                //Check if username is not blocked
+                if (finalUser.UIsLocked == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
+        public string GetFirstNameForUsername(string username)
+        {
+            if (UserIsAdmin(username))
+            {
+                return "Administrator";
+            }
+
+            //Check if user was found
+            FvUsers finalUser = null;
+            try
+            {
+                finalUser = FvUsers.Single(m => m.UName == username);
+            }
+            catch (InvalidOperationException) { }
+            if (finalUser == null)
+            {
+                return "[undefined]";
+            }
+
+            return finalUser.UFirstName;
+        }
+
+        public string GetUrlForUser(string username)
+        {
+            return UserIsAdmin(username) ? "admin" : "dashboard";
+        }
+
+        public bool UserIsAdmin(string username)
+        {
+            return username == AdminCredentials.Username;
+        }
     }
 }
