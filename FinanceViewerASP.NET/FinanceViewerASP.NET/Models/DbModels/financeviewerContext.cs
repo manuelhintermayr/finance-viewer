@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using FinanceViewerASP.NET.Models.GetModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinanceViewerASP.NET.Models.DbModels
 {
@@ -21,6 +24,7 @@ namespace FinanceViewerASP.NET.Models.DbModels
         {
             if (!optionsBuilder.IsConfigured)
             {
+                
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=DESKTOP-EFETRO2;Database=financeviewer;Trusted_Connection=True;");
             }
@@ -203,5 +207,18 @@ namespace FinanceViewerASP.NET.Models.DbModels
                     .IsUnicode(false);
             });
         }
+
+
+        public Boolean ValidLogin(LoginData loginData)
+        {
+            var a = FvUsers;
+            var b = a.Count();
+            if (loginData.username == AdminCredentials.Username && loginData.password == AdminCredentials.Password)
+            {
+                return true;
+            }
+            else return false;
+        }
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinanceViewerASP.NET.Models;
 using FinanceViewerASP.NET.Models.AnswerModels;
+using FinanceViewerASP.NET.Models.DbModels;
 using FinanceViewerASP.NET.Models.GetModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +16,13 @@ namespace FinanceViewerASP.NET.Controllers.Api
     [ApiController]
     public class LoginController : ControllerBase
     {
+        private readonly financeviewerContext _context;
+
+        public LoginController(financeviewerContext context)
+        {
+            _context = context;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]LoginData loginData)
         {
@@ -22,7 +30,8 @@ namespace FinanceViewerASP.NET.Controllers.Api
             {
                 return BadRequest("Bad request. Please go to the main page and try again.");
             }
-            if (loginData.password == "admin" & loginData.username == "admin")
+
+            if (_context.ValidLogin(loginData))
             {
                 return Ok(new UserPrefs() { name = "Admin", url = "admin" });
             }
