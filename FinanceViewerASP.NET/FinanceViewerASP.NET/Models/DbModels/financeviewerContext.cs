@@ -2,6 +2,7 @@
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
+using System.Web.Helpers;
 using FinanceViewerASP.NET.Models.GetModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -230,7 +231,8 @@ namespace FinanceViewerASP.NET.Models.DbModels
             }
 
             //Check if password is right
-            if ((finalUser.UName == loginData.username) && (finalUser.UPassword == loginData.password))
+                //string hashedPassword = Crypto.HashPassword(loginData.password);
+            if (Crypto.VerifyHashedPassword(finalUser.UPassword, loginData.password))
             {
                 //Check if username is not blocked
                 if (finalUser.UIsLocked == 0)

@@ -13,9 +13,10 @@ CREATE TABLE [fv_users] (
 );
 GO
 
+-- Passwords are in this example: "admin"
 INSERT INTO [fv_users] (u_name, u_password, u_isLocked, u_firstName, u_lastName) VALUES
-('muster', '$2y$10$N02JsrHy5YH4owzWO2VEv.8dKUCsvJjiALxwpb6QrdfLmy2R6Wy.q', 0, 'Max', 'Muster'),
-('root', '$2y$10$kbWAyw.p80N7VixlmPTkC.DbNlIwuXdhWkktmfEEOEgKgHtPhiq3O', 0, 'Root', 'User');
+('muster', 'AI+5xGH6j9j+xbc1UMwgOUf+8AK6U1OP0Bhfd4KQlyvBmqDIm2Z5qVOolgfsAyxy/g==', 0, 'Max', 'Muster'),
+('root', 'AK6lCR92nlWW7aq1aFzTCYrP8jSXxrtNJ5dPMbxmKqduIjXbp+xnHthHy9dzc0VDxw==', 0, 'Root', 'User');
 GO
 
 CREATE TABLE [fv_views] (
