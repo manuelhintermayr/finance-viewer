@@ -49,6 +49,7 @@ namespace FinanceViewerASP.NET.Controllers.Api
             {
                 HttpContext.Session.SetString("m_user", loginData.username);
                 HttpContext.Session.SetString("m_password", loginData.password);
+                // ^^ going to update this for security later
 
                 var asd = HttpContext.Session;
                 var a = HttpContext.Session.Id;
