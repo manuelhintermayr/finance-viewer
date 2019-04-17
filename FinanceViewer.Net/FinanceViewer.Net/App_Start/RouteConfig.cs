@@ -32,6 +32,11 @@ namespace FinanceViewer.Net
                 new { controller = "Login", action = "post" },
                 new { httpMethod = new HttpMethodConstraint("POST") }
             );
+            routes.MapRoute(
+                "ApiLogout",
+                "logout.php/",
+                new { controller = "Logout", action = "Index" }
+            );
         }
     }
 }

@@ -150,6 +150,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Api\LoginController.cs" />
+    <Compile Include="Controllers\Api\LogoutController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -217,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Login\" />
+    <Folder Include="Views\Logout\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\DbModels\FinanceViewerDb.edmx">
