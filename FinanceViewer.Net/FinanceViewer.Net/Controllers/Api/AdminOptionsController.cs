@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Mvc;
+using FinanceViewer.Net.Models.AnswerModels;
 using FinanceViewer.Net.Models.DbModels;
 using FinanceViewer.Net.Models.GetModels;
 using Newtonsoft.Json.Linq;
@@ -102,31 +104,80 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult AddUser()
         {
+            JObject POST = GetJsonPostObjectFromRequest();     
+
             if (Request.HttpMethod == "POST" 
-                && Request.Params["id"]!=null
-                && Request.Params["username"]!=null
-                && Request.Params["firstname"] != null
-                && Request.Params["lastname"] != null
-                && Request.Params["isLocked"] != null
-                && Request.Params["password"] != null
-                && Request.Params["username"] != ""
-                && Request.Params["username"] != " "
-                && Request.Params["firstname"] != ""
-                && Request.Params["firstname"] != " "
-                && Request.Params["lastname"] != ""
-                && Request.Params["lastname"] != " "
-                && Request.Params["isLocked"] != ""
-                && Request.Params["isLocked"] != " "
-                && Request.Params["password"] != ""
-                && Request.Params["password"] != " "
-                && Request.Params["username"] !=AdminCredentials.Username)
+                && POST["id"]!=null
+                && POST["username"]!=null
+                && POST["firstname"] != null
+                && POST["lastname"] != null
+                && POST["isLocked"] != null
+                && POST["password"] != null
+                && POST["username"].ToString() != ""
+                && POST["username"].ToString() != " "
+                && POST["firstname"].ToString() != ""
+                && POST["firstname"].ToString() != " "
+                && POST["lastname"].ToString() != ""
+                && POST["lastname"].ToString() != " "
+                && POST["isLocked"].ToString() != ""
+                && POST["isLocked"].ToString() != " "
+                && POST["password"].ToString() != ""
+                && POST["password"].ToString() != " "
+                && POST["username"].ToString() != AdminCredentials.Username)
             {
-                string username = _context.SQLEscape(Request.Params["username"]);
-                string firstname = _context.SQLEscape(Request.Params["firstname"]);
-                string lastname = _context.SQLEscape(Request.Params["lastname"]);
-                bool isLocked = _context.SQLEscape(Request.Params["isLocked"]) != "0";
-                string password = Crypto.HashPassword(Crypto.SHA256(Request.Params["password"]));
-                int[] years = new int[]{2018, 2019};
+                string username = _context.SQLEscape(POST["username"].ToString());
+                string firstname = _context.SQLEscape(POST["firstname"].ToString());
+                string lastname = _context.SQLEscape(POST["lastname"].ToString());
+                bool isLocked = Boolean.Parse(_context.SQLEscape(POST["isLocked"].ToString()));
+                string password = Crypto.HashPassword(Crypto.SHA256(POST["password"].ToString()));
+
+                if (!username.Contains(" "))
+                {
+                    fv_users user = new fv_users()
+                    {
+                        u_name = username,
+                        u_password = password,
+                        u_isLocked = isLocked ? 1:0,
+                        u_firstName = firstname,
+                        u_lastName = lastname
+                    };
+                    var newYearOne = new fv_years()
+                    {
+                        y_u_name = username,
+                        y_year = DateTime.Today.Year.ToString()
+                    };
+                    var newYearTwo = new fv_years()
+                    {
+                        y_u_name = username,
+                        y_year = ((DateTime.Today.Year) + 1).ToString()
+                    };
+
+
+                    var newUser = _context.fv_users.Add(user);
+                    _context.fv_years.Add(newYearOne);
+                    _context.fv_years.Add(newYearTwo);
+
+                    _context.SaveChanges();
+
+                    NewUser userResult = new NewUser()
+                    {
+                        id = POST["id"].ToString(),
+                        username = newUser.u_name,
+                        origianlUsername = newUser.u_name,
+                        firstname = newUser.u_firstName,
+                        lastname = newUser.u_lastName,
+                        isLocked = newUser.u_isLocked,
+                        years = new int[]{ DateTime.Today.Year, DateTime.Today.Year+1 }
+                    };
+
+                    Response.StatusCode = 200;
+                    return Json(userResult, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    Response.StatusCode = 400;
+                    return Content("Username should not contain whitespaces.");
+                }
             }
             else
             {
@@ -135,6 +186,19 @@ namespace FinanceViewer.Net.Controllers.Api
             }
 
             throw new NotImplementedException();
+        }
+
+        private JObject GetJsonPostObjectFromRequest()
+        {
+            //used https://stackoverflow.com/questions/6362781/how-to-get-raw-request-body-in-asp-net
+            string req_txt;
+            using (StreamReader reader = new StreamReader(Request.InputStream))
+            {
+                req_txt = reader.ReadToEnd();
+            }
+
+            JObject jObject = JObject.Parse(req_txt);
+            return jObject;
         }
 
         private ActionResult SetView()

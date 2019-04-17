@@ -167,7 +167,7 @@ namespace FinanceViewer.Net.Models.DbModels
             return years.Select(m => Int32.Parse(m.y_year)).ToArray();
         }
 
-        public static string SQLEscape(string str)
+        public string SQLEscape(string str)
         {
             return Regex.Replace(str, @"[\x00'""\b\n\r\t\cZ\\%_]",
                 delegate (Match match)
