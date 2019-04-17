@@ -29,9 +29,10 @@ namespace FinanceViewer.Net.Controllers.Api
             //var xyz = _session.GetString("m_user");
             //var la = HttpContext.Session.Keys;
 
-            if (loginData == null)
+            if (loginData == null || loginData.password == null || loginData.username == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Bad request. Please go to the main page and try again.");
+                Response.StatusCode = 400;
+                return Content("Bad request. Please go to the main page and try again.");
             }
 
             if (_context.CheckCorrectUser(loginData))
