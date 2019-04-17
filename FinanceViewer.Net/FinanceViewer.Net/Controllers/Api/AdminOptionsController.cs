@@ -66,7 +66,8 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult ActionNotSupported(string action)
         {
-            throw new NotImplementedException();
+            Response.StatusCode = 400;
+            return Content($"Action {action} is not supported.");
         }
 
         private ActionResult RemoveYear()
