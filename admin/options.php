@@ -328,7 +328,7 @@
     function removeYearByYearAndUsername($year, $username)
     {
         global $mysqli;
-        $mysqli->query("SET foreign_key_checks = 0;"); //TODO ==> look at this
+        $mysqli->query("SET foreign_key_checks = 0;"); // ==> take a look at this
         $sqlDeleteYear = "DELETE FROM `fv_years` WHERE `fv_years`.`y_year` = '$year' AND `fv_years`.`y_u_name` = '$username';";
         $resultDeleteYear = $mysqli->query($sqlDeleteYear);
         $mysqli->query("SET foreign_key_checks = 1;");

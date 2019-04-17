@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Http;
@@ -133,7 +135,16 @@ namespace FinanceViewer.Net.Controllers.Api
                     _context.fv_years.Add(newYearOne);
                     _context.fv_years.Add(newYearTwo);
 
-                    _context.SaveChanges();
+                    try
+                    {
+                        _context.SaveChanges();
+                    }
+                    catch (DbEntityValidationException)
+                    {
+                        Response.StatusCode = 400;
+                        return Content("Could not create a new user. SQL Execution failed.");
+                    }
+
 
                     NewUser userResult = new NewUser()
                     {
@@ -170,49 +181,72 @@ namespace FinanceViewer.Net.Controllers.Api
             {
                 string username = _context.SQLEscape(POST["username"].ToString());
 
-                Response.StatusCode = 400;
-                return Content("Not implemented.");
+
+                //Check if view was found
+                List<fv_views> views = null;
+                try
+                {
+                    views = _context.fv_views.Where(m => m.v_u_name == username).ToList();
+                }
+                catch (InvalidOperationException) { }
+                if (views != null)
+                {
+                    _context.fv_views.RemoveRange(views);
+
+                    //Deleting Years
+                    var years = _context.GetYearsForUser(username);
+                    bool errorWhileDeletingYears = false;
+                    foreach (int year in years) {
+                        if (!RemoveYearByYearAndUsername(year, username, false))
+                        {
+                            errorWhileDeletingYears = true;
+                        }
+                    }
+
+                    if (!errorWhileDeletingYears) {
+
+                        //Check if user was found
+                        fv_users finalUser = null;
+                        try
+                        {
+                            finalUser = _context.fv_users.Single(m => m.u_name == username);
+                        }
+                        catch (InvalidOperationException) { }
+                        if (finalUser == null)
+                        {
+                            Response.StatusCode = 400;
+                            return Content($"Could not find the user to delete {username}.");
+                        }
+
+                        //Deleting the user
+                        _context.fv_users.Remove(finalUser);
+
+                        try
+                        {
+                            _context.SaveChanges();
+                        }
+                        catch (DbEntityValidationException)
+                        {
+                            Response.StatusCode = 400;
+                            return Content($"Could not delete user {username}. SQL Execution failed.");
+                        }
 
 
-                ////Check if view was found
-                //fv_views views = null;
-                //try
-                //{
-                //    views = _context.fv_views.Where(m => m.v_u_name == username).ToList();
-                //}
-                //catch (InvalidOperationException) { }
-                //if (views != null)
-                //{
+                        Response.StatusCode = 200;
+                        return Json(new { message = "User deleted." },
+                            JsonRequestBehavior.AllowGet);
 
-                //    $years = getYearsForUser($username);
-                //    $errorWhileDeletingYears = FALSE;
-                //    foreach ($years as &$value) {
-                //        if (!removeYearByYearAndUsername($value, $username))
-                //        {
-                //            $errorWhileDeletingYears = TRUE;
-                //        }
-                //    }
+                    } else {
+                        Response.StatusCode = 400;
+                        return Content($"Could not delete years for the user {username}.");
+                    }
 
-                //    if (!$errorWhileDeletingYears) {
-                //        $sqlDeleteUser = "DELETE FROM `fv_users` WHERE `fv_users`.`u_name` = '$username'";
-                //            $resultDeleteUser = $mysqli->query($sqlDeleteUser);
-                //        if ($resultDeleteUser) {
-                //            echo json_encode(array('message' => "User deleted."));
-                //        } else {
-                //            header('HTTP/1.1 400 Bad request');
-                //            echo "Could not delete user \"$username\".";
-                //        }
-                //    } else {
-                //        header('HTTP/1.1 400 Bad request');
-                //        echo "Could not delete years for the user \"$username\".";
-                //    }
-
-                //}
-                //else
-                //{
-                //    Response.StatusCode = 400;
-                //    return Content($"Could not delete views for the user {username}.");
-                //}
+                }
+                else
+                {
+                    Response.StatusCode = 400;
+                    return Content($"Could not delete views for the user {username}.");
+                }
 
             }
             else
@@ -220,6 +254,30 @@ namespace FinanceViewer.Net.Controllers.Api
                 Response.StatusCode = 400;
                 return Content("Username is not set.");
             }
+        }
+
+        private bool RemoveYearByYearAndUsername(int year, string username, bool saveActionsImmediately = true)
+        {
+            //Check if year was found
+            fv_years finalYear = null;
+            try
+            {
+                finalYear = _context.fv_years.SingleOrDefault(m => (m.y_u_name == username) && (m.y_year == year.ToString()));
+            }
+            catch (InvalidOperationException) { }
+            if (finalYear == null)
+            {
+                return false;
+            }
+
+            _context.fv_years.Remove(finalYear);
+            
+            if (saveActionsImmediately)
+            {
+                _context.SaveChanges();
+            }
+
+            return true;
         }
 
         private ActionResult UpdateUser()
