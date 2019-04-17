@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.Linq;
+using System.Web;
 using System.Web.Helpers;
 using FinanceViewer.Net.Models.GetModels;
 
@@ -35,7 +36,10 @@ namespace FinanceViewer.Net.Models.DbModels
 
         public Boolean CheckCorrectUser(LoginData loginData)
         {
-            if (loginData.username == AdminCredentials.Username && loginData.password == AdminCredentials.Password)
+            //Check if correct admin
+            if (loginData.username == AdminCredentials.Username 
+                && Crypto.VerifyHashedPassword(Crypto.HashPassword(Crypto.SHA256(AdminCredentials.Password)), loginData.password) 
+                )
             {
                 return true;
             }
@@ -53,7 +57,6 @@ namespace FinanceViewer.Net.Models.DbModels
             }
 
             //Check if password is right
-            //string hashedPassword = Crypto.HashPassword(loginData.password);
             if (Crypto.VerifyHashedPassword(finalUser.u_password, loginData.password))
             {
                 //Check if username is not blocked
@@ -96,6 +99,11 @@ namespace FinanceViewer.Net.Models.DbModels
         public bool UserIsAdmin(string username)
         {
             return username == AdminCredentials.Username;
+        }
+
+        public bool UserIsLoggedInCorrectly(HttpSessionStateBase session)
+        {
+            return false;
         }
     }
 }

@@ -15,8 +15,8 @@ GO
 
 -- Passwords are in this example: "admin"
 INSERT INTO [fv_users] (u_name, u_password, u_isLocked, u_firstName, u_lastName) VALUES
-('muster', 'AI+5xGH6j9j+xbc1UMwgOUf+8AK6U1OP0Bhfd4KQlyvBmqDIm2Z5qVOolgfsAyxy/g==', 0, 'Max', 'Muster'),
-('root', 'AK6lCR92nlWW7aq1aFzTCYrP8jSXxrtNJ5dPMbxmKqduIjXbp+xnHthHy9dzc0VDxw==', 0, 'Root', 'User');
+('muster', 'ADkHXGG5M7bVf5UdMBpv0vP4KJHDtvxW78yGKm2atxlQpnUE63qj/qrbIftt9/PFsw==', 0, 'Max', 'Muster'),
+('root', 'ADkHXGG5M7bVf5UdMBpv0vP4KJHDtvxW78yGKm2atxlQpnUE63qj/qrbIftt9/PFsw==', 0, 'Root', 'User');
 GO
 
 CREATE TABLE [fv_views] (
