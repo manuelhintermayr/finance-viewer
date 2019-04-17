@@ -150,6 +150,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Api\AdminOptionsController.cs" />
+    <Compile Include="Controllers\Api\BasicOptionsController.cs" />
     <Compile Include="Controllers\Api\DashboardOptionsController.cs" />
     <Compile Include="Controllers\Api\LoginController.cs" />
     <Compile Include="Controllers\Api\LogoutController.cs" />
@@ -158,6 +159,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnswerModels\User.cs" />
+    <Compile Include="Models\AnswerModels\UserInfo.cs" />
     <Compile Include="Models\AnswerModels\UserPrefs.cs" />
     <Compile Include="Models\DbModels\FinanceViewerDb.Context.cs">
       <AutoGen>True</AutoGen>
@@ -220,6 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\AdminOptions\" />
+    <Folder Include="Views\BasicOptions\" />
     <Folder Include="Views\DashboardOptions\" />
     <Folder Include="Views\Login\" />
     <Folder Include="Views\Logout\" />

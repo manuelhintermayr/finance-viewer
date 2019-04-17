@@ -7,10 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using FinanceViewer.Net.Models.AnswerModels;
 using FinanceViewer.Net.Models.GetModels;
 
 namespace FinanceViewer.Net.Models.DbModels
@@ -114,6 +116,54 @@ namespace FinanceViewer.Net.Models.DbModels
                 password = session["m_password"].ToString(),
                 username = session["m_user"].ToString()
             });
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            List<User> users =
+                (from user in fv_users
+                select new User
+                {
+                    username = user.u_name,
+                    firstname = user.u_firstName,
+                    lastname = user.u_lastName,
+                    isLocked = user.u_isLocked == 0 ? false : true,
+                }).ToList();
+
+            List<User> usersWithYears =
+                (from user in users
+                 select new User
+                {
+                    username = user.username,
+                    firstname = user.firstname,
+                    lastname = user.lastname,
+                    isLocked = user.isLocked,
+                    years = GetYearsForUser(user.username)
+                }).ToList(); //workaround for: https://stackoverflow.com/questions/6676047/linq-to-entities-exception-does-not-recognize-the-method-and-cannot-be-translate
+
+            return usersWithYears;
+        }
+
+        public int[] GetYearsForUser(string username)
+        {
+            if (username == AdminCredentials.Username)
+            {
+                return new int[0];
+            }
+
+            //check if user was found
+            List<fv_years> years = null;
+            try
+            {
+                years = fv_years.Where(m => m.y_u_name == username).ToList();
+            }
+            catch (InvalidOperationException) { }
+            if (years == null)
+            {
+                return new int[0];
+            }
+
+            return years.Select(m => Int32.Parse(m.y_year)).ToArray();
         }
     }
 }

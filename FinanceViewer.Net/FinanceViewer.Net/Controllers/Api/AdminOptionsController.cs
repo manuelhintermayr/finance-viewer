@@ -107,7 +107,10 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult GetUser()
         {
-            throw new NotImplementedException();
+            var result = _context.GetUsers();
+            
+            Response.StatusCode = 200;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
