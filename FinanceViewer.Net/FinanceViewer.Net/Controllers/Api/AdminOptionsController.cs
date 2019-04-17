@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
@@ -282,7 +283,53 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult UpdateUser()
         {
-            throw new NotImplementedException();
+            JObject POST = GetJsonPostObjectFromRequest();
+
+            if (POST["username"] != null
+                && POST["firstname"] != null
+                && POST["lastname"] != null
+                && POST["isLocked"] != null
+                && POST["username"].ToString() != ""
+                && POST["username"].ToString() != " "
+                && POST["firstname"].ToString() != ""
+                && POST["firstname"].ToString() != " "
+                && POST["lastname"].ToString() != ""
+                && POST["lastname"].ToString() != " "
+                && POST["username"].ToString() != AdminCredentials.Username) {
+
+                //$username = mysql_real_escape_string($_POST['username']);
+                //$firstname = mysql_real_escape_string($_POST['firstname']);
+                //$lastname = mysql_real_escape_string($_POST['lastname']);
+                //$isLocked = $_POST['isLocked'] == '' ? '0' : mysql_real_escape_string($_POST['isLocked']);
+
+                //$sqlUpdateUser = "UPDATE `fv_users` SET `u_isLocked` = '$isLocked', `u_firstName` = '$firstname', `u_lastName` = '$lastname' WHERE `fv_users`.`u_name` = '$username'";
+                //    $resultUpdateUser = $mysqli->query($sqlUpdateUser);
+                //if ($resultUpdateUser) {
+                //    $updatedUser = array(
+                //        'username' => $_POST['username'],
+                //    'firstname'=> $_POST['firstname'],
+                //    'lastname'=> $_POST['lastname'],
+                //    'isLocked'=> $isLocked == "0" ? false : true,
+                //        );
+
+                //    echo json_encode($updatedUser);
+                //} else {
+                //    header('HTTP/1.1 400 Bad request');
+                //    echo "Could not update the user. SQL Execution failed.";
+                //}
+
+                //_context.fv_users.AddOrUpdate();
+                //throw new NotImplementedException();
+
+                Response.StatusCode = 400;
+                return Content("Not implemented.");
+            }
+            else {
+                Response.StatusCode = 400;
+                return Content("Not all values are set.");
+             }
+
+
         }
 
         private ActionResult SetPassword()
