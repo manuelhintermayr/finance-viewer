@@ -12,6 +12,8 @@ namespace FinanceViewer.Net
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("_nuxt/*");
+            routes.IgnoreRoute("favicon.ico");
 
             routes.MapRoute(
                 name: "Default",
