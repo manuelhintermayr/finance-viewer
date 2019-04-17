@@ -37,6 +37,19 @@ namespace FinanceViewer.Net
                 "logout.php/",
                 new { controller = "Logout", action = "Index" }
             );
+
+            routes.MapRoute(
+                "ApiAdminOptions",
+                "admin/options.php",
+                new { controller = "AdminOptions", action = "Index" }
+            );
+
+            routes.MapRoute(
+                "ApiDashboardOptions",
+                "dashboard/options.php",
+                new { controller = "DashboardOptions", action = "Index" }
+            );
+
         }
     }
 }

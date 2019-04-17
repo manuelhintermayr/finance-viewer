@@ -149,6 +149,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Api\AdminOptionsController.cs" />
+    <Compile Include="Controllers\Api\DashboardOptionsController.cs" />
     <Compile Include="Controllers\Api\LoginController.cs" />
     <Compile Include="Controllers\Api\LogoutController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -217,6 +219,8 @@
     <Content Include="Views\Dashboard\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\AdminOptions\" />
+    <Folder Include="Views\DashboardOptions\" />
     <Folder Include="Views\Login\" />
     <Folder Include="Views\Logout\" />
   </ItemGroup>
