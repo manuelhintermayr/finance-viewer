@@ -150,7 +150,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Api\LoginController.cs" />
-    <Compile Include="Controllers\Api\LoginTwoController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -217,7 +216,6 @@
     <Content Include="Views\Dashboard\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\LoginTwo\" />
     <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>

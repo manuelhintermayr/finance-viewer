@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Results;
 using System.Web.Mvc;
 using FinanceViewer.Net.Models.AnswerModels;
 using FinanceViewer.Net.Models.DbModels;
@@ -14,8 +13,8 @@ using FinanceViewer.Net.Models.GetModels;
 
 namespace FinanceViewer.Net.Controllers.Api
 {
-    [System.Web.Http.Route("login.php")]
-    public class LoginController : ApiController
+    [System.Web.Mvc.Route("/login.php")]
+    public class LoginController : Controller
     {
         private readonly financeviewerEntities _context;
 
@@ -24,7 +23,7 @@ namespace FinanceViewer.Net.Controllers.Api
             _context = new financeviewerEntities();
         }
 
-        [System.Web.Http.HttpPost]
+        [System.Web.Mvc.HttpPost]
         public async Task<ActionResult> Post([FromBody]LoginData loginData)
         {
             //var x = HttpContext.Session.GetString("m_user");
@@ -49,19 +48,18 @@ namespace FinanceViewer.Net.Controllers.Api
                 //var xy = HttpContext.Session.GetString("m_user");
                 //var l = HttpContext.Session.Keys;
 
+                Response.StatusCode = 200;
 
-                //Response.StatusCode = 200;
-                //return Json(new UserPrefs()
-                //{
-                //    name = _context.GetFirstNameForUsername(loginData.username),
-                //    url = _context.GetUrlForUser(loginData.username)
-                //});
-
-                return new HttpStatusCodeResult(HttpStatusCode.OK, "ok");
+                return Json(new UserPrefs()
+                {
+                    name = _context.GetFirstNameForUsername(loginData.username),
+                    url = _context.GetUrlForUser(loginData.username)
+                });
             }
             else
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"Login invalid {{user: {loginData.username}}}");
+                Response.StatusCode = 400;
+                return Content($"Login invalid {{user: {loginData.username}}}");
             }
 
         }

@@ -19,14 +19,6 @@ namespace FinanceViewer.Net
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            config.Routes.MapHttpRoute(
-                "LoginApi",
-                "login.php",
-                new { controller = "Api/Login"}
-                );
-
-
         }
     }
 }
