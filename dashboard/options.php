@@ -24,9 +24,6 @@
                 case 'removeView':
                     removeView();
                     break;
-                case 'removeView':
-                    removeView();
-                    break;
                 case 'updateViewMonth':
                     updateViewMonth();
                     break;

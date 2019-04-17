@@ -70,36 +70,12 @@ namespace FinanceViewer.Net.Controllers.Api
             }
         }
 
-        private ActionResult ActionNotSupported(string action)
+        private ActionResult GetUsers()
         {
-            Response.StatusCode = 400;
-            return Content($"Action {action} is not supported.");
-        }
+            var result = _context.GetUsers();
 
-        private ActionResult RemoveYear()
-        {
-            throw new NotImplementedException();
-        }
-
-        private ActionResult AddYear()
-        {
-            throw new NotImplementedException();
-        }
-
-        private ActionResult SetPassword()
-        {
-
-            throw new NotImplementedException();
-        }
-
-        private ActionResult UpdateUser()
-        {
-            throw new NotImplementedException();
-        }
-
-        private ActionResult RemoveUser()
-        {
-            throw new NotImplementedException();
+            Response.StatusCode = 200;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         private ActionResult AddUser()
@@ -184,8 +160,44 @@ namespace FinanceViewer.Net.Controllers.Api
                 Response.StatusCode = 400;
                 return Content("Not all values are set.");  
             }
+        }
+
+        private ActionResult RemoveUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        private ActionResult UpdateUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        private ActionResult SetPassword()
+        {
 
             throw new NotImplementedException();
+        }
+
+        private ActionResult AddYear()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private ActionResult RemoveYear()
+        {
+            throw new NotImplementedException();
+        }
+
+        private ActionResult SetView()
+        {
+            throw new NotImplementedException();
+        }
+
+        private ActionResult ActionNotSupported(string action)
+        {
+            Response.StatusCode = 400;
+            return Content($"Action {action} is not supported.");
         }
 
         private JObject GetJsonPostObjectFromRequest()
@@ -200,18 +212,6 @@ namespace FinanceViewer.Net.Controllers.Api
             JObject jObject = JObject.Parse(req_txt);
             return jObject;
         }
-
-        private ActionResult SetView()
-        {
-            throw new NotImplementedException();
-        }
-
-        private ActionResult GetUsers()
-        {
-            var result = _context.GetUsers();
-            
-            Response.StatusCode = 200;
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        
     }
 }

@@ -47,16 +47,23 @@ namespace FinanceViewer.Net.Controllers.Api
             }
         }
 
-        private ActionResult ActionNotSupported(string action)
+        private ActionResult GetInfo()
         {
-            Response.StatusCode = 400;
-            return Content($"Action {action} is not supported.");
+            string username = Session["m_user"].ToString();
+
+            Response.StatusCode = 200;
+            return Json(new UserInfo()
+            {
+                name = _context.GetFirstNameForUsername(username),
+                isAdmin = _context.UserIsAdmin(username),
+                years = _context.GetYearsForUser(username)
+            }, JsonRequestBehavior.AllowGet);
         }
 
         private ActionResult SetViewYear()
         {
             string username = Session["m_user"].ToString();
-            if (_context.UserIsAdmin(Session["m_user"].ToString()) && Session["m_view_username"] == null)
+            if (_context.UserIsAdmin(Session["m_user"].ToString()) && Session["m_view_username"] != null)
             {
                 username = Session["m_view_username"].ToString();
             }
@@ -71,7 +78,7 @@ namespace FinanceViewer.Net.Controllers.Api
                     Session["m_view_year"] = requestedYear;
 
                     Response.StatusCode = 200;
-                    return Json(new {message = "Year for view set."},
+                    return Json(new { message = "Year for view set." },
                         JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -87,17 +94,10 @@ namespace FinanceViewer.Net.Controllers.Api
             }
         }
 
-        private ActionResult GetInfo()
+        private ActionResult ActionNotSupported(string action)
         {
-            string username = Session["m_user"].ToString();
-
-            Response.StatusCode = 200;
-            return Json(new UserInfo()
-            {
-                name = _context.GetFirstNameForUsername(username),
-                isAdmin = _context.UserIsAdmin(username),
-                years = _context.GetYearsForUser(username)
-            }, JsonRequestBehavior.AllowGet);
+            Response.StatusCode = 400;
+            return Content($"Action {action} is not supported.");
         }
     }
 }
