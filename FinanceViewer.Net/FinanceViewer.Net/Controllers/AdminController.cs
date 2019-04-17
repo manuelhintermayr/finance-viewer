@@ -24,6 +24,11 @@ namespace FinanceViewer.Net.Controllers
                 return Redirect("/logout.php");
             }
 
+            if (!_context.UserIsAdmin(Session["m_user"].ToString()))
+            {
+                return Redirect($"/{_context.GetUrlForUser(Session["m_user"].ToString())}");
+            }
+
             return View();
         }
     }
