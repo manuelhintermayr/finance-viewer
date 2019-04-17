@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace FinanceViewer.Net.Controllers
 {
+    //[System.Web.Mvc.RoutePrefix("/admin")]
+    [System.Web.Mvc.Route("/admin")]
+    //[Route("/admin")]
     public class AdminController : Controller
     {
         // GET: Admin

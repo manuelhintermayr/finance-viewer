@@ -18,6 +18,7 @@ namespace FinanceViewer.Net
             routes.MapRoute("home", "", defaults: new { controller = "Home", action = "Index" });
             routes.MapRoute("admin", "admin/", defaults: new { controller = "Admin", action = "Admin" });
             routes.MapRoute("dashboard", "dashboard/", defaults: new { controller = "Dashboard", action = "Dashboard" });
+            //routes.MapRoute("login", "login.php", defaults: new { controller = "Api/Login", action = "Post"});
         }
     }
 }
