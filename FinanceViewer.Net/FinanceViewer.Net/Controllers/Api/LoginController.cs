@@ -13,7 +13,6 @@ using FinanceViewer.Net.Models.GetModels;
 
 namespace FinanceViewer.Net.Controllers.Api
 {
-    [System.Web.Mvc.Route("/login.php")]
     public class LoginController : Controller
     {
         private readonly financeviewerEntities _context;
