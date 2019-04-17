@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using FinanceViewer.Net.Models.AnswerModels;
 using FinanceViewer.Net.Models.DbModels;
 
@@ -54,7 +55,36 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult SetViewYear()
         {
-            throw new NotImplementedException();
+            string username = Session["m_user"].ToString();
+            if (_context.UserIsAdmin(Session["m_user"].ToString()) && Session["m_view_username"] == null)
+            {
+                username = Session["m_view_username"].ToString();
+            }
+
+            if (Request.HttpMethod == "POST" && Request.Params["year"] != null)
+            {
+                var years = _context.GetYearsForUser(username);
+                int requestedYear = Convert.ToInt32(Request.Params["year"]);
+
+                if (years.Contains(requestedYear))
+                {
+                    Session["m_view_year"] = requestedYear;
+
+                    Response.StatusCode = 200;
+                    return Json(new {message = "Year for view set."},
+                        JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    Response.StatusCode = 400;
+                    return Content("Invalid option.");
+                }
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return Content("Year is not set.");
+            }
         }
 
         private ActionResult GetInfo()
