@@ -20,7 +20,7 @@ namespace FinanceViewer.Net.Controllers
         {
             if (_context.UserIsLoggedInCorrectly(Session))
             {
-                //return _context.RedirectToCorrectDashboard();
+                return Redirect($"/{_context.GetUrlForUser(Session["m_user"].ToString())}");
             }
 
             return View();

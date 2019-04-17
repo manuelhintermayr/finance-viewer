@@ -10,6 +10,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
+using System.Web.Mvc;
 using FinanceViewer.Net.Models.GetModels;
 
 namespace FinanceViewer.Net.Models.DbModels
@@ -103,7 +104,16 @@ namespace FinanceViewer.Net.Models.DbModels
 
         public bool UserIsLoggedInCorrectly(HttpSessionStateBase session)
         {
-            return false;
+            if (session["m_user"] == null || session["m_password"] == null)
+            {
+                return false;
+            }
+
+            return CheckCorrectUser(new LoginData()
+            {
+                password = session["m_password"].ToString(),
+                username = session["m_user"].ToString()
+            });
         }
     }
 }
