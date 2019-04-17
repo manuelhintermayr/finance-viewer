@@ -164,7 +164,62 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult RemoveUser()
         {
-            throw new NotImplementedException();
+            JObject POST = GetJsonPostObjectFromRequest();
+
+            if (POST["username"]!=null)
+            {
+                string username = _context.SQLEscape(POST["username"].ToString());
+
+                Response.StatusCode = 400;
+                return Content("Not implemented.");
+
+
+                ////Check if view was found
+                //fv_views views = null;
+                //try
+                //{
+                //    views = _context.fv_views.Where(m => m.v_u_name == username).ToList();
+                //}
+                //catch (InvalidOperationException) { }
+                //if (views != null)
+                //{
+
+                //    $years = getYearsForUser($username);
+                //    $errorWhileDeletingYears = FALSE;
+                //    foreach ($years as &$value) {
+                //        if (!removeYearByYearAndUsername($value, $username))
+                //        {
+                //            $errorWhileDeletingYears = TRUE;
+                //        }
+                //    }
+
+                //    if (!$errorWhileDeletingYears) {
+                //        $sqlDeleteUser = "DELETE FROM `fv_users` WHERE `fv_users`.`u_name` = '$username'";
+                //            $resultDeleteUser = $mysqli->query($sqlDeleteUser);
+                //        if ($resultDeleteUser) {
+                //            echo json_encode(array('message' => "User deleted."));
+                //        } else {
+                //            header('HTTP/1.1 400 Bad request');
+                //            echo "Could not delete user \"$username\".";
+                //        }
+                //    } else {
+                //        header('HTTP/1.1 400 Bad request');
+                //        echo "Could not delete years for the user \"$username\".";
+                //    }
+
+                //}
+                //else
+                //{
+                //    Response.StatusCode = 400;
+                //    return Content($"Could not delete views for the user {username}.");
+                //}
+
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return Content("Username is not set.");
+            }
         }
 
         private ActionResult UpdateUser()
