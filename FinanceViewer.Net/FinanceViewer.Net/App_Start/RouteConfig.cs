@@ -15,11 +15,9 @@ namespace FinanceViewer.Net
             routes.IgnoreRoute("_nuxt/*");
             routes.IgnoreRoute("favicon.ico");
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            routes.MapRoute("home", "", defaults: new { controller = "Home", action = "Index" });
+            routes.MapRoute("admin", "admin/", defaults: new { controller = "Admin", action = "Admin" });
+            routes.MapRoute("dashboard", "dashboard/", defaults: new { controller = "Dashboard", action = "Dashboard" });
         }
     }
 }

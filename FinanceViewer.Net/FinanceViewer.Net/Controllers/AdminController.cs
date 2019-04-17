@@ -6,9 +6,10 @@ using System.Web.Mvc;
 
 namespace FinanceViewer.Net.Controllers
 {
-    public class HomeController : Controller
+    public class AdminController : Controller
     {
-        public ActionResult Index()
+        // GET: Admin
+        public ActionResult Admin()
         {
             return View();
         }
