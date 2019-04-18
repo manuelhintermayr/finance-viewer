@@ -19,7 +19,7 @@
           <Key>
             <PropertyRef Name="v_id" />
           </Key>
-          <Property Name="v_id" Type="int" Nullable="false" />
+          <Property Name="v_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="v_y_year" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="v_u_name" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="v_name" Type="varchar" MaxLength="45" Nullable="false" />
@@ -72,7 +72,7 @@
           <Key>
             <PropertyRef Name="v_id" />
           </Key>
-          <Property Name="v_id" Type="Int32" Nullable="false" />
+          <Property Name="v_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="v_y_year" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="v_u_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="v_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />

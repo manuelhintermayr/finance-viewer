@@ -20,7 +20,7 @@ INSERT INTO [fv_users] (u_name, u_password, u_isLocked, u_firstName, u_lastName)
 GO
 
 CREATE TABLE [fv_views] (
-  [v_id] int NOT NULL,
+  [v_id] int IDENTITY(1,1) NOT NULL,
   [v_y_year] varchar(4) NOT NULL,
   [v_u_name] varchar(150) NOT NULL,
   [v_name] varchar(45) NOT NULL,
@@ -79,3 +79,5 @@ GO
 ALTER TABLE [fv_years]
   ADD PRIMARY KEY (y_year, y_u_name);
 GO
+
+SET IDENTITY_INSERT [fv_views] ON
