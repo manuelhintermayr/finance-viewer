@@ -409,7 +409,71 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult RemoveYear()
         {
-            throw new NotImplementedException();
+            JObject POST = GetJsonPostObjectFromRequest();
+
+            if (POST["username"] != null
+                && POST["year"] != null
+                && POST["username"].ToString() != ""
+                && POST["username"].ToString() != " "
+                && POST["year"].ToString() != ""
+                && POST["year"].ToString() != " ")
+            {
+                string username = _context.SQLEscape(POST["username"].ToString());
+                string yearString = _context.SQLEscape(POST["year"].ToString());
+
+                if (int.TryParse(yearString, out int year) && year > 0)
+                {
+                    if (_context.GetYearsForUser(username).Length> 1)
+                    {
+                        //Check if view was found
+                        List<fv_views> views = null;
+                        try
+                        {
+                            views = _context.fv_views.Where(m => m.v_u_name == username && m.v_y_year == yearString).ToList();
+                        }
+                        catch (InvalidOperationException) { }
+
+                        if (views != null)
+                        {
+                            _context.fv_views.RemoveRange(views);
+
+                            //Deleting years:
+                            try
+                            {
+                                _context.RemoveYearByYearAndUsername(year, username);
+                            }
+                            catch (DbEntityValidationException)
+                            {
+                                Response.StatusCode = 400;
+                                return Content("Could not delete the year entry. SQL Execution failed.");
+                            }
+
+                            Response.StatusCode = 200;
+                            return Json(new { message = "Year deleted." }, JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            Response.StatusCode = 400;
+                            return Content($"Could not delete views for the user {username} and year {year}.");
+                        }
+                    }
+                    else
+                    {
+                        Response.StatusCode = 400;
+                        return Content("There must be at least on year left.");
+                    }
+                }
+                else
+                {
+                    Response.StatusCode = 400;
+                    return Content("Value for year is not valid.");
+                }
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return Content("Not all values are set.");
+            }
         }
 
         private ActionResult SetView()

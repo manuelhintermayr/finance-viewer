@@ -152,7 +152,7 @@ namespace FinanceViewer.Net.Models.DbModels
                 return new int[0];
             }
 
-            //check if user was found
+            //check if years for user was found
             List<fv_years> years = null;
             try
             {
