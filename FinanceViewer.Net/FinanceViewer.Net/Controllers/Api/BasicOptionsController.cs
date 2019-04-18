@@ -50,13 +50,18 @@ namespace FinanceViewer.Net.Controllers.Api
         private ActionResult GetInfo()
         {
             string username = Session["m_user"].ToString();
+            string usedUsername = username;
+            if (_context.UserIsAdmin(username) && Session["m_view_username"] != null)
+            {
+                usedUsername = Session["m_view_username"].ToString();
+            }
 
             Response.StatusCode = 200;
             return Json(new UserInfo()
             {
                 name = _context.GetFirstNameForUsername(username),
                 isAdmin = _context.UserIsAdmin(username),
-                years = _context.GetYearsForUser(username)
+                years = _context.GetYearsForUser(usedUsername)
             }, JsonRequestBehavior.AllowGet);
         }
 
