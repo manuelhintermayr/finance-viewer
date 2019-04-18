@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -160,7 +163,123 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult AddView()
         {
-            throw new NotImplementedException();
+            var POST = this.GetJsonPostObjectFromRequest();
+
+            if (POST["name"] != null
+                && POST["description"] != null
+                && POST["id"] != null
+                && POST["notes"] != null
+                && POST["profile_url"] != null
+                && POST["name"].ToString() != ""
+                && POST["name"].ToString() != " "
+                && POST["description"].ToString() != ""
+                && POST["description"].ToString() != " "
+                && POST["id"].ToString() != ""
+                && POST["id"].ToString() != " "
+                && POST["notes"].ToString() != ""
+                && POST["notes"].ToString() != " "
+                && POST["profile_url"].ToString() != ""
+                && POST["profile_url"].ToString() != " ")
+            {
+                string name = _context.SQLEscape(POST["name"].ToString());
+                string description = _context.SQLEscape(POST["description"].ToString());
+                string id = _context.SQLEscape(POST["id"].ToString());
+                string notes = _context.SQLEscape(POST["notes"].ToString());
+                string profile_url = _context.SQLEscape(POST["profile_url"].ToString());
+
+                if (!id.Contains(" ") && !profile_url.Contains(" "))
+                {
+                    var listForExistingID = _context.fv_views.Where(x =>
+                        x.v_y_year == year.ToString()
+                        && x.v_u_name == username
+                        && x.v_html_id == id
+                    ).ToList();
+                    var listForExistingName = _context.fv_views.Where(x =>
+                        x.v_y_year == year.ToString() 
+                        && x.v_u_name == username
+                        && x.v_name == name
+                    ).ToList();
+
+                    if (listForExistingName.Count>= 1 || listForExistingID.Count >= 1)
+                    {
+                        Response.StatusCode = 400;
+                        return Content("ID or Name does already exist");
+                    } 
+                    else
+                    {
+                        //add View:
+                        fv_views newView = new fv_views()
+                            {
+                                v_y_year = year.ToString(), 
+                                v_u_name = username,
+                                v_name = name,
+                                v_description = description,
+                                v_html_id = id,
+                                v_notes = notes,
+                                v_profile_url = profile_url,
+                                v_month_01 = "0",
+                                v_month_02 = "0",
+                                v_month_03 = "0",
+                                v_month_04 = "0",
+                                v_month_05 = "0",
+                                v_month_06 = "0",
+                                v_month_07 = "0",
+                                v_month_08 = "0",
+                                v_month_09 = "0",
+                                v_month_10 = "0",
+                                v_month_11 = "0",
+                                v_month_12 = "0"
+                        };
+
+                        _context.fv_views.Add(newView);
+
+                        try
+                        {
+                            _context.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex is DbEntityValidationException || ex is DbUpdateException || ex is SqlException)
+                            {
+                                Response.StatusCode = 400;
+                                return Content("Could not create a new view. SQL Execution failed.");
+                            }
+
+                            throw;
+                        }
+
+                        //check if view was saved:
+                        fv_views finalView = null;
+                        try
+                        {
+                            finalView = _context.fv_views.Single(x =>
+                                x.v_y_year == year.ToString()
+                                && x.v_u_name == username
+                                && x.v_html_id == id
+                            );
+                        }
+                        catch (InvalidOperationException) { }
+                        if (finalView == null)
+                        {
+                            Response.StatusCode = 400;
+                            return Content("View was created but cannot be accessed. SQL Execution failed.");
+                        }
+
+                        Response.StatusCode = 200;
+                        return Json(GetViewArrayByRowResult(finalView), JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    Response.StatusCode = 400;
+                    return Content("Profile_Url or id should not contain whitespaces.");
+                }
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return Content("Not all values are set.");
+            }
         }
 
         private ActionResult RemoveView()
