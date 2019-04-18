@@ -192,5 +192,45 @@ namespace FinanceViewer.Net.Models.DbModels
                     }
                 });
         }
+
+        public bool RemoveYearByYearAndUsername(int year, string username, bool saveActionsImmediately = true)
+        {
+            //Check if year was found
+            fv_years finalYear = null;
+            try
+            {
+                finalYear = fv_years.SingleOrDefault(m => (m.y_u_name == username) && (m.y_year == year.ToString()));
+            }
+            catch (InvalidOperationException) { }
+            if (finalYear == null)
+            {
+                return false;
+            }
+
+            fv_years.Remove(finalYear);
+
+            if (saveActionsImmediately)
+            {
+                SaveChanges();
+            }
+
+            return true;
+        }
+
+        public void AddNewYearForUser(int year, string username, bool saveActionsImmediately = true)
+        {
+            var newYear = new fv_years()
+            {
+                y_u_name = username,
+                y_year = year.ToString()
+            };
+
+            fv_years.Add(newYear);
+
+            if (saveActionsImmediately)
+            {
+                SaveChanges();
+            }
+        }
     }
 }

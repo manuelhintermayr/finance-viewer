@@ -120,21 +120,10 @@ namespace FinanceViewer.Net.Controllers.Api
                         u_firstName = firstname,
                         u_lastName = lastname
                     };
-                    var newYearOne = new fv_years()
-                    {
-                        y_u_name = username,
-                        y_year = DateTime.Today.Year.ToString()
-                    };
-                    var newYearTwo = new fv_years()
-                    {
-                        y_u_name = username,
-                        y_year = ((DateTime.Today.Year) + 1).ToString()
-                    };
-
-
+                    
                     var newUser = _context.fv_users.Add(user);
-                    _context.fv_years.Add(newYearOne);
-                    _context.fv_years.Add(newYearTwo);
+                    _context.AddNewYearForUser(DateTime.Today.Year, username, false);
+                    _context.AddNewYearForUser((DateTime.Today.Year + 1), username, false);
 
                     try
                     {
@@ -198,7 +187,7 @@ namespace FinanceViewer.Net.Controllers.Api
                     var years = _context.GetYearsForUser(username);
                     bool errorWhileDeletingYears = false;
                     foreach (int year in years) {
-                        if (!RemoveYearByYearAndUsername(year, username, false))
+                        if (!_context.RemoveYearByYearAndUsername(year, username, false))
                         {
                             errorWhileDeletingYears = true;
                         }
@@ -255,30 +244,6 @@ namespace FinanceViewer.Net.Controllers.Api
                 Response.StatusCode = 400;
                 return Content("Username is not set.");
             }
-        }
-
-        private bool RemoveYearByYearAndUsername(int year, string username, bool saveActionsImmediately = true)
-        {
-            //Check if year was found
-            fv_years finalYear = null;
-            try
-            {
-                finalYear = _context.fv_years.SingleOrDefault(m => (m.y_u_name == username) && (m.y_year == year.ToString()));
-            }
-            catch (InvalidOperationException) { }
-            if (finalYear == null)
-            {
-                return false;
-            }
-
-            _context.fv_years.Remove(finalYear);
-            
-            if (saveActionsImmediately)
-            {
-                _context.SaveChanges();
-            }
-
-            return true;
         }
 
         private ActionResult UpdateUser()
@@ -401,7 +366,44 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult AddYear()
         {
-            throw new NotImplementedException();
+            JObject POST = GetJsonPostObjectFromRequest();
+
+            if (POST["username"] != null
+                && POST["year"] != null
+                && POST["username"].ToString() != ""
+                && POST["username"].ToString() != " "
+                && POST["year"].ToString() != ""
+                && POST["year"].ToString() != " ") 
+            {
+                string username = _context.SQLEscape(POST["username"].ToString());
+                string yearString = _context.SQLEscape(POST["year"].ToString());
+
+                if (int.TryParse(yearString, out int newYear) && newYear > 0) 
+                {
+                    try
+                    {
+                        _context.AddNewYearForUser(newYear, username);
+                    }
+                    catch (DbEntityValidationException)
+                    {
+                        Response.StatusCode = 400;
+                        return Content("Could not create a new year entry. SQL Execution failed.");
+                    }
+
+                    Response.StatusCode = 200;
+                    return Json(new { newYear }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    Response.StatusCode = 400;
+                    return Content("Value for new year is not valid.");
+                }
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return Content("Not all values are set.");
+            }
         }
 
 
