@@ -138,6 +138,8 @@ namespace FinanceViewer.Net.Controllers.Api
                             Response.StatusCode = 400;
                             return Content("Could not create a new user. SQL Execution failed.");
                         }
+
+                        throw;
                     }
 
 
@@ -227,6 +229,8 @@ namespace FinanceViewer.Net.Controllers.Api
                                 Response.StatusCode = 400;
                                 return Content($"Could not delete user {username}. SQL Execution failed.");
                             }
+
+                            throw;
                         }
 
 
@@ -307,6 +311,7 @@ namespace FinanceViewer.Net.Controllers.Api
                         return Content($"Could not update the user {username}. SQL Execution failed.");
                     }
 
+                    throw;
                 }
 
                 Response.StatusCode = 200;
@@ -367,6 +372,8 @@ namespace FinanceViewer.Net.Controllers.Api
                         Response.StatusCode = 400;
                         return Content($"Could not set password for user {username}. SQL Execution failed.");
                     }
+
+                    throw;
                 }
 
                 Response.StatusCode = 200;
@@ -406,6 +413,8 @@ namespace FinanceViewer.Net.Controllers.Api
                             Response.StatusCode = 400;
                             return Content("Could not create a new year entry. SQL Execution failed.");
                         }
+
+                        throw;
                     }
 
                     Response.StatusCode = 200;
@@ -467,6 +476,8 @@ namespace FinanceViewer.Net.Controllers.Api
                                     Response.StatusCode = 400;
                                     return Content("Could not delete the year entry. SQL Execution failed.");
                                 }
+
+                                throw;
                             }
 
                             Response.StatusCode = 200;
