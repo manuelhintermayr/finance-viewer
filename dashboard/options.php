@@ -237,7 +237,7 @@
             }
         } else {
             header('HTTP/1.1 400 Bad request');
-            echo "Username is not set.";
+            echo "View ID is not set.";
         }
     }
 

@@ -284,7 +284,57 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult RemoveView()
         {
-            throw new NotImplementedException();
+            var POST = this.GetJsonPostObjectFromRequest();
+
+            if (POST["view_id"]!=null)
+            {
+                string idString = _context.SQLEscape(POST["view_id"].ToString());
+
+                if (int.TryParse(idString, out int id))
+                {
+                    //find view
+                    fv_views viewToDelete = null;
+                    try
+                    {
+                        viewToDelete = _context.fv_views.Single(x => x.v_id == id);
+                    }
+                    catch (InvalidOperationException) { }
+                    if (viewToDelete == null)
+                    {
+                        Response.StatusCode = 400;
+                        return Content($"Could not find View to delete with id: {id}");
+                    }
+
+                    //delete view
+                    try
+                    {
+                        _context.fv_views.Remove(viewToDelete);
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex is DbEntityValidationException || ex is DbUpdateException || ex is SqlException)
+                        {
+                            Response.StatusCode = 400;
+                            return Content($"Could not delete view $id for the user {username}. SQL Execution failed.");
+                        }
+
+                        throw;
+                    }
+                    
+                    Response.StatusCode = 200;
+                    return Json(new { message = "View deleted." }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    Response.StatusCode = 400;
+                    return Content("ID for View is not valid.");
+                }
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return Content("View ID is not set.");
+            }
         }
 
         private ActionResult UpdateViewMonth()
