@@ -85,7 +85,7 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult AddUser()
         {
-            JObject POST = GetJsonPostObjectFromRequest();     
+            JObject POST = this.GetJsonPostObjectFromRequest();     
 
             if (Request.HttpMethod == "POST" 
                 && POST["id"]!=null
@@ -172,7 +172,7 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult RemoveUser()
         {
-            JObject POST = GetJsonPostObjectFromRequest();
+            JObject POST = this.GetJsonPostObjectFromRequest();
 
             if (POST["username"]!=null)
             {
@@ -260,7 +260,7 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult UpdateUser()
         {
-            JObject POST = GetJsonPostObjectFromRequest();
+            JObject POST = this.GetJsonPostObjectFromRequest();
 
             if (POST["username"] != null
                 && POST["firstname"] != null
@@ -332,7 +332,7 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult SetPassword()
         {
-            JObject POST = GetJsonPostObjectFromRequest();
+            JObject POST = this.GetJsonPostObjectFromRequest();
 
             if (POST["username"]!=null
                 && POST["newPassword"] != null
@@ -388,7 +388,7 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult AddYear()
         {
-            JObject POST = GetJsonPostObjectFromRequest();
+            JObject POST = this.GetJsonPostObjectFromRequest();
 
             if (POST["username"] != null
                 && POST["year"] != null
@@ -436,7 +436,7 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult RemoveYear()
         {
-            JObject POST = GetJsonPostObjectFromRequest();
+            JObject POST = this.GetJsonPostObjectFromRequest();
 
             if (POST["username"] != null
                 && POST["year"] != null
@@ -510,7 +510,7 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult SetView()
         {
-            JObject POST = GetJsonPostObjectFromRequest();
+            JObject POST = this.GetJsonPostObjectFromRequest();
 
             if (POST["username"]!=null)
             {
@@ -531,19 +531,5 @@ namespace FinanceViewer.Net.Controllers.Api
             Response.StatusCode = 400;
             return Content($"Action {action} is not supported.");
         }
-
-        private JObject GetJsonPostObjectFromRequest()
-        {
-            //used https://stackoverflow.com/questions/6362781/how-to-get-raw-request-body-in-asp-net
-            string req_txt;
-            using (StreamReader reader = new StreamReader(Request.InputStream))
-            {
-                req_txt = reader.ReadToEnd();
-            }
-
-            JObject jObject = JObject.Parse(req_txt);
-            return jObject;
-        }
-        
     }
 }

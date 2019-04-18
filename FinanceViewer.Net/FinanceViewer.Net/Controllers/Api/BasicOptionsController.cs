@@ -62,16 +62,18 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult SetViewYear()
         {
+            var POST = this.GetJsonPostObjectFromRequest();
+
             string username = Session["m_user"].ToString();
             if (_context.UserIsAdmin(Session["m_user"].ToString()) && Session["m_view_username"] != null)
             {
                 username = Session["m_view_username"].ToString();
             }
 
-            if (Request.HttpMethod == "POST" && Request.Params["year"] != null)
+            if (Request.HttpMethod == "POST" && POST["year"] != null)
             {
                 var years = _context.GetYearsForUser(username);
-                int requestedYear = Convert.ToInt32(Request.Params["year"]);
+                int requestedYear = Convert.ToInt32(POST["year"]);
 
                 if (years.Contains(requestedYear))
                 {
