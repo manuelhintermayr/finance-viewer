@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -129,10 +131,13 @@ namespace FinanceViewer.Net.Controllers.Api
                     {
                         _context.SaveChanges();
                     }
-                    catch (DbEntityValidationException)
+                    catch (Exception ex)
                     {
-                        Response.StatusCode = 400;
-                        return Content("Could not create a new user. SQL Execution failed.");
+                        if (ex is DbEntityValidationException || ex is DbUpdateException || ex is SqlException)
+                        {
+                            Response.StatusCode = 400;
+                            return Content("Could not create a new user. SQL Execution failed.");
+                        }
                     }
 
 
@@ -215,10 +220,13 @@ namespace FinanceViewer.Net.Controllers.Api
                         {
                             _context.SaveChanges();
                         }
-                        catch (DbEntityValidationException)
+                        catch (Exception ex)
                         {
-                            Response.StatusCode = 400;
-                            return Content($"Could not delete user {username}. SQL Execution failed.");
+                            if (ex is DbEntityValidationException || ex is DbUpdateException || ex is SqlException)
+                            {
+                                Response.StatusCode = 400;
+                                return Content($"Could not delete user {username}. SQL Execution failed.");
+                            }
                         }
 
 
@@ -291,10 +299,14 @@ namespace FinanceViewer.Net.Controllers.Api
                 {
                     _context.SaveChanges();
                 }
-                catch (DbEntityValidationException)
+                catch (Exception ex)
                 {
-                    Response.StatusCode = 400;
-                    return Content($"Could not update the user {username}. SQL Execution failed.");
+                    if (ex is DbEntityValidationException || ex is DbUpdateException || ex is SqlException)
+                    {
+                        Response.StatusCode = 400;
+                        return Content($"Could not update the user {username}. SQL Execution failed.");
+                    }
+
                 }
 
                 Response.StatusCode = 200;
@@ -348,10 +360,13 @@ namespace FinanceViewer.Net.Controllers.Api
                 {
                     _context.SaveChanges();
                 }
-                catch (DbEntityValidationException)
+                catch (Exception ex)
                 {
-                    Response.StatusCode = 400;
-                    return Content($"Could not set password for user {username}. SQL Execution failed.");
+                    if (ex is DbEntityValidationException || ex is DbUpdateException || ex is SqlException)
+                    {
+                        Response.StatusCode = 400;
+                        return Content($"Could not set password for user {username}. SQL Execution failed.");
+                    }
                 }
 
                 Response.StatusCode = 200;
@@ -384,10 +399,13 @@ namespace FinanceViewer.Net.Controllers.Api
                     {
                         _context.AddNewYearForUser(newYear, username);
                     }
-                    catch (DbEntityValidationException)
+                    catch (Exception ex)
                     {
-                        Response.StatusCode = 400;
-                        return Content("Could not create a new year entry. SQL Execution failed.");
+                        if (ex is DbEntityValidationException || ex is DbUpdateException || ex is SqlException)
+                        {
+                            Response.StatusCode = 400;
+                            return Content("Could not create a new year entry. SQL Execution failed.");
+                        }
                     }
 
                     Response.StatusCode = 200;
@@ -442,10 +460,13 @@ namespace FinanceViewer.Net.Controllers.Api
                             {
                                 _context.RemoveYearByYearAndUsername(year, username);
                             }
-                            catch (DbEntityValidationException)
+                            catch (Exception ex)
                             {
-                                Response.StatusCode = 400;
-                                return Content("Could not delete the year entry. SQL Execution failed.");
+                                if (ex is DbEntityValidationException || ex is DbUpdateException || ex is SqlException)
+                                {
+                                    Response.StatusCode = 400;
+                                    return Content("Could not delete the year entry. SQL Execution failed.");
+                                }
                             }
 
                             Response.StatusCode = 200;
