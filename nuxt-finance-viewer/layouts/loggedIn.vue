@@ -29,19 +29,23 @@
             class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a 
+                <a
+                  v-if="isAdmin"
                   class="nav-link" 
                   href="/admin">Admin</a>
               </li>
-              <li class="nav-item">
+              <li 
+                v-if="years.length > 0"
+                class="nav-item">
                 <select 
                   id="years" 
                   class="custom-select dropdown dropdownNavbar" 
                   required="" 
                   @change="goToDashboard">
                   <option value="">Years</option>
-                  <option>2017</option>
-                  <option>2018</option>
+                  <option 
+                    v-for="y in years"
+                    :key="y">{{ y }}</option>
                 </select>
               </li>
             </ul>
@@ -63,7 +67,7 @@
     <div 
       id="byeMessage" 
       :class="{ logoutEnd: !startLogoutAnimations}"
-      class="container dynamicChanges">Bye Administrator!
+      class="container dynamicChanges">Bye {{ name }}!
     </div>
   </div>
 </template>
@@ -74,10 +78,32 @@ export default {
   data() {
     return {
       loggedOut: false,
-      startLogoutAnimations: false
+      startLogoutAnimations: false,
+      name: '',
+      isAdmin: false,
+      years: []
     }
   },
+  mounted() {
+    this.loadAll()
+  },
   methods: {
+    loadAll() {
+      this.$axios
+        .get('options.php?action=getInfo')
+        .then(response => {
+          let api = response.data
+          this.name = api.name
+          this.isAdmin = api.isAdmin
+          this.years = api.years
+
+          console.log(api)
+        })
+        .catch(error => {
+          console.log(error)
+          this.$router.replace('/')
+        })
+    },
     logout() {
       this.loggedOut = true
       this.startLogoutAnimations = true
@@ -87,11 +113,26 @@ export default {
       }, 1500)
 
       setTimeout(() => {
-        this.$router.replace('/logout.php')
+        window.location = '/logout.php'
       }, 2000)
     },
     goToDashboard: function(event) {
-      this.$router.replace('/dashboard#' + event.target.value)
+      if (event.target.value != '') {
+        this.$axios
+          .post('options.php?action=setViewYear', { year: event.target.value })
+          .then(response => {
+            let api = response.data
+            if (api.message == 'Year for view set.') {
+              window.location = '/dashboard'
+            } else {
+              console.log(reponse)
+              alert('Could not set year for View. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not set year for View. Check console for more info.')
+          })
+      }
     }
   }
 }

@@ -60,7 +60,7 @@
 
           <span 
             v-for="u in tableViews" 
-            :key="u.id">
+            :key="u.count">
             <input 
               :id="'view-'+u.count" 
               type="radio"
@@ -100,7 +100,7 @@
 
           <!-- start area for total overview -->
           <span v-if="overviewIsEnabled">
-            <h1> Overview for all views </h1>
+            <h1> Overview for all views for year <b>{{ year }}</b> for user <b>{{ username }}</b>:</h1>
             <table class="table table-striped table-hover">
               <thead class="">
                 <tr>
@@ -211,7 +211,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateJanuary(u)">Update</button> 
+                        @click="updateMonth(u, 1)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.january) }}</b></td>                    
                   </tr>
@@ -229,7 +229,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateFebruary(u)">Update</button> 
+                        @click="updateMonth(u, 2)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.february) }}</b></td>                    
                   </tr>
@@ -247,7 +247,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateMarch(u)">Update</button> 
+                        @click="updateMonth(u, 3)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.march) }}</b></td>                    
                   </tr>
@@ -265,7 +265,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateApril(u)">Update</button> 
+                        @click="updateMonth(u, 4)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.april) }}</b></td>                    
                   </tr>
@@ -283,7 +283,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateMay(u)">Update</button> 
+                        @click="updateMonth(u, 5)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.may) }}</b></td>                    
                   </tr>
@@ -301,7 +301,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateJune(u)">Update</button> 
+                        @click="updateMonth(u, 6)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.june) }}</b></td>                    
                   </tr>
@@ -319,7 +319,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateJuly(u)">Update</button> 
+                        @click="updateMonth(u, 7)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.july) }}</b></td>                    
                   </tr>
@@ -337,7 +337,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateAugust(u)">Update</button> 
+                        @click="updateMonth(u, 8)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.august) }}</b></td>                    
                   </tr>
@@ -355,7 +355,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateSeptember(u)">Update</button> 
+                        @click="updateMonth(u, 9)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.september) }}</b></td>                    
                   </tr>
@@ -373,7 +373,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateOctober(u)">Update</button> 
+                        @click="updateMonth(u, 10)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.october) }}</b></td>                    
                   </tr>
@@ -391,7 +391,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateNovember(u)">Update</button> 
+                        @click="updateMonth(u, 11)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.november) }}</b></td>                    
                   </tr>
@@ -409,7 +409,7 @@
                     <td> 
                       <button 
                         class="btn btn-secondary" 
-                        @click="updateDecember(u)">Update</button> 
+                        @click="updateMonth(u, 12)">Update</button> 
                     </td>         
                     <td>&pound; <b>{{ eval(u.data.december) }}</b></td>                    
                   </tr>
@@ -511,7 +511,7 @@
                       class="form-control" 
                       placeholder="" 
                       value="" 
-                      maxlength="80"
+                      maxlength="180"
                       required="" >
                     <div class="invalid-feedback">
                       Valid profile url is required.
@@ -577,8 +577,6 @@
               </form>
 
 
-
-
             </div>
 
           </span>
@@ -604,315 +602,74 @@ export default {
       loggedOut: false,
       overviewIsEnabled: true,
       createNewViewEnabled: false,
-      newView_name: 'FVMarkt2',
+      year: '',
+      username: '',
+      newView_name: 'FVMarket2',
       newView_description: 'Supermarket',
       newView_id: 'fvmarket2',
       newView_notes: 'This is my local market',
       newView_profile_url:
         'https://cdn.stocksnap.io/img-thumbs/960w/AWJD4WV6W1.jpg',
-      tableViews: [
-        {
-          name: 'FVMarket',
-          description: 'Supermarket',
-          id: 'fvmarket',
-          count: 1,
-          notes: 'This is the FVMarket supermarket. I use it to buy groceries.',
-          viewEnabled: false,
-          profile_url:
-            'https://cdn.stocksnap.io/img-thumbs/960w/AWJD4WV6W1.jpg',
-          data: {
-            january: '1+1+41.69+21.49+43.99+14.29',
-            february: '13.99+52.39+10.79+21.49+23.49',
-            march: '0.45+1.39+2.79+0.2+1.99+2.49+0.99+1.49+0.89',
-            april:
-              '43.54-6+16.55+15.42+3.58+6.86+10.17+17.76+-20+2.47+19.15+4.29+18.3+22.02+7.84+6.98',
-            may: '23.97+2.75+16.39+10.53+18.99+5.34+4.31+5.85+24.34+4.74+12.93',
-            june: '89.4',
-            july: '120.3',
-            august: '153.58',
-            september: '194.01',
-            october: '79.99',
-            november: '112.31',
-            december: '126.29',
-            tempJanuary: '1+1+41.69+21.49+43.99+14.29',
-            tempFebruary: '13.99+52.39+10.79+21.49+23.49',
-            tempMarch: '0.45+1.39+2.79+0.2+1.99+2.49+0.99+1.49+0.89',
-            tempApril:
-              '43.54-6+16.55+15.42+3.58+6.86+10.17+17.76+-20+2.47+19.15+4.29+18.3+22.02+7.84+6.98',
-            tempMay:
-              '23.97+2.75+16.39+10.53+18.99+5.34+4.31+5.85+24.34+4.74+12.93',
-            tempJune: '89.4',
-            tempJuly: '120.3',
-            tempAugust: '153.58',
-            tempSeptember: '194.01',
-            tempOctober: '79.99',
-            tempNovember: '112.31',
-            tempDecember: '126.29'
-          }
-        },
-        {
-          name: 'Richard',
-          description: 'Supermarket',
-          id: 'richard',
-          count: 2,
-          notes:
-            'Richard is like the austrian big supermarket. You can buy practically everything.',
-          viewEnabled: false,
-          profile_url:
-            'https://cdn.stocksnap.io/img-thumbs/960w/R0CTZDRFPY.jpg',
-          data: {
-            january: '1',
-            february: '2',
-            march: '3',
-            april: '4',
-            may: '5',
-            june: '6',
-            july: '7',
-            august: '8',
-            september: '9',
-            october: '10',
-            november: '11',
-            december: '12',
-            tempJanuary: '1',
-            tempFebruary: '2',
-            tempMarch: '3',
-            tempApril: '4',
-            tempMay: '5',
-            tempJune: '6',
-            tempJuly: '7',
-            tempAugust: '8',
-            tempSeptember: '9',
-            tempOctober: '10',
-            tempNovember: '11',
-            tempDecember: '12'
-          }
-        },
-        {
-          name: 'Amazing',
-          description: 'Online E-Commerce',
-          id: 'amazing',
-          count: 3,
-          notes:
-            'Amazing is an online eCommerce. I use it to buy stuff and proteins.',
-          viewEnabled: false,
-          profile_url:
-            'https://image.shutterstock.com/image-photo/boxes-trolley-on-laptop-keyboard-450w-580499569.jpg',
-          data: {
-            january: '123.45',
-            february: '20+35.81+11.04+39.9',
-            march: '30.2',
-            april: '39.1+20+1.30+40.91',
-            may: '88.20',
-            june: '60.19',
-            july: '7.91',
-            august: '88.29',
-            september: '90.69',
-            october: '101.29',
-            november: '119.14',
-            december: '124.17',
-            tempJanuary: '123.45',
-            tempFebruary: '20+35.81+11.04+39.9',
-            tempMarch: '30.2',
-            tempApril: '39.1+20+1.30+40.91',
-            tempMay: '88.20',
-            tempJune: '60.19',
-            tempJuly: '7.91',
-            tempAugust: '88.29',
-            tempSeptember: '90.69',
-            tempOctober: '101.29',
-            tempNovember: '119.14',
-            tempDecember: '124.17'
-          }
-        },
-        {
-          name: 'Food',
-          description: 'Food not included in supermarket',
-          id: 'food',
-          count: 4,
-          notes:
-            'Everything I eat (besides from what I buy at the supermarket) is included in this list.',
-          viewEnabled: false,
-          profile_url:
-            'https://image.shutterstock.com/image-photo/healthy-salad-bowl-quinoa-tomatoes-450w-521741356.jpg',
-          data: {
-            january: '49.25',
-            february: '29.49',
-            march: '90.19',
-            april: '4+1+5+3+3.50+4.5+1+1+1+2+1',
-            may: '5+5+6+7+9',
-            june: '6+4.5',
-            july: '7+70',
-            august: '89.13',
-            september: '99-1',
-            october: '100.01+20.29',
-            november: '111',
-            december: '122',
-            tempJanuary: '49.25',
-            tempFebruary: '29.49',
-            tempMarch: '90.19',
-            tempApril: '4+1+5+3+3.50+4.5+1+1+1+2+1',
-            tempMay: '5+5+6+7+9',
-            tempJune: '6+4.5',
-            tempJuly: '7+70',
-            tempAugust: '89.13',
-            tempSeptember: '99-1',
-            tempOctober: '100.01+20.29',
-            tempNovember: '111',
-            tempDecember: '122'
-          }
-        },
-        {
-          name: 'Car',
-          description: 'Car costs, insurance, gasoline',
-          id: 'car',
-          count: 5,
-          notes:
-            'A car doesn`t come cheap. Everything is spend for this car is included here.',
-          viewEnabled: false,
-          profile_url:
-            'https://image.shutterstock.com/image-photo/creative-background-highbeam-headlight-newest-450w-1191643888.jpg',
-          data: {
-            january: '90+450',
-            february: '80+550',
-            march: '90+350.55',
-            april: '80+154.23',
-            may: '90+431.49',
-            june: '80+350',
-            july: '90+210',
-            august: '80+482',
-            september: '90+211',
-            october: '80+30',
-            november: '91+40',
-            december: '82+430',
-            tempJanuary: '90+450',
-            tempFebruary: '80+550',
-            tempMarch: '90+350.55',
-            tempApril: '80+154.23',
-            tempMay: '90+431.49',
-            tempJune: '80+350',
-            tempJuly: '90+210',
-            tempAugust: '80+482',
-            tempSeptember: '90+211',
-            tempOctober: '80+30',
-            tempNovember: '91+40',
-            tempDecember: '82+430'
-          }
-        },
-        {
-          name: 'Invoices',
-          description: 'Monthly costs, rent, etc.',
-          id: 'invoices',
-          count: 6,
-          notes:
-            'All my invoices, like rent, gas, electricity and else is included in this list.',
-          viewEnabled: false,
-          profile_url:
-            'https://image.shutterstock.com/image-vector/e-commerce-order-450w-1148589737.jpg',
-          data: {
-            january: '750+35+35+25+25',
-            february: '750+35+35+25+30',
-            march: '750+35+35+25+18.78',
-            april: '750+35+35+25+69',
-            may: '750+35+35+25+169',
-            june: '750+35+35+25+385',
-            july: '750+35+35+25+342',
-            august: '750+35+35+25+295',
-            september: '750+9+35+35+25+284',
-            october: '750+10+35+35+25+284',
-            november: '750+112+35+35+25+10',
-            december: '712+35+35+25+130',
-            tempJanuary: '750+35+35+25+25',
-            tempFebruary: '750+35+35+25+30',
-            tempMarch: '750+35+35+25+18.78',
-            tempApril: '750+35+35+25+69',
-            tempMay: '750+35+35+25+169',
-            tempJune: '750+35+35+25+385',
-            tempJuly: '750+35+35+25+342',
-            tempAugust: '750+35+35+25+295',
-            tempSeptember: '750+9+35+35+25+284',
-            tempOctober: '750+10+35+35+25+284',
-            tempNovember: '750+112+35+35+25+10',
-            tempDecember: '712+35+35+25+130'
-          }
-        },
-        {
-          name: 'Phone',
-          description: 'Costs for the phone provider',
-          id: 'phone',
-          count: 7,
-          notes:
-            'A phone doesn`t come cheat. The monthly costs for a phone are included here.',
-          viewEnabled: false,
-          profile_url:
-            'https://image.shutterstock.com/image-photo/hand-holding-black-phone-isolated-450w-386618683.jpg',
-          data: {
-            january: '14.2',
-            february: '14.2',
-            march: '14.2',
-            april: '14.2',
-            may: '14.2+30',
-            june: '14.2',
-            july: '14.2+2.60',
-            august: '8+14.2',
-            september: '19',
-            october: '19',
-            november: '19',
-            december: '19',
-            tempJanuary: '14.2',
-            tempFebruary: '14.2',
-            tempMarch: '14.2',
-            tempApril: '14.2',
-            tempMay: '14.2+30',
-            tempJune: '14.2',
-            tempJuly: '14.2+2.60',
-            tempAugust: '8+14.2',
-            tempSeptember: '19',
-            tempOctober: '19',
-            tempNovember: '19',
-            tempDecember: '19'
-          }
-        },
-        {
-          name: 'Medicine',
-          description: 'Medicine bought from the pharmacy',
-          id: 'medicine',
-          count: 8,
-          notes:
-            'Descriptions and everything I use medically is included here.',
-          viewEnabled: false,
-          profile_url:
-            'https://cdn.stocksnap.io/img-thumbs/960w/LKM1T38B6S.jpg',
-          data: {
-            january: '12+4',
-            february: '2+1.3',
-            march: '3',
-            april: '6+3.3+10.95+3+4.05+8.3',
-            may: '12+5.2+2.2',
-            june: '1+29+4.2',
-            july: '15.4',
-            august: '9.20',
-            september: '9',
-            october: '26.9+29.9+6',
-            november: '12+8.99',
-            december: '13.99+25.28',
-            tempJanuary: '12+4',
-            tempFebruary: '2+1.3',
-            tempMarch: '3',
-            tempApril: '6+3.3+10.95+3+4.05+8.3',
-            tempMay: '12+5.2+2.2',
-            tempJune: '1+29+4.2',
-            tempJuly: '15.4',
-            tempAugust: '9.20',
-            tempSeptember: '9',
-            tempOctober: '26.9+29.9+6',
-            tempNovember: '12+8.99',
-            tempDecember: '13.99+25.28'
-          }
-        }
-      ]
+      tableViews: []
     }
   },
+  mounted() {
+    this.loadAll()
+  },
   methods: {
+    loadAll() {
+      this.$axios
+        .get('dashboard/options.php?action=getViews')
+        .then(response => {
+          let api = response.data.data
+          this.username = response.data.username
+          this.year = response.data.year
+          api.forEach(element => {
+            this.tableViews.push({
+              name: element.name,
+              description: element.description,
+              id: element.id,
+              count: element.count,
+              notes: element.notes,
+              viewEnabled: false,
+              profile_url: element.profile_url,
+              data: {
+                january: element.data.january,
+                tempJanuary: element.data.january,
+                february: element.data.february,
+                tempFebruary: element.data.february,
+                march: element.data.march,
+                tempMarch: element.data.march,
+                april: element.data.april,
+                tempApril: element.data.april,
+                may: element.data.may,
+                tempMay: element.data.may,
+                june: element.data.june,
+                tempJune: element.data.june,
+                july: element.data.july,
+                tempJuly: element.data.july,
+                august: element.data.august,
+                tempAugust: element.data.august,
+                september: element.data.september,
+                tempSeptember: element.data.september,
+                october: element.data.october,
+                tempOctober: element.data.october,
+                november: element.data.november,
+                tempNovember: element.data.november,
+                december: element.data.december,
+                tempDecember: element.data.december
+              }
+            })
+          })
+          console.log(api)
+        })
+        .catch(error => {
+          console.log(error)
+          alert(
+            'Could not load views. An error calling the middleware occured. Look in the console for further information.'
+          )
+        })
+    },
     disableAll() {
       this.tableViews.forEach(element => {
         element.viewEnabled = false
@@ -921,7 +678,7 @@ export default {
       this.createNewViewEnabled = false
     },
     addView() {
-      this.tableViews.push({
+      let newView = {
         name: this.newView_name,
         description: this.newView_description,
         id: this.newView_id,
@@ -955,12 +712,84 @@ export default {
           december: '0',
           tempDecember: '0'
         }
+      }
+      if (
+        newView.name == '' ||
+        newView.name == ' ' ||
+        newView.description == '' ||
+        newView.description == ' ' ||
+        newView.id == '' ||
+        newView.id == ' ' ||
+        newView.notes == '' ||
+        newView.notes == ' ' ||
+        newView.profile_url == '' ||
+        newView.profile_url == ' '
+      ) {
+        alert('Please fill out all fields')
+      } else if (this.doesViewIdAlreadyExists(newView.id)) {
+        alert('A view with the same id does already exist.')
+      } else if (this.doesViewNameAlreadyExists(newView.name)) {
+        alert('A view with the same name does already exist.')
+      } else if (newView.id.includes(' ')) {
+        alert('ID is not allowed to have wite spaces.')
+      } else if (newView.profile_url.includes(' ')) {
+        alert('Profile Url is not allowed to have wite spaces.')
+      } else {
+        this.$axios
+          .post('dashboard/options.php?action=addView', newView)
+          .then(response => {
+            let api = response.data
+            if (api.name != null) {
+              this.tableViews.push(api)
+              this.newView_name = this.newView_description = this.newView_id = this.newView_notes = this.newView_profile_url =
+                ''
+            } else {
+              console.log(reponse)
+              alert('Could not add a new view. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not add a new view. Check console for more info.')
+          })
+      }
+    },
+    doesViewIdAlreadyExists(newViewID) {
+      let exists = false
+      this.tableViews.forEach(element => {
+        if (newViewID === element.id) {
+          exists = true
+        }
       })
-      this.newView_name = this.newView_description = this.newView_id = this.newView_notes = this.newView_profile_url =
-        ''
+      return exists
+    },
+    doesViewNameAlreadyExists(newViewName) {
+      let exists = false
+      this.tableViews.forEach(element => {
+        if (newViewName === element.name) {
+          exists = true
+        }
+      })
+      return exists
     },
     removeView(view) {
-      this.tableViews.splice(this.tableViews.indexOf(view), 1)
+      if (confirm('Are you sure you want to delte view ' + view.name + '?')) {
+        this.$axios
+          .post('dashboard/options.php?action=removeView', {
+            view_id: view.count
+          })
+          .then(response => {
+            let api = response.data
+            if (api.message == 'View deleted.') {
+              this.tableViews.splice(this.tableViews.indexOf(view), 1)
+            } else {
+              console.log(reponse)
+              alert('Could not delete view. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not delete view. Check console for more info.')
+          })
+      }
     },
     eval(content) {
       return Math.round(eval(content) * 100) / 100
@@ -1081,184 +910,145 @@ export default {
           this.getSumDecember()
       )
     },
-    updateJanuary(view) {
-      try {
-        let result = this.eval(view.data.tempJanuary)
-        if (view.data.tempJanuary.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+    updateMonth(view, month) {
+      let monthName = this.$moment(
+        (month > 9 ? '0' + month : month) + '/01/2000'
+      ).format('MMMM')
+      if (month != 'Inavalid date') {
+        let newValue = ''
+
+        try {
+          newValue = this.getTempMonthValue(view, month)
+
+          let result = this.eval(newValue)
+          if (newValue.includes(',')) {
+            alert('Please do not use , use . instead')
+          } else if (isFinite(result)) {
+            let backEndObject = {
+              view_id: view.count,
+              updatedMonth: month,
+              value: newValue
+            }
+
+            this.$axios
+              .post(
+                'dashboard/options.php?action=updateViewMonth',
+                backEndObject
+              )
+              .then(response => {
+                let api = response.data
+                if (api.message == 'Month updated.') {
+                  this.updateMonthValue(view, month)
+                  setTimeout(() => {
+                    alert(monthName + ' was successfully updated!')
+                  }, 100)
+                } else {
+                  console.log(reponse)
+                  alert(
+                    'Could not update ' +
+                      monthName +
+                      '. Check console for more info.'
+                  )
+                }
+              })
+              .catch(error => {
+                alert(
+                  'Could not update ' +
+                    monthName +
+                    '. Check console for more info.'
+                )
+              })
+          } else {
+            alert('New ' + monthName + ' value is invalid: ' + result)
+          }
+        } catch (err) {
+          alert('New ' + monthName + ' value is invalid: ' + err)
+          console.log(err)
+        }
+      } else {
+        alert('Month "' + monthName + '" is invalid.')
+      }
+    },
+    getTempMonthValue(view, month) {
+      switch (month) {
+        case 1:
+          return view.data.tempJanuary
+          break
+        case 2:
+          return view.data.tempFebruary
+          break
+        case 3:
+          return view.data.tempMarch
+          break
+        case 4:
+          return view.data.tempApril
+          break
+        case 5:
+          return view.data.tempMay
+          break
+        case 6:
+          return view.data.tempJune
+          break
+        case 7:
+          return view.data.tempJuly
+          break
+        case 8:
+          return view.data.tempAugust
+          break
+        case 9:
+          return view.data.tempSeptember
+          break
+        case 10:
+          return view.data.tempOctober
+          break
+        case 11:
+          return view.data.tempNovember
+          break
+        case 12:
+          return view.data.tempDecember
+          break
+        default:
+          throw month + ' is not a valid month'
+      }
+    },
+    updateMonthValue(view, month) {
+      switch (month) {
+        case 1:
           view.data.january = '' + view.data.tempJanuary
-        } else {
-          alert('New January value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New January value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateFebruary(view) {
-      try {
-        let result = this.eval(view.data.tempFebruary)
-        if (view.data.tempFebruary.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 2:
           view.data.february = '' + view.data.tempFebruary
-        } else {
-          alert('New February value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New February value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateMarch(view) {
-      try {
-        let result = this.eval(view.data.tempMarch)
-        if (view.data.tempMarch.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 3:
           view.data.march = '' + view.data.tempMarch
-        } else {
-          alert('New March value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New March value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateApril(view) {
-      try {
-        let result = this.eval(view.data.tempApril)
-        if (view.data.tempApril.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 4:
           view.data.april = '' + view.data.tempApril
-        } else {
-          alert('New April value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New April value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateMay(view) {
-      try {
-        let result = this.eval(view.data.tempMay)
-        if (view.data.tempMay.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 5:
           view.data.may = '' + view.data.tempMay
-        } else {
-          alert('New May value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New May value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateJune(view) {
-      try {
-        let result = this.eval(view.data.tempJune)
-        if (view.data.tempJune.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 6:
           view.data.june = '' + view.data.tempJune
-        } else {
-          alert('New June value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New June value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateJuly(view) {
-      try {
-        let result = this.eval(view.data.tempJuly)
-        if (view.data.tempJuly.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 7:
           view.data.july = '' + view.data.tempJuly
-        } else {
-          alert('New July value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New July value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateAugust(view) {
-      try {
-        let result = this.eval(view.data.tempAugust)
-        if (view.data.tempAugust.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 8:
           view.data.august = '' + view.data.tempAugust
-        } else {
-          alert('New August value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New August value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateSeptember(view) {
-      try {
-        let result = this.eval(view.data.tempSeptember)
-        if (view.data.tempSeptember.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 9:
           view.data.september = '' + view.data.tempSeptember
-        } else {
-          alert('New September value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New September value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateOctober(view) {
-      try {
-        let result = this.eval(view.data.tempOctober)
-        if (view.data.tempOctober.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 10:
           view.data.october = '' + view.data.tempOctober
-        } else {
-          alert('New October value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New October value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateNovember(view) {
-      try {
-        let result = this.eval(view.data.tempNovember)
-        if (view.data.tempNovember.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 11:
           view.data.november = '' + view.data.tempNovember
-        } else {
-          alert('New November value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New November value is invalid: ' + err)
-        console.log(err)
-      }
-    },
-    updateDecember(view) {
-      try {
-        let result = this.eval(view.data.tempDecember)
-        if (view.data.tempDecember.includes(',')) {
-          alert('Please do not use , use . instead')
-        } else if (isFinite(result)) {
+          break
+        case 12:
           view.data.december = '' + view.data.tempDecember
-        } else {
-          alert('New December value is invalid: ' + result)
-        }
-      } catch (err) {
-        alert('New December value is invalid: ' + err)
-        console.log(err)
+          break
       }
     }
   }

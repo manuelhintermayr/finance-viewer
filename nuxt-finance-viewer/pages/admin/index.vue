@@ -140,7 +140,8 @@
                     type="text" 
                     class="form-control" 
                     required="" 
-                    maxlength="45">
+                    maxlength="45"
+                    disabled>
                 </td>
                 <td>
                   <input  
@@ -172,7 +173,9 @@
                   </div>
                  
                 </td>
-                <td><button class="btn btn-secondary">Update</button></td>
+                <td><button 
+                  class="btn btn-secondary" 
+                  @click="updateUser(u)">Update</button></td>
                 <td>
                   <button 
                     class="btn btn-secondary" 
@@ -181,9 +184,11 @@
                 <td>
                   <button 
                     class="btn btn-secondary" 
-                    @click="setPassword(u)">Set Password/Views</button>
+                    @click="setPasswordView(u)">Set Password/Views</button>
                 </td>
-                <td><button class="btn btn-secondary">View FinanceView</button></td>
+                <td><button 
+                  class="btn btn-secondary" 
+                  @click="setView(u)">View FinanceView</button></td>
               </tr>
             </tbody>
           </table>
@@ -217,12 +222,15 @@
                   <td>
                     <input   
                       v-model="currentUserToChangePassword.password" 
-                      type="text" 
+                      type="password" 
                       class="form-control"
                       required=""
                       maxlength="45">
                   </td>
-                  <td><button class="btn btn-secondary">Update Password</button></td>
+                  <td><button 
+                    :disabled="currentUserToChangePassword.password==''" 
+                    class="btn btn-secondary" 
+                    @click="setNewPassword()">Update Password</button></td>
                 </tr>
               </tbody>
             </table>
@@ -256,7 +264,6 @@
                       :disabled="newYear==''" 
                       class="btn btn-secondary"
                       @click="addYear()">Add Year {{ newYear }}</button>
-                      <!-- add to :disabled=",currentUserToChangePassword.years.includes(newYear)" -->
                   </td>
                 </tr>
               </tbody>
@@ -296,15 +303,7 @@ export default {
       currentId: 1,
       passwordChangeIsActivated: false,
       newYear: '',
-      currentUserToChangePassword: {
-        id: 0,
-        username: '',
-        originalUsername: '',
-        firstname: '',
-        lastname: '',
-        isLocked: false,
-        password: ''
-      }
+      currentUserToChangePassword: {}
     }
   },
   mounted() {
@@ -320,7 +319,7 @@ export default {
             this.users.push({
               id: this.currentId++,
               username: element.username,
-              origianlUsername: element.username,
+              originalUsername: element.username,
               firstname: element.firstname,
               lastname: element.lastname,
               isLocked: element.isLocked,
@@ -332,44 +331,227 @@ export default {
         })
         .catch(error => {
           alert(
-            'Could not load users. The following error occured: ' +
-              error.response.data
+            'Could not load users. An error calling the middleware occured. Look in the console for further information.'
           )
         })
     },
     addUser() {
-      this.users.push({
+      let newUser = {
         id: this.currentId++,
         username: this.itemUsername,
-        origianlUsername: this.itemUsername,
         firstname: this.itemFirstname,
         lastname: this.itemLastname,
         isLocked: this.itemIsLocked,
-        password: '',
-        years: [2018, 2019]
+        password: this.itemPassword
+      }
+
+      if (
+        newUser.username == '' ||
+        newUser.firstname == '' ||
+        newUser.lastname == '' ||
+        newUser.password == '' ||
+        newUser.password == ' '
+      ) {
+        alert('Please fill out all fields.')
+      } else if (newUser.username.includes(' ')) {
+        alert('Username is not allowed to have wite spaces.')
+      } else if (this.doesUserAlreadyExists(newUser.username)) {
+        alert('Username "' + newUser.username + '" exists already.')
+      } else {
+        this.$axios
+          .post('admin/options.php?action=addUser', newUser)
+          .then(response => {
+            let api = response.data
+            if (api.username != null) {
+              this.users.push(api)
+              this.itemUsername = this.itemPassword = this.itemFirstname = this.itemLastname = this.itemIsLocked =
+                ''
+              this.scrollToEnd()
+            } else {
+              console.log(reponse)
+              alert('Could not add a new User. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not add a new User. Check console for more info.')
+          })
+      }
+    },
+    doesUserAlreadyExists(username) {
+      let exists = false
+      this.users.forEach(element => {
+        if (username === element.username) {
+          exists = true
+        }
       })
-      this.itemUsername = this.itemPassword = this.itemFirstname = this.itemLastname = this.itemIsLocked =
-        ''
-      this.scrollToEnd()
+      return exists
     },
     removeUser(user) {
-      this.users.splice(this.users.indexOf(user), 1)
+      if (
+        confirm('Are you sure you want to delte user ' + user.username + '?')
+      ) {
+        this.$axios
+          .post('admin/options.php?action=removeUser', {
+            username: user.username
+          })
+          .then(response => {
+            let api = response.data
+            if (api.message == 'User deleted.') {
+              this.users.splice(this.users.indexOf(user), 1)
+              this.passwordChangeIsActivated = false
+            } else {
+              console.log(reponse)
+              alert('Could not delete user. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not delete user. Check console for more info.')
+          })
+      }
     },
-    updateUser(user) {},
-    setPassword(user) {
+    updateUser(user) {
+      this.$axios
+        .post('admin/options.php?action=updateUser', user)
+        .then(response => {
+          let api = response.data
+          if (api.username != null) {
+            user.firstname = api.firstname
+            user.lastname = api.lastname
+            user.isLocked = api.isLocked
+            setTimeout(() => {
+              alert('User ' + user.username + ' was successfully updated!')
+            }, 100)
+          } else {
+            console.log(reponse)
+            alert('Could not update user. Check console for more info.')
+          }
+        })
+        .catch(error => {
+          alert('Could not update user. Check console for more info.')
+        })
+    },
+    setPasswordView(user) {
       this.currentUserToChangePassword = user
       this.passwordChangeIsActivated = true
+      setTimeout(() => {
+        this.scrollToEnd()
+      }, 100)
+    },
+    setNewPassword() {
+      this.$axios
+        .post('admin/options.php?action=setPassword', {
+          username: this.currentUserToChangePassword.username,
+          newPassword: this.currentUserToChangePassword.password
+        })
+        .then(response => {
+          let api = response.data
+          if (api.message == 'Password set.') {
+            this.currentUserToChangePassword.password = ''
+            setTimeout(() => {
+              alert(
+                'Pasword for user ' +
+                  this.currentUserToChangePassword.username +
+                  ' was successfully set!'
+              )
+            }, 100)
+          } else {
+            console.log(reponse)
+            alert('Could not set password. Check console for more info.')
+          }
+        })
+        .catch(error => {
+          alert('Could not set password. Check console for more info.')
+        })
     },
     addYear() {
-      this.currentUserToChangePassword.years.push(this.newYear)
-      this.newYear = ''
+      let newYearObject = {
+        username: this.currentUserToChangePassword.username,
+        year: this.newYear
+      }
+
+      if (
+        !this.doesYearForUserAlreadyExists(
+          this.currentUserToChangePassword.username,
+          this.newYear
+        )
+      ) {
+        this.$axios
+          .post('admin/options.php?action=addYear', newYearObject)
+          .then(response => {
+            let api = response.data
+            if (api.newYear != null) {
+              this.currentUserToChangePassword.years.push(api.newYear)
+              this.newYear = ''
+            } else {
+              console.log(reponse)
+              alert('Could not add a new year. Check console for more info.')
+            }
+          })
+          .catch(error => {
+            alert('Could not add a new year. Check console for more info.')
+          })
+      } else {
+        alert('Year ' + this.newYear + ' does already exist.')
+      }
+    },
+    doesYearForUserAlreadyExists(username, year) {
+      let exists = false
+      this.users.forEach(element => {
+        if (username === element.username) {
+          element.years.forEach(yearElement => {
+            if (year == yearElement) {
+              exists = true
+            }
+          })
+        }
+      })
+      return exists
     },
     removeYear(year) {
-      //if(this.currentUserToChangePassword.years>1) ==> spaeter noch implementieren mit fehlermeldung
-      this.currentUserToChangePassword.years.splice(
-        this.currentUserToChangePassword.years.indexOf(year),
-        1
-      )
+      if (
+        confirm('Are you sure you want to delte the year entry ' + year + '?')
+      ) {
+        if (this.currentUserToChangePassword.years.length > 1) {
+          this.$axios
+            .post('admin/options.php?action=removeYear', {
+              username: this.currentUserToChangePassword.username,
+              year
+            })
+            .then(response => {
+              let api = response.data
+              if (api.message == 'Year deleted.') {
+                this.currentUserToChangePassword.years.splice(
+                  this.currentUserToChangePassword.years.indexOf(year),
+                  1
+                )
+              } else {
+                console.log(reponse)
+                alert('Could not delete year. Check console for more info.')
+              }
+            })
+            .catch(error => {
+              alert('Could not delete year. Check console for more info.')
+            })
+        } else {
+          alert('There has to be at least one year.')
+        }
+      }
+    },
+    setView(user) {
+      this.$axios
+        .post('admin/options.php?action=setView', { username: user.username })
+        .then(response => {
+          let api = response.data
+          if (api.message == 'Username for view set.') {
+            window.location = '/dashboard'
+          } else {
+            console.log(reponse)
+            alert('Could not set View. Check console for more info.')
+          }
+        })
+        .catch(error => {
+          alert('Could not set View. Check console for more info.')
+        })
     },
     scrollToEnd() {
       var container = this.$el.querySelector('#content')

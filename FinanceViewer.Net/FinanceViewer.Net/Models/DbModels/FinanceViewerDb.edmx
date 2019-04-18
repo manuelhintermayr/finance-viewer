@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="financeviewerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="fv_users">
+          <Key>
+            <PropertyRef Name="u_name" />
+          </Key>
+          <Property Name="u_name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="u_password" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="u_isLocked" Type="int" Nullable="false" />
+          <Property Name="u_firstName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="u_lastName" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fv_views">
+          <Key>
+            <PropertyRef Name="v_id" />
+          </Key>
+          <Property Name="v_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="v_y_year" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="v_u_name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="v_name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="v_description" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="v_html_id" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="v_notes" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="v_profile_url" Type="varchar" MaxLength="180" Nullable="false" />
+          <Property Name="v_month_01" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_02" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_03" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_04" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_05" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_06" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_07" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_08" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_09" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_10" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_11" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="v_month_12" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fv_years">
+          <Key>
+            <PropertyRef Name="y_year" />
+            <PropertyRef Name="y_u_name" />
+          </Key>
+          <Property Name="y_year" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="y_u_name" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="financeviewerModelStoreContainer">
+          <EntitySet Name="fv_users" EntityType="Self.fv_users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fv_views" EntityType="Self.fv_views" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fv_years" EntityType="Self.fv_years" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="financeviewerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="fv_users">
+          <Key>
+            <PropertyRef Name="u_name" />
+          </Key>
+          <Property Name="u_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_isLocked" Type="Int32" Nullable="false" />
+          <Property Name="u_firstName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_lastName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fv_views">
+          <Key>
+            <PropertyRef Name="v_id" />
+          </Key>
+          <Property Name="v_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="v_y_year" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_u_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_description" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_html_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_notes" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_profile_url" Type="String" MaxLength="180" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_01" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_02" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_03" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_04" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_05" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_06" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_07" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_08" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_09" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_10" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_11" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="v_month_12" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fv_years">
+          <Key>
+            <PropertyRef Name="y_year" />
+            <PropertyRef Name="y_u_name" />
+          </Key>
+          <Property Name="y_year" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="y_u_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="financeviewerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="fv_users" EntityType="Self.fv_users" />
+          <EntitySet Name="fv_views" EntityType="Self.fv_views" />
+          <EntitySet Name="fv_years" EntityType="Self.fv_years" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="financeviewerModelStoreContainer" CdmEntityContainer="financeviewerEntities">
+          <EntitySetMapping Name="fv_users">
+            <EntityTypeMapping TypeName="financeviewerModel.fv_users">
+              <MappingFragment StoreEntitySet="fv_users">
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_password" ColumnName="u_password" />
+                <ScalarProperty Name="u_isLocked" ColumnName="u_isLocked" />
+                <ScalarProperty Name="u_firstName" ColumnName="u_firstName" />
+                <ScalarProperty Name="u_lastName" ColumnName="u_lastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fv_views">
+            <EntityTypeMapping TypeName="financeviewerModel.fv_views">
+              <MappingFragment StoreEntitySet="fv_views">
+                <ScalarProperty Name="v_id" ColumnName="v_id" />
+                <ScalarProperty Name="v_y_year" ColumnName="v_y_year" />
+                <ScalarProperty Name="v_u_name" ColumnName="v_u_name" />
+                <ScalarProperty Name="v_name" ColumnName="v_name" />
+                <ScalarProperty Name="v_description" ColumnName="v_description" />
+                <ScalarProperty Name="v_html_id" ColumnName="v_html_id" />
+                <ScalarProperty Name="v_notes" ColumnName="v_notes" />
+                <ScalarProperty Name="v_profile_url" ColumnName="v_profile_url" />
+                <ScalarProperty Name="v_month_01" ColumnName="v_month_01" />
+                <ScalarProperty Name="v_month_02" ColumnName="v_month_02" />
+                <ScalarProperty Name="v_month_03" ColumnName="v_month_03" />
+                <ScalarProperty Name="v_month_04" ColumnName="v_month_04" />
+                <ScalarProperty Name="v_month_05" ColumnName="v_month_05" />
+                <ScalarProperty Name="v_month_06" ColumnName="v_month_06" />
+                <ScalarProperty Name="v_month_07" ColumnName="v_month_07" />
+                <ScalarProperty Name="v_month_08" ColumnName="v_month_08" />
+                <ScalarProperty Name="v_month_09" ColumnName="v_month_09" />
+                <ScalarProperty Name="v_month_10" ColumnName="v_month_10" />
+                <ScalarProperty Name="v_month_11" ColumnName="v_month_11" />
+                <ScalarProperty Name="v_month_12" ColumnName="v_month_12" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fv_years">
+            <EntityTypeMapping TypeName="financeviewerModel.fv_years">
+              <MappingFragment StoreEntitySet="fv_years">
+                <ScalarProperty Name="y_year" ColumnName="y_year" />
+                <ScalarProperty Name="y_u_name" ColumnName="y_u_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
