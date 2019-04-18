@@ -277,7 +277,7 @@ namespace FinanceViewer.Net.Controllers.Api
                 string username = _context.SQLEscape(POST["username"].ToString());
                 string firstname = _context.SQLEscape(POST["firstname"].ToString());
                 string lastname = _context.SQLEscape(POST["lastname"].ToString());
-                bool isLocked = Boolean.Parse(_context.SQLEscape(POST["isLocked"].ToString()));
+                bool isLocked = _context.SQLEscape(POST["isLocked"].ToString()) == "0";
 
                 //Check if user was found
                 fv_users finalUser = null;
