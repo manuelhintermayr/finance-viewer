@@ -510,7 +510,20 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult SetView()
         {
-            throw new NotImplementedException();
+            JObject POST = GetJsonPostObjectFromRequest();
+
+            if (POST["username"]!=null)
+            {
+                Session["m_view_username"] = POST["username"].ToString();
+
+                Response.StatusCode = 200;
+                return Json(new { message = "Username for view set." }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return Content("Username is not set.");
+            }
         }
 
         private ActionResult ActionNotSupported(string action)
