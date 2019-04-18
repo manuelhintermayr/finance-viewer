@@ -163,6 +163,7 @@
     <Compile Include="Models\AnswerModels\User.cs" />
     <Compile Include="Models\AnswerModels\UserInfo.cs" />
     <Compile Include="Models\AnswerModels\UserPrefs.cs" />
+    <Compile Include="Models\AnswerModels\Views.cs" />
     <Compile Include="Models\DbModels\FinanceViewerDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

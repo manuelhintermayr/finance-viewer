@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FinanceViewer.Net.Models.AnswerModels;
 using FinanceViewer.Net.Models.DbModels;
 
 namespace FinanceViewer.Net.Controllers.Api
@@ -95,7 +96,70 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult GetViews()
         {
-            throw new NotImplementedException();
+            var viewsFromDb = _context.GetViewsForUserAndYear(username, year);
+            if (viewsFromDb.Count == 0)
+            {
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
+
+            List<Views> convertedViews = new List<Views>();
+
+            foreach (var view in viewsFromDb)
+            {
+                convertedViews.Add(GetViewArrayByRowResult(view));
+            }
+        
+            Response.StatusCode = 200;
+            return Json(new
+                    {
+                        year,
+                        username,
+                        data = convertedViews
+                    },
+                    JsonRequestBehavior.AllowGet);
+        }
+
+        private Views GetViewArrayByRowResult(fv_views viewFromDb)
+        {
+            Views.ViewData yearData = new Views.ViewData() {
+                    january = viewFromDb.v_month_01,
+                    february = viewFromDb.v_month_02,
+                    march = viewFromDb.v_month_03,
+                    april = viewFromDb.v_month_04,
+                    may = viewFromDb.v_month_05,
+                    june = viewFromDb.v_month_06,
+                    july = viewFromDb.v_month_07,
+                    august = viewFromDb.v_month_08,
+                    september = viewFromDb.v_month_09,
+                    october = viewFromDb.v_month_10,
+                    november = viewFromDb.v_month_11,
+                    december = viewFromDb.v_month_12,
+                    tempJanuary = viewFromDb.v_month_01,
+                    tempFebruary = viewFromDb.v_month_02,
+                    tempMarch = viewFromDb.v_month_03,
+                    tempApril = viewFromDb.v_month_04,
+                    tempMay = viewFromDb.v_month_05,
+                    tempJune = viewFromDb.v_month_06,
+                    tempJuly = viewFromDb.v_month_07,
+                    tempAugust = viewFromDb.v_month_08,
+                    tempSeptember = viewFromDb.v_month_09,
+                    tempOctober = viewFromDb.v_month_10,
+                    tempNovember = viewFromDb.v_month_11,
+                    tempDecember = viewFromDb.v_month_12
+                };
+
+            Views view = new Views()
+            {
+                count = viewFromDb.v_id,
+                name = viewFromDb.v_name,
+                description = viewFromDb.v_description,
+                id = viewFromDb.v_html_id,
+                notes = viewFromDb.v_notes,
+                profile_url = viewFromDb.v_profile_url,
+                data = yearData
+            };
+              
+            return view;
         }
 
         private ActionResult AddView()

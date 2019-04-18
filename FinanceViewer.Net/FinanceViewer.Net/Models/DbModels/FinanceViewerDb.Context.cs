@@ -152,7 +152,7 @@ namespace FinanceViewer.Net.Models.DbModels
                 return new int[0];
             }
 
-            //check if years for user was found
+            //check if years for user were found
             List<fv_years> years = null;
             try
             {
@@ -165,6 +165,28 @@ namespace FinanceViewer.Net.Models.DbModels
             }
 
             return years.Select(m => Int32.Parse(m.y_year)).ToArray();
+        }
+
+        public List<fv_views> GetViewsForUserAndYear(string username, int year)
+        {
+            if (username == AdminCredentials.Username)
+            {
+                return new List<fv_views>();
+            }
+
+            //check if views for user and year were found
+            List<fv_views> views = null;
+            try
+            {
+                views = fv_views.Where(m => m.v_u_name == username && m.v_y_year == year.ToString()).ToList();
+            }
+            catch (InvalidOperationException) { }
+            if (views == null)
+            {
+                return new List<fv_views>();
+            }
+
+            return views;
         }
 
         public string SQLEscape(string str)
