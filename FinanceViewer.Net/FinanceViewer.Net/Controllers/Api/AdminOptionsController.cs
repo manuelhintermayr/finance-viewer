@@ -350,8 +350,53 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult SetPassword()
         {
+            JObject POST = GetJsonPostObjectFromRequest();
 
-            throw new NotImplementedException();
+            if (POST["username"]!=null
+                && POST["newPassword"] != null
+                && POST["username"].ToString() != ""
+                && POST["username"].ToString() != " "
+                && POST["newPassword"].ToString() != ""
+                && POST["newPassword"].ToString() != " ")
+            {
+                string username = _context.SQLEscape(POST["username"].ToString());
+                string newPassword = Crypto.HashPassword(Crypto.SHA256(POST["newPassword"].ToString()));
+
+                //Check if user was found
+                fv_users finalUser = null;
+                try
+                {
+                    finalUser = _context.fv_users.Single(m => m.u_name == username);
+                }
+                catch (InvalidOperationException) { }
+                if (finalUser == null)
+                {
+                    Response.StatusCode = 400;
+                    return Content($"Could not find the user to update password: {username}.");
+                }
+
+                //updating the user
+                finalUser.u_password = newPassword;
+                _context.fv_users.AddOrUpdate(finalUser);
+
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (DbEntityValidationException)
+                {
+                    Response.StatusCode = 400;
+                    return Content($"Could not set password for user {username}. SQL Execution failed.");
+                }
+
+                Response.StatusCode = 200;
+                return Json(new { message = "Password set." }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return Content("Not all values are set.");
+            }
         }
 
         private ActionResult AddYear()
