@@ -4,6 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using FinanceViewer.Net.Models.AnswerModels;
@@ -309,6 +310,7 @@ namespace FinanceViewer.Net.Controllers.Api
                     try
                     {
                         _context.fv_views.Remove(viewToDelete);
+                        _context.SaveChanges();
                     }
                     catch (Exception ex)
                     {
@@ -339,7 +341,82 @@ namespace FinanceViewer.Net.Controllers.Api
 
         private ActionResult UpdateViewMonth()
         {
-            throw new NotImplementedException();
+            var POST = this.GetJsonPostObjectFromRequest();
+
+            if (POST["view_id"]!=null
+                && POST["updatedMonth"]!=null
+                && POST["value"]!=null
+                && POST["view_id"].ToString() != ""
+                && POST["view_id"].ToString() != " "
+                && POST["updatedMonth"].ToString() != ""
+                && POST["updatedMonth"].ToString() != " "
+                && POST["value"].ToString() != ""
+                && POST["value"].ToString() != " ")
+            {
+                string idString = _context.SQLEscape(POST["view_id"].ToString());
+                string monthNumberString = _context.SQLEscape(POST["updatedMonth"].ToString());
+
+                if (int.TryParse(idString, out int id) && int.TryParse(monthNumberString, out int monthNumber))
+                {
+                    string month = monthNumber > 9 ? monthNumber.ToString() : $"0{monthNumber}";
+                    string value = _context.SQLEscape(POST["value"].ToString());
+
+                    //check if new value for month is correct
+                    Regex regex = new Regex("^([0-9+(*)/.-])*$");
+                    Match match = regex.Match(value);
+                    if (match.Success)
+                    {
+                        //find view
+                        fv_views viewToDelete = null;
+                        try
+                        {
+                            viewToDelete = _context.fv_views.Single(x => x.v_id == id);
+                        }
+                        catch (InvalidOperationException) { }
+                        if (viewToDelete == null)
+                        {
+                            Response.StatusCode = 400;
+                            return Content($"Could not find View to update with id: {id}");
+                        }
+
+                        //update
+                        try
+                        {
+                            _context.Database.ExecuteSqlCommand(
+                                $"UPDATE [fv_views] SET [v_month_{month}] = '{value}' WHERE [fv_views].[v_id] = {id} AND [fv_views].[v_u_name] = '{username}'");
+                            _context.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex is DbEntityValidationException || ex is DbUpdateException || ex is SqlException)
+                            {
+                                Response.StatusCode = 400;
+                                return Content("Could not update the month. SQL Execution failed.");
+                            }
+
+                            throw;
+                        }
+
+                        Response.StatusCode = 200;
+                        return Json(new { message = "Month updated." }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        Response.StatusCode = 400;
+                        return Content($"New value is invalid: {value}");
+                    }
+                }
+                else
+                {
+                    Response.StatusCode = 400;
+                    return Content("View-ID or Month is not valid.");
+                }
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return Content("Not all values are set.");
+            }
         }
 
         private ActionResult ActionNotSupported(string action)
