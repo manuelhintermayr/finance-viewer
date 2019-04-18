@@ -97,10 +97,6 @@ namespace FinanceViewer.Net.Controllers.Api
         private ActionResult GetViews()
         {
             var viewsFromDb = _context.GetViewsForUserAndYear(username, year);
-            if (viewsFromDb.Count == 0)
-            {
-                return Json(new { }, JsonRequestBehavior.AllowGet);
-            }
 
             List<Views> convertedViews = new List<Views>();
 
