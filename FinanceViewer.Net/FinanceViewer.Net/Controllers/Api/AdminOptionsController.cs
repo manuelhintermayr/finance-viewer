@@ -297,39 +297,55 @@ namespace FinanceViewer.Net.Controllers.Api
                 && POST["lastname"].ToString() != " "
                 && POST["username"].ToString() != AdminCredentials.Username) {
 
-                //$username = mysql_real_escape_string($_POST['username']);
-                //$firstname = mysql_real_escape_string($_POST['firstname']);
-                //$lastname = mysql_real_escape_string($_POST['lastname']);
-                //$isLocked = $_POST['isLocked'] == '' ? '0' : mysql_real_escape_string($_POST['isLocked']);
+                string username = _context.SQLEscape(POST["username"].ToString());
+                string firstname = _context.SQLEscape(POST["firstname"].ToString());
+                string lastname = _context.SQLEscape(POST["lastname"].ToString());
+                bool isLocked = Boolean.Parse(_context.SQLEscape(POST["isLocked"].ToString()));
 
-                //$sqlUpdateUser = "UPDATE `fv_users` SET `u_isLocked` = '$isLocked', `u_firstName` = '$firstname', `u_lastName` = '$lastname' WHERE `fv_users`.`u_name` = '$username'";
-                //    $resultUpdateUser = $mysqli->query($sqlUpdateUser);
-                //if ($resultUpdateUser) {
-                //    $updatedUser = array(
-                //        'username' => $_POST['username'],
-                //    'firstname'=> $_POST['firstname'],
-                //    'lastname'=> $_POST['lastname'],
-                //    'isLocked'=> $isLocked == "0" ? false : true,
-                //        );
+                //Check if user was found
+                fv_users finalUser = null;
+                try
+                {
+                    finalUser = _context.fv_users.Single(m => m.u_name == username);
+                }
+                catch (InvalidOperationException) { }
+                if (finalUser == null)
+                {
+                    Response.StatusCode = 400;
+                    return Content($"Could not find the user to update {username}.");
+                }
 
-                //    echo json_encode($updatedUser);
-                //} else {
-                //    header('HTTP/1.1 400 Bad request');
-                //    echo "Could not update the user. SQL Execution failed.";
-                //}
+                //updating the user
+                finalUser.u_firstName = firstname;
+                finalUser.u_lastName = lastname;
+                finalUser.u_isLocked = isLocked ? 1 : 0;
 
-                //_context.fv_users.AddOrUpdate();
-                //throw new NotImplementedException();
+                _context.fv_users.AddOrUpdate(finalUser);
 
-                Response.StatusCode = 400;
-                return Content("Not implemented.");
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (DbEntityValidationException)
+                {
+                    Response.StatusCode = 400;
+                    return Content($"Could not update the user {username}. SQL Execution failed.");
+                }
+
+                Response.StatusCode = 200;
+                return Json(new
+                    {
+                        username = finalUser.u_name,
+                        firstname = finalUser.u_firstName,
+                        lastname = finalUser.u_lastName,
+                        isLocked = finalUser.u_isLocked != 0
+                    },
+                    JsonRequestBehavior.AllowGet);
             }
             else {
                 Response.StatusCode = 400;
                 return Content("Not all values are set.");
              }
-
-
         }
 
         private ActionResult SetPassword()
