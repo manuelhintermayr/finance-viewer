@@ -38,3 +38,4 @@
     <img src="https://github.com/manuelhintermayr/FinanceViewer/blob/master/screenshots/3.png" width="400">
     <img src="https://github.com/manuelhintermayr/FinanceViewer/blob/master/screenshots/4.png" width="400">
 </p>
+Demo is [here](https://financeviewer.manuelweb.at/demo/) (admin/admin are the credentials)
