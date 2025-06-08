@@ -4,9 +4,10 @@
 
 - Adapt the configuration-file in config/configuration.php
 - Remove web.config OR .htaccess file
-- Install vue `npm i -g vue`
+- Install vue `npm i -g vue` (in the `nuxt-finance-viewer`-folder)
 - Install vue-cli `npm install -g @vue/cli`
 - Install nuxt `npm i -g nuxt`
+- (There is also a asp.net version of this project in this repo: first folder)
 
 ## Update
 
