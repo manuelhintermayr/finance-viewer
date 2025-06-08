@@ -31,11 +31,12 @@
 
 ## Demo
 <p align="center">
-    <img src="https://github.com/manuelhintermayr/FinanceViewer/blob/master/screenshots/1.png" height="187">
-    <img src="https://github.com/manuelhintermayr/FinanceViewer/blob/master/screenshots/2.png" width="400">
+    <img src="screenshots/1.png" height="187">
+    <img src="screenshots/2.png" width="400">
 </p>
 <p align="center">
-    <img src="https://github.com/manuelhintermayr/FinanceViewer/blob/master/screenshots/3.png" width="400">
-    <img src="https://github.com/manuelhintermayr/FinanceViewer/blob/master/screenshots/4.png" width="400">
+    <img src="screenshots/3.png" width="400">
+    <img src="screenshots/4.png" width="400">
 </p>
-Demo is [here](https://financeviewer.manuelweb.at/demo/) (admin/admin are the credentials)
+
+Demo is [here](https://financeviewer.manuelweb.at/demo/) (admin/admin are the credentials).
