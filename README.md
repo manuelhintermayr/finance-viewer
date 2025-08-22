@@ -39,4 +39,4 @@
     <img src="screenshots/4.png" width="400">
 </p>
 
-Demo is [here](https://financeviewer.manuelweb.at/demo/) (admin/admin are the credentials).
+Website is [here](https://projects.manuelhintermayr.com/finance-viewer/) and the demo is [here](https://projects.manuelhintermayr.com/finance-viewer/demo/) (admin/admin are the credentials).
